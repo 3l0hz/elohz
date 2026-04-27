@@ -17,6 +17,7 @@ import {
   Twitter 
 } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import Image from 'next/image';
 
 const categories = [
   { name: 'Selfie Sticks', icon: <Camera className="w-5 h-5" /> },
@@ -206,7 +207,7 @@ export default function Home() {
       <footer className="bg-white border-t border-border pt-16 pb-8 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           <div className="space-y-4">
-            <h3 className="text-2xl font-black tracking-tighter">GEARVIBE</h3>
+            <h3 className="text-2xl font-black tracking-tighter">elohz</h3>
             <p className="text-muted-foreground text-sm">Tu tienda premium de gadgets tecnológicos y accesorios para creadores en Chile.</p>
             <div className="flex gap-4">
               <Instagram className="w-5 h-5 cursor-pointer hover:text-primary" />
@@ -242,7 +243,7 @@ export default function Home() {
           </div>
         </div>
         <div className="max-w-7xl mx-auto pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
-          <p>© 2024 GearVibe Chile. Todos los derechos reservados.</p>
+          <p>© 2024 elohz Chile. Todos los derechos reservados.</p>
           <div className="flex gap-4">
             <span>Privacidad</span>
             <span>Términos</span>
@@ -265,5 +266,3 @@ export default function Home() {
     </main>
   );
 }
-
-import Image from 'next/image';

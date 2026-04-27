@@ -2,7 +2,7 @@ import type {Metadata} from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'GearVibe | Tech Gadgets & Action Accessories',
+  title: 'elohz | Tech Gadgets & Action Accessories',
   description: 'Tienda premium de accesorios para cámaras de acción, soportes de moto y pedales de guitarra en Chile.',
 };
 
