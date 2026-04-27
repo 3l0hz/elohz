@@ -1,5 +1,7 @@
 import type {Metadata} from 'next';
 import './globals.css';
+import { Header } from '@/components/Header';
+import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'elohz | Tech Gadgets & Action Accessories',
@@ -19,7 +21,9 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased bg-background text-foreground selection:bg-primary selection:text-black">
+        <Header />
         {children}
+        <Toaster />
       </body>
     </html>
   );

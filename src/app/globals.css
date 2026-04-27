@@ -4,7 +4,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 96%; /* #F5F5F5 */
+    --background: 0 0% 98%; /* Light grey background */
     --foreground: 0 0% 0%; /* #000000 */
     --card: 0 0% 100%; /* #FFFFFF */
     --card-foreground: 0 0% 0%;
@@ -23,7 +23,7 @@
     --border: 0 0% 90%; /* #E5E5E5 */
     --input: 0 0% 90%;
     --ring: 49 100% 50%;
-    --radius: 2rem; /* Pill shape */
+    --radius: 1.5rem;
   }
 }
 
@@ -56,4 +56,13 @@
 
 .pill-button {
   @apply rounded-full px-6 py-2 font-semibold transition-all duration-300;
+}
+
+/* Hide scrollbar for clean menu experience */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
