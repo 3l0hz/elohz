@@ -59,6 +59,12 @@
       "description": "Pedal Delay",
       "imageUrl": "https://picsum.photos/seed/pedal2/600/600",
       "imageHint": "delay pedal"
+    },
+    {
+      "id": "product-tripod",
+      "description": "Mini trípode de bolsillo",
+      "imageUrl": "https://picsum.photos/seed/tripod1/600/600",
+      "imageHint": "mini tripod"
     }
   ]
 }

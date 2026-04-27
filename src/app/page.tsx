@@ -32,7 +32,7 @@ const products = [
   {
     id: '1',
     name: 'Selfie Stick Insta360 1.20 m',
-    price: '$24.990',
+    price: '$19.990',
     category: 'Selfie Sticks',
     imageUrl: PlaceHolderImages.find(img => img.id === "product-stick-1")?.imageUrl || "",
     compatibility: ['Insta360', 'GoPro'],
@@ -48,10 +48,18 @@ const products = [
   {
     id: '3',
     name: 'Selfie Stick 3 metros Black',
-    price: '$45.990',
+    price: '$32.990',
     category: 'Selfie Sticks',
     imageUrl: PlaceHolderImages.find(img => img.id === "product-stick-3m")?.imageUrl || "",
     compatibility: ['Insta360', 'GoPro'],
+  },
+  {
+    id: '7',
+    name: 'Mini trípode de bolsillo',
+    price: '$16.990',
+    category: 'Accesorios',
+    imageUrl: PlaceHolderImages.find(img => img.id === "product-tripod")?.imageUrl || "",
+    compatibility: ['Universal', 'Cámaras'],
   },
   {
     id: '4',

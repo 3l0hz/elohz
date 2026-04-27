@@ -39,7 +39,7 @@ export type ProductSolutionFinderOutput = z.infer<
 const AVAILABLE_PRODUCTS = [
   {
     name: 'Selfie Stick Insta360 1.20 m',
-    description: 'Extendable selfie stick for wider shots and better angles.',
+    description: 'Extendable selfie stick for wider shots and better angles. Now at $19.990.',
     problem_solved: ['Malos ángulos', 'Poco alcance'],
   },
   {
@@ -49,8 +49,13 @@ const AVAILABLE_PRODUCTS = [
   },
   {
     name: 'Selfie Stick 3 metros Black',
-    description: 'Ultra-long selfie stick for impossible and creative camera angles.',
+    description: 'Ultra-long selfie stick for impossible and creative camera angles. Now at $32.990.',
     problem_solved: ['Malos ángulos', 'Tomas imposibles', 'Poco alcance'],
+  },
+  {
+    name: 'Mini trípode de bolsillo',
+    description: 'Ultra-portable mini tripod for stable shots anywhere. Price: $16.990.',
+    problem_solved: ['Estabilidad en mesa', 'Falta de soporte fijo', 'Selfies grupales'],
   },
   {
     name: 'Case metálico Insta360 X5 Black',
