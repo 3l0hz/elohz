@@ -1,3 +1,64 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-moto",
+      "description": "Motorcycle rider with action camera mount",
+      "imageUrl": "https://picsum.photos/seed/moto1/1200/600",
+      "imageHint": "motorcycle camera"
+    },
+    {
+      "id": "hero-selfie",
+      "description": "Traveler using a long selfie stick for panoramic shots",
+      "imageUrl": "https://picsum.photos/seed/selfie1/1200/600",
+      "imageHint": "selfie stick"
+    },
+    {
+      "id": "hero-insta360",
+      "description": "Insta360 camera on a rugged adventure",
+      "imageUrl": "https://picsum.photos/seed/insta1/1200/600",
+      "imageHint": "action camera"
+    },
+    {
+      "id": "hero-guitar",
+      "description": "Electric guitar and effect pedals on stage",
+      "imageUrl": "https://picsum.photos/seed/guitar1/1200/600",
+      "imageHint": "guitar pedal"
+    },
+    {
+      "id": "product-stick-1",
+      "description": "Selfie Stick Insta360 1.20 m",
+      "imageUrl": "https://picsum.photos/seed/stick1/600/600",
+      "imageHint": "selfie stick"
+    },
+    {
+      "id": "product-moto-mount",
+      "description": "Soporte moto manillar",
+      "imageUrl": "https://picsum.photos/seed/mount1/600/600",
+      "imageHint": "motorcycle mount"
+    },
+    {
+      "id": "product-stick-3m",
+      "description": "Selfie Stick 3 metros Black",
+      "imageUrl": "https://picsum.photos/seed/stick3m/600/600",
+      "imageHint": "long selfie stick"
+    },
+    {
+      "id": "product-case-x5",
+      "description": "Case metálico Insta360 X5",
+      "imageUrl": "https://picsum.photos/seed/casex5/600/600",
+      "imageHint": "camera case"
+    },
+    {
+      "id": "product-pedal-od",
+      "description": "Pedal Overdrive",
+      "imageUrl": "https://picsum.photos/seed/pedal1/600/600",
+      "imageHint": "overdrive pedal"
+    },
+    {
+      "id": "product-pedal-delay",
+      "description": "Pedal Delay",
+      "imageUrl": "https://picsum.photos/seed/pedal2/600/600",
+      "imageHint": "delay pedal"
+    }
+  ]
 }
