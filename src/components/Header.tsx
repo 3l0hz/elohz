@@ -8,6 +8,9 @@ import {
   SheetContent,
   SheetTrigger,
   SheetClose,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
 } from "@/components/ui/sheet";
 import Link from 'next/link';
 
@@ -38,6 +41,14 @@ export function Header() {
             </Button>
           </SheetTrigger>
           <SheetContent side="left" className="w-full sm:max-w-md p-0 flex flex-col border-none shadow-2xl bg-white">
+            {/* Accessibility Titles (Screen Readers only) */}
+            <SheetHeader className="sr-only">
+              <SheetTitle>Menú de navegación</SheetTitle>
+              <SheetDescription>
+                Accede a nuestras categorías de productos, soporte y servicios de elohz.
+              </SheetDescription>
+            </SheetHeader>
+
             {/* Drawer Header with Close Button */}
             <div className="flex items-center justify-between p-4 h-16 border-b border-neutral-50">
               <SheetClose asChild>
