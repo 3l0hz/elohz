@@ -39,7 +39,7 @@ export function ThreeDProductCard({ id, name, price, category, imageUrl, compati
     setRotation({ x: 0, y: 0 });
   };
 
-  const whatsappLink = `https://wa.me/56912345678?text=Hola,%20estoy%20interesado%20en%20el%20producto:%20${encodeURIComponent(name)}`;
+  const whatsappLink = `https://wa.me/56940628182?text=Hola,%20estoy%20interesado%20en%20el%20producto:%20${encodeURIComponent(name)}`;
 
   return (
     <Card 
