@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { HeroCarousel } from '@/components/HeroCarousel';
 import { ThreeDProductCard } from '@/components/ThreeDProductCard';
@@ -11,211 +12,153 @@ import {
   ShieldCheck, 
   Camera, 
   Bike, 
-  Music, 
   Instagram, 
   Youtube, 
-  Twitter 
+  Twitter,
+  ChevronRight
 } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
 
-const categories = [
-  { name: 'Selfie Sticks', icon: <Camera className="w-5 h-5" /> },
-  { name: 'Soportes Moto', icon: <Bike className="w-5 h-5" /> },
-  { name: 'Insta360 X5', icon: <Camera className="w-5 h-5" /> },
-  { name: 'GoPro', icon: <Camera className="w-5 h-5" /> },
-  { name: 'Cargadores', icon: <Truck className="w-5 h-5" /> },
-  { name: 'Música / Audio', icon: <Music className="w-5 h-5" /> },
-];
-
-const products = [
+const catalog = [
   {
-    id: '1',
-    name: 'Selfie Stick Insta360 1.20 m',
-    price: '$19.990',
-    category: 'Selfie Sticks',
-    imageUrl: PlaceHolderImages.find(img => img.id === "product-stick-1")?.imageUrl || "",
-    compatibility: ['Insta360', 'GoPro'],
+    category: "Selfie Sticks",
+    products: [
+      { id: 'ss-1', name: 'Selfie stick insta 360 1.20 mt', price: '$19.990', brand: 'Genérico', isTopPick: true, imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-120")?.imageUrl || "" },
+      { id: 'ss-2', name: 'Selfie Stick 3 metros (black)', price: '$32.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-3m")?.imageUrl || "" },
+      { id: 'ss-3', name: 'Selfie 90 cm telesin', price: '$24.990', brand: 'Telesin', imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-90")?.imageUrl || "" },
+    ]
   },
   {
-    id: '2',
-    name: 'Soporte moto manillar',
-    price: '$19.990',
-    category: 'Moto',
-    imageUrl: PlaceHolderImages.find(img => img.id === "product-moto-mount")?.imageUrl || "",
-    compatibility: ['Universal', 'Moto'],
+    category: "Soportes Moto / Vehículo",
+    products: [
+      { id: 'mv-1', name: 'Soporte moto Manillar/Carenado insta gp', price: '$19.990', brand: 'Genérico', isTopPick: true, imageUrl: PlaceHolderImages.find(img => img.id === "prod-moto-handle")?.imageUrl || "" },
+      { id: 'mv-2', name: 'Soporte parabrisa insta/gopro', price: '$22.990', brand: 'Sunnylife', imageUrl: PlaceHolderImages.find(img => img.id === "prod-windshield")?.imageUrl || "" },
+      { id: 'mv-3', name: 'Adaptador Casco Moto TELESIN', price: '$15.990', brand: 'Telesin', imageUrl: PlaceHolderImages.find(img => img.id === "prod-helmet-chin")?.imageUrl || "" },
+    ]
   },
   {
-    id: '3',
-    name: 'Selfie Stick 3 metros Black',
-    price: '$32.990',
-    category: 'Selfie Sticks',
-    imageUrl: PlaceHolderImages.find(img => img.id === "product-stick-3m")?.imageUrl || "",
-    compatibility: ['Insta360', 'GoPro'],
+    category: "Trípodes",
+    products: [
+      { id: 'tr-1', name: 'Mini trípode gopro', price: '$16.990', brand: 'Ulanzi', isTopPick: true, imageUrl: PlaceHolderImages.find(img => img.id === "prod-tripod-ulanzi")?.imageUrl || "" },
+      { id: 'tr-2', name: 'Mini trípode insta', price: '$14.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-tripod-insta")?.imageUrl || "" },
+    ]
   },
   {
-    id: '7',
-    name: 'Mini trípode de bolsillo',
-    price: '$16.990',
-    category: 'Accesorios',
-    imageUrl: PlaceHolderImages.find(img => img.id === "product-tripod")?.imageUrl || "",
-    compatibility: ['Universal', 'Cámaras'],
+    category: "Soportes Smartphone",
+    products: [
+      { id: 'sp-1', name: 'Soporte smartphone giratorio CNC', price: '$12.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-phone-cnc")?.imageUrl || "" },
+      { id: 'sp-2', name: 'Soporte smartphone giratorio PLA', price: '$8.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-phone-cnc")?.imageUrl || "" },
+    ]
   },
   {
-    id: '4',
-    name: 'Case metálico Insta360 X5',
-    price: '$32.990',
-    category: 'Accesorios X5',
-    imageUrl: PlaceHolderImages.find(img => img.id === "product-case-x5")?.imageUrl || "",
-    compatibility: ['Insta360 X5'],
+    category: "Accesorios Cámara",
+    products: [
+      { id: 'ac-1', name: 'Lente repuesto GoPro 9/10/11/12', price: '$18.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-lens-gp")?.imageUrl || "" },
+      { id: 'ac-2', name: 'Soporte giratorio Insta 360', price: '$15.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-moto-handle")?.imageUrl || "" },
+      { id: 'ac-3', name: 'Pack soporte giratorio + selfie 1.20', price: '$34.990', brand: 'Genérico', isTopPick: true, imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-120")?.imageUrl || "" },
+      { id: 'ac-4', name: 'Adaptador magnético DJI Osmo Action 5 Pro', price: '$12.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-tripod-insta")?.imageUrl || "" },
+    ]
   },
   {
-    id: '5',
-    name: 'Pedal Overdrive',
-    price: '$39.990',
-    category: 'Música',
-    imageUrl: PlaceHolderImages.find(img => img.id === "product-pedal-od")?.imageUrl || "",
-    compatibility: ['Guitarra', 'Bajo'],
-    isPedal: true,
-  },
-  {
-    id: '6',
-    name: 'Pedal Delay',
-    price: '$42.990',
-    category: 'Música',
-    imageUrl: PlaceHolderImages.find(img => img.id === "product-pedal-delay")?.imageUrl || "",
-    compatibility: ['Guitarra', 'Bajo'],
-    isPedal: true,
-  },
-];
-
-const compatibilityBadges = [
-  'GoPro', 'Insta360', 'DJI', 'iPhone', 'Android', 'Moto', 'MTB', 'Guitarra', 'Bajo'
+    category: "Accesorios Corporales",
+    products: [
+      { id: 'bc-1', name: 'Pechera Telesin', price: '$26.990', brand: 'Telesin', isTopPick: true, imageUrl: PlaceHolderImages.find(img => img.id === "prod-chest-mount")?.imageUrl || "" },
+    ]
+  }
 ];
 
 export default function Home() {
   return (
     <main className="min-h-screen pb-20 overflow-x-hidden bg-background">
-      {/* Hero Section */}
       <HeroCarousel />
 
       {/* Benefits Bar */}
-      <div className="bg-card border-y border-border py-6 overflow-x-auto no-scrollbar">
+      <div className="bg-[#111111] border-y border-[#1F1F1F] py-6 overflow-x-auto no-scrollbar">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-6 min-w-[700px] gap-8">
           <div className="flex items-center gap-3">
-            <Truck className="w-5 h-5 text-accent" />
-            <span className="text-xs font-bold tracking-widest uppercase">Despacho en Chile</span>
+            <Truck className="w-4 h-4 text-accent" />
+            <span className="text-[10px] font-black tracking-widest uppercase">Envíos a todo Chile</span>
           </div>
           <div className="flex items-center gap-3">
-            <MessageCircle className="w-5 h-5 text-accent" />
-            <span className="text-xs font-bold tracking-widest uppercase">Atención WhatsApp</span>
+            <MessageCircle className="w-4 h-4 text-accent" />
+            <span className="text-[10px] font-black tracking-widest uppercase">Soporte WhatsApp</span>
           </div>
           <div className="flex items-center gap-3">
-            <CheckCircle className="w-5 h-5 text-accent" />
-            <span className="text-xs font-bold tracking-widest uppercase">Productos Premium</span>
+            <CheckCircle className="w-4 h-4 text-accent" />
+            <span className="text-[10px] font-black tracking-widest uppercase">Calidad Certificada</span>
           </div>
           <div className="flex items-center gap-3">
-            <ShieldCheck className="w-5 h-5 text-accent" />
-            <span className="text-xs font-bold tracking-widest uppercase">Garantía elohz</span>
+            <ShieldCheck className="w-4 h-4 text-accent" />
+            <span className="text-[10px] font-black tracking-widest uppercase">Garantía elohz</span>
           </div>
         </div>
       </div>
 
-      {/* Categories Grid */}
-      <section className="py-20 px-6 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-12">
-          <h2 className="text-3xl font-black tracking-tight">Ecosistema</h2>
-          <Button variant="link" className="text-muted-foreground hover:text-white">Explorar todo</Button>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-          {categories.map((cat, i) => (
-            <div key={i} className="flex flex-col items-center gap-4 group cursor-pointer">
-              <div className="w-20 h-20 bg-card border border-border rounded-2xl flex items-center justify-center group-hover:border-white transition-premium group-hover:scale-105">
-                {React.cloneElement(cat.icon as React.ReactElement, { className: "w-6 h-6 text-muted-foreground group-hover:text-white" })}
+      {/* Catalog Sections */}
+      <section className="py-24 px-6 max-w-7xl mx-auto space-y-32">
+        {catalog.map((section, idx) => (
+          <div key={idx} className="space-y-12">
+            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-l-4 border-accent pl-8">
+              <div className="space-y-2">
+                <Badge className="bg-accent/10 text-accent border-accent/20 font-black text-[9px] tracking-[0.2em] px-3">
+                  {section.category.toUpperCase()}
+                </Badge>
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase">{section.category}</h2>
               </div>
-              <span className="text-xs font-bold text-center tracking-wide group-hover:text-white">{cat.name}</span>
+              <p className="text-muted-foreground font-medium text-sm md:text-base max-w-xs">
+                Equipamiento técnico seleccionado para {section.category.toLowerCase()}.
+              </p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Featured Products */}
-      <section className="py-20 px-6 max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
-          <div className="space-y-4">
-            <Badge className="bg-accent text-black font-black text-[10px] tracking-widest px-4 py-1">LATEST GEAR</Badge>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter">Equipamiento de Selección</h2>
+            
+            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
+              {section.products.map((product) => (
+                <ThreeDProductCard key={product.id} {...product} category={section.category} />
+              ))}
+            </div>
           </div>
-          <p className="text-muted-foreground max-w-sm text-lg font-medium">Accesorios curados para creadores que no comprometen la calidad.</p>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
-            <ThreeDProductCard key={product.id} {...product} />
-          ))}
-        </div>
+        ))}
       </section>
 
-      {/* AI Problem Solver Section */}
-      <div className="px-6 py-10">
+      {/* AI Section */}
+      <div className="px-6 py-20">
         <AIProblemSolver />
       </div>
 
-      {/* Compatibility Section */}
-      <section className="py-24 px-6 max-w-7xl mx-auto text-center border-t border-border mt-12">
-        <h2 className="text-3xl font-black mb-12 tracking-tight">Compatibilidad Garantizada</h2>
-        <div className="flex flex-wrap justify-center gap-4">
-          {compatibilityBadges.map((badge) => (
-            <Badge key={badge} variant="outline" className="px-8 py-3 text-sm font-bold border-border bg-card text-muted-foreground hover:text-white hover:border-white transition-premium cursor-default">
-              {badge}
-            </Badge>
-          ))}
-        </div>
-      </section>
-
-      {/* Music Focused Section */}
-      <section className="py-32 bg-card mt-12 px-6 border-y border-border">
+      {/* Call to Action for Creators */}
+      <section className="py-32 bg-[#111111] px-6 border-y border-[#1F1F1F]">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 items-center gap-20">
           <div className="space-y-8">
-            <Badge className="bg-white text-black font-black text-[10px] tracking-widest">SONIC SERIES</Badge>
-            <h2 className="text-5xl md:text-6xl font-black leading-[1.1] tracking-tighter">Para músicos de alta gama</h2>
-            <p className="text-muted-foreground text-xl leading-relaxed">Pedales de efecto con circuitos de precisión. Lleva tu sonido al siguiente nivel con una estética minimalista y componentes de grado profesional.</p>
-            <div className="flex gap-4 pt-4">
-              <Button className="pill-button button-primary h-14 px-10">Explorar Pedales</Button>
+            <Badge className="bg-white text-black font-black text-[10px] tracking-widest">CONTENT CREATORS</Badge>
+            <h2 className="text-5xl md:text-7xl font-black leading-[0.9] tracking-tighter uppercase">Diseñado para la acción</h2>
+            <p className="text-muted-foreground text-xl leading-relaxed">
+              Somos especialistas en accesorios para cámaras deportivas. Si eres motovlogger, deportista extremo o creador de contenido, elohz tiene el gear que necesitas para capturar lo imposible.
+            </p>
+            <div className="flex flex-wrap gap-4 pt-4">
+              <Button className="pill-button button-primary h-14 px-12 text-[10px] font-black uppercase tracking-widest">Ver Colección Pro</Button>
+              <Button variant="outline" className="pill-button h-14 px-12 text-[10px] font-black uppercase tracking-widest border-white/20">Asesoría Técnica</Button>
             </div>
           </div>
-          <div className="relative aspect-square rounded-[2rem] overflow-hidden shadow-2xl border border-border group">
+          <div className="relative aspect-square rounded-[3rem] overflow-hidden shadow-2xl border border-[#1F1F1F] group">
             <Image 
-              src={PlaceHolderImages.find(img => img.id === "hero-guitar")?.imageUrl || ""}
-              alt="Music Gear"
+              src={PlaceHolderImages.find(img => img.id === "hero-action-2")?.imageUrl || ""}
+              alt="Action Creators"
               fill
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transition-transform duration-1000 group-hover:scale-110"
             />
-            <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-premium" />
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ */}
-      <section className="py-32 px-6 max-w-3xl mx-auto">
-        <h2 className="text-4xl font-black text-center mb-16 tracking-tighter">FAQ</h2>
-        <div className="space-y-4">
-          <div className="bg-card p-8 rounded-[2rem] border border-border hover:border-muted-foreground transition-premium">
-            <h4 className="font-bold text-xl mb-3 tracking-tight">¿Compatibilidad absoluta?</h4>
-            <p className="text-muted-foreground leading-relaxed">Nuestros accesorios utilizan monturas universales estándar, compatibles con el 99% de cámaras de acción y dispositivos del mercado profesional.</p>
-          </div>
-          <div className="bg-card p-8 rounded-[2rem] border border-border hover:border-muted-foreground transition-premium">
-            <h4 className="font-bold text-xl mb-3 tracking-tight">Asesoría elohz</h4>
-            <p className="text-muted-foreground leading-relaxed">Operamos vía WhatsApp para brindarte asesoría técnica personalizada antes de tu inversión. Envíos prioritarios a todo Chile.</p>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-background border-t border-border pt-24 pb-12 px-6">
+      <footer className="bg-background border-t border-[#1F1F1F] pt-24 pb-12 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
           <div className="space-y-6">
-            <h3 className="text-3xl font-black tracking-tighter">elohz</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed">Tu boutique tecnológica de accesorios premium para creadores y músicos en Chile.</p>
+            <h3 className="text-4xl font-black tracking-tighter">elohz</h3>
+            <p className="text-muted-foreground text-sm leading-relaxed max-w-xs uppercase font-bold tracking-tighter">
+              Tu boutique especializada en accesorios premium para cámaras de acción en Chile.
+            </p>
             <div className="flex gap-6">
               <Instagram className="w-5 h-5 cursor-pointer hover:text-accent transition-premium" />
               <Youtube className="w-5 h-5 cursor-pointer hover:text-accent transition-premium" />
@@ -223,33 +166,33 @@ export default function Home() {
             </div>
           </div>
           <div>
-            <h4 className="font-bold mb-8 uppercase text-xs tracking-widest text-white">Gear</h4>
-            <ul className="space-y-4 text-sm text-muted-foreground">
+            <h4 className="font-black mb-8 uppercase text-xs tracking-[0.3em] text-white">Categorías</h4>
+            <ul className="space-y-4 text-xs font-black tracking-widest uppercase text-muted-foreground">
               <li className="hover:text-white cursor-pointer transition-premium">Selfie Sticks</li>
               <li className="hover:text-white cursor-pointer transition-premium">Soportes Moto</li>
-              <li className="hover:text-white cursor-pointer transition-premium">Cámaras 360</li>
-              <li className="hover:text-white cursor-pointer transition-premium">Pedales Sonic</li>
+              <li className="hover:text-white cursor-pointer transition-premium">Trípodes</li>
+              <li className="hover:text-white cursor-pointer transition-premium">Pecheras</li>
             </ul>
           </div>
           <div>
-            <h4 className="font-bold mb-8 uppercase text-xs tracking-widest text-white">Servicios</h4>
-            <ul className="space-y-4 text-sm text-muted-foreground">
-              <li className="hover:text-white cursor-pointer transition-premium">Envíos VIP</li>
-              <li className="hover:text-white cursor-pointer transition-premium">Soporte Técnico</li>
-              <li className="hover:text-white cursor-pointer transition-premium">Garantía Real</li>
+            <h4 className="font-black mb-8 uppercase text-xs tracking-[0.3em] text-white">Servicios</h4>
+            <ul className="space-y-4 text-xs font-black tracking-widest uppercase text-muted-foreground">
+              <li className="hover:text-white cursor-pointer transition-premium">Envíos VIP Chile</li>
+              <li className="hover:text-white cursor-pointer transition-premium">Garantía Técnica</li>
+              <li className="hover:text-white cursor-pointer transition-premium">Trade-In Gear</li>
             </ul>
           </div>
           <div className="space-y-6">
-            <h4 className="font-bold uppercase text-xs tracking-widest text-white">Privado</h4>
-            <p className="text-xs text-muted-foreground">Únete a la lista de lanzamiento de elohz.</p>
+            <h4 className="font-black uppercase text-xs tracking-[0.3em] text-white">Newsletter</h4>
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">Recibe lanzamientos exclusivos de elohz.</p>
             <div className="flex flex-col gap-3">
-              <input type="email" placeholder="Email" className="bg-card border border-border rounded-xl px-4 text-sm h-12 w-full focus:outline-none focus:border-white transition-premium" />
-              <Button className="pill-button button-primary h-12 w-full">Suscribir</Button>
+              <input type="email" placeholder="TU EMAIL" className="bg-[#111111] border border-[#1F1F1F] rounded-2xl px-6 text-[10px] font-black h-12 w-full focus:outline-none focus:border-white transition-premium tracking-widest" />
+              <Button className="pill-button button-primary h-12 w-full text-[10px] font-black uppercase tracking-widest">Suscribir</Button>
             </div>
           </div>
         </div>
-        <div className="max-w-7xl mx-auto pt-12 border-t border-border flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-          <p>© 2024 elohz. Producido en Chile.</p>
+        <div className="max-w-7xl mx-auto pt-12 border-t border-[#1F1F1F] flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-[0.3em] font-black text-muted-foreground">
+          <p>© 2024 ELOHZ CHILE. ALL RIGHTS RESERVED.</p>
           <div className="flex gap-8">
             <span className="hover:text-white cursor-pointer transition-premium">Privacidad</span>
             <span className="hover:text-white cursor-pointer transition-premium">Términos</span>
@@ -262,11 +205,11 @@ export default function Home() {
         href="https://wa.me/56940628182" 
         target="_blank" 
         rel="noopener noreferrer"
-        className="fixed bottom-10 right-10 z-50 bg-white text-black p-5 rounded-2xl shadow-2xl hover:scale-110 transition-premium flex items-center justify-center group border border-white/20"
+        className="fixed bottom-8 right-8 z-50 bg-white text-black p-4 rounded-2xl shadow-2xl hover:scale-110 active:scale-95 transition-premium flex items-center justify-center group border border-white/20"
       >
         <MessageCircle className="w-6 h-6" />
-        <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-3 transition-all duration-500 whitespace-nowrap font-black text-xs uppercase tracking-widest">
-          Conserje elohz
+        <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-3 transition-all duration-500 whitespace-nowrap font-black text-[10px] uppercase tracking-widest">
+          Asesoría elohz
         </span>
       </a>
     </main>

@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -14,25 +15,18 @@ import { Badge } from "@/components/ui/badge"
 
 const slides = [
   {
-    tag: "MOTO SERIES",
-    title: "Precisión en cada ruta",
-    subtitle: "Soporte moto manillar elohz PRO",
-    image: PlaceHolderImages.find(img => img.id === "hero-moto")?.imageUrl || "",
-    cta: "Explorar Gear",
+    tag: "ACTION GEAR",
+    title: "Accesorios profesionales para cámaras deportivas",
+    subtitle: "Graba, crea y lleva tu contenido al siguiente nivel",
+    image: PlaceHolderImages.find(img => img.id === "hero-action-1")?.imageUrl || "",
+    cta: "Explorar Catálogo",
   },
   {
-    tag: "360 VISION",
-    title: "Ángulos sin límites",
-    subtitle: "Carbon Fiber Series 3 metros",
-    image: PlaceHolderImages.find(img => img.id === "hero-selfie")?.imageUrl || "",
-    cta: "Ver Colección",
-  },
-  {
-    tag: "SONIC MASTER",
-    title: "Audio de Grado Profesional",
-    subtitle: "Serie Overdrive & Delay elohz",
-    image: PlaceHolderImages.find(img => img.id === "hero-guitar")?.imageUrl || "",
-    cta: "Ver Pedales",
+    tag: "MOTOVLOG READY",
+    title: "Perspectivas extremas",
+    subtitle: "Soportes de precisión para motovloggers y aventureros",
+    image: PlaceHolderImages.find(img => img.id === "hero-action-2")?.imageUrl || "",
+    cta: "Ver Soportes",
   },
 ];
 
@@ -56,11 +50,11 @@ export function HeroCarousel() {
 
   return (
     <div className="relative w-full">
-      <Carousel setApi={setApi} className="w-full h-[85vh] md:h-[90vh]">
+      <Carousel setApi={setApi} className="w-full h-[70vh] md:h-[85vh]">
         <CarouselContent className="h-full ml-0">
           {slides.map((slide, index) => (
-            <CarouselItem key={index} className="pl-0 h-[85vh] md:h-[90vh] relative">
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/80 z-10" />
+            <CarouselItem key={index} className="pl-0 h-[70vh] md:h-[85vh] relative">
+              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/90 z-10" />
               <Image 
                 src={slide.image} 
                 alt={slide.title}
@@ -68,22 +62,19 @@ export function HeroCarousel() {
                 priority={index === 0}
                 className="object-cover"
               />
-              <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center p-6 text-white space-y-8">
+              <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center p-6 text-white space-y-6">
                 <Badge className="bg-white/10 backdrop-blur-md text-white border-white/20 px-6 py-2 uppercase tracking-[0.3em] text-[10px] font-black">
                   {slide.tag}
                 </Badge>
-                <h2 className="text-5xl md:text-8xl font-black max-w-5xl tracking-tighter leading-[0.9]">
+                <h2 className="text-4xl md:text-7xl font-black max-w-4xl tracking-tighter leading-[0.95]">
                   {slide.title}
                 </h2>
-                <p className="text-xl md:text-2xl text-white/80 font-medium tracking-tight">
+                <p className="text-lg md:text-xl text-white/80 font-medium tracking-tight max-w-2xl">
                   {slide.subtitle}
                 </p>
                 <div className="flex gap-4 pt-6">
                   <Button className="pill-button button-primary h-14 px-12 text-xs uppercase tracking-widest">
                     {slide.cta}
-                  </Button>
-                  <Button className="pill-button button-secondary h-14 px-12 text-xs uppercase tracking-widest">
-                    Descubrir
                   </Button>
                 </div>
               </div>
@@ -97,8 +88,8 @@ export function HeroCarousel() {
           <button
             key={index}
             onClick={() => api?.scrollTo(index)}
-            className={`w-3 h-3 rounded-full transition-premium ${
-              current === index ? "w-12 bg-white" : "bg-white/30"
+            className={`w-2 h-2 rounded-full transition-premium ${
+              current === index ? "w-10 bg-white" : "bg-white/30"
             }`}
             aria-label={`Slide ${index + 1}`}
           />

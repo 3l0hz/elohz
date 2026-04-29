@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview An AI agent that suggests products based on a user's described problem.
@@ -35,67 +36,66 @@ export type ProductSolutionFinderOutput = z.infer<
   typeof ProductSolutionFinderOutputSchema
 >;
 
-// Hardcoded list of available products based on the proposal
 const AVAILABLE_PRODUCTS = [
   {
-    name: 'Selfie Stick Insta360 1.20 m',
-    description: 'Extendable selfie stick for wider shots and better angles. Now at $19.990.',
-    problem_solved: ['Malos ángulos', 'Poco alcance'],
+    name: 'Selfie stick insta 360 1.20 mt',
+    description: 'Palo selfie extensible ideal para ángulos amplios con cámaras 360.',
+    problem_solved: ['Malos ángulos', 'Poco alcance', 'Selfies grupales'],
   },
   {
-    name: 'Soporte moto manillar Insta / GoPro',
-    description: 'Secure mount for action cameras on motorcycle handlebars, reducing vibration.',
-    problem_solved: ['Vibración en grabación', 'Estabilidad para cámara'],
+    name: 'Selfie Stick 3 metros (black)',
+    description: 'Palo selfie ultra largo para tomas aéreas imposibles.',
+    problem_solved: ['Tomas tipo drone', 'Altura extrema', 'Perspectiva única'],
   },
   {
-    name: 'Selfie Stick 3 metros Black',
-    description: 'Ultra-long selfie stick for impossible and creative camera angles. Now at $32.990.',
-    problem_solved: ['Malos ángulos', 'Tomas imposibles', 'Poco alcance'],
+    name: 'Selfie 90 cm telesin',
+    description: 'Palo selfie compacto y resistente de la marca Telesin.',
+    problem_solved: ['Portabilidad', 'Resistencia', 'Cámaras de acción'],
   },
   {
-    name: 'Mini trípode de bolsillo',
-    description: 'Ultra-portable mini tripod for stable shots anywhere. Price: $16.990.',
-    problem_solved: ['Estabilidad en mesa', 'Falta de soporte fijo', 'Selfies grupales'],
+    name: 'Soporte moto Manillar/Carenado insta gp',
+    description: 'Soporte robusto para montar cámaras en el manillar o carenado de motocicletas.',
+    problem_solved: ['Vibración', 'Montaje en moto', 'Grabación en ruta'],
   },
   {
-    name: 'Case metálico Insta360 X5 Black',
-    description: 'Durable metal case for Insta360 X5, offering protection and accessory mounting points.',
-    problem_solved: ['Falta de accesorios', 'Protección cámara'],
+    name: 'Soporte parabrisa insta/gopro',
+    description: 'Ventosa de alta succión para parabrisas de vehículos.',
+    problem_solved: ['Grabación en auto', 'Estabilidad en vidrio', 'Seguridad'],
   },
   {
-    name: 'Pack inicio Insta360 X5',
-    description: 'Starter kit with essential accessories for Insta360 X5.',
-    problem_solved: ['Falta de accesorios', 'Necesidad de kit completo'],
+    name: 'Adaptador Casco Moto TELESIN',
+    description: 'Montaje específico para el mentón o lateral del casco de moto.',
+    problem_solved: ['POV motovlog', 'Montaje en casco', 'Ángulo de visión del piloto'],
   },
   {
-    name: 'Pedal Overdrive',
-    description: 'Guitar/bass effect pedal for warm, rich overdriven tones.',
-    problem_solved: ['Baja calidad de sonido', 'Necesidad de efectos de guitarra/bajo'],
+    name: 'Mini trípode gopro Ulanzi',
+    description: 'Trípode de bolsillo ultra versátil para cámaras GoPro.',
+    problem_solved: ['Estabilidad en mesa', 'Time-lapse', 'Base fija'],
   },
   {
-    name: 'Pedal Delay',
-    description: 'Guitar/bass effect pedal for creating echo and ambient soundscapes.',
-    problem_solved: ['Baja calidad de sonido', 'Necesidad de efectos de guitarra/bajo'],
+    name: 'Mini trípode insta',
+    description: 'Trípode compacto diseñado para cámaras Insta360.',
+    problem_solved: ['Estabilidad 360', 'Base pequeña', 'Portabilidad'],
   },
   {
-    name: 'Batería Insta360 X5',
-    description: 'Spare battery for Insta360 X5 to extend recording time.',
-    problem_solved: ['Poca duración de batería', 'Falta de energía'],
+    name: 'Soporte smartphone giratorio CNC',
+    description: 'Adaptador de aluminio CNC para montar celulares en trípodes.',
+    problem_solved: ['Uso de celular en trípode', 'Durabilidad', 'Rotación 360'],
   },
   {
-    name: 'Cargador Insta360 X5 doble',
-    description: 'Dual battery charger for Insta360 X5, allowing simultaneous charging.',
-    problem_solved: ['Poca duración de batería', 'Carga lenta'],
-  },
-  {
-    name: 'Adaptador DJI 360',
-    description: 'Adapter to use 360 cameras with DJI drones or accessories.',
-    problem_solved: ['Compatibilidad entre marcas', 'Falta de adaptadores'],
+    name: 'Pechera Telesin',
+    description: 'Arnés de pecho para grabaciones manos libres en primera persona.',
+    problem_solved: ['Grabación deportiva', 'Manos libres', 'POV corporal'],
   },
   {
     name: 'Lente repuesto GoPro 9/10/11/12',
-    description: 'Replacement lens for GoPro Hero 9, 10, 11, or 12.',
-    problem_solved: ['Lente dañado', 'Necesidad de repuestos'],
+    description: 'Protector de lente de reemplazo para cámaras GoPro Hero.',
+    problem_solved: ['Lente rayado', 'Protección cámara', 'Mantenimiento'],
+  },
+  {
+    name: 'Adaptador magnético DJI Osmo Action 5 Pro',
+    description: 'Montaje de liberación rápida magnética para DJI Osmo.',
+    problem_solved: ['Montaje rápido', 'Compatibilidad DJI', 'Seguridad magnética'],
   },
 ];
 
@@ -109,19 +109,18 @@ const prompt = ai.definePrompt({
   name: 'productSolutionFinderPrompt',
   input: {schema: ProductSolutionFinderInputSchema},
   output: {schema: ProductSolutionFinderOutputSchema},
-  prompt: `You are an expert product recommender for a tech gadget store. Your goal is to help users find the best products to solve their specific problems.
+  prompt: `You are an expert product recommender for elohz, a premium store for action camera accessories (Insta360, GoPro, DJI).
 
-Here is a list of available products and what problems they typically solve:
+Available products:
 {{#each products}}
 - Name: {{{this.name}}}
   Description: {{{this.description}}}
   Problems Solved: {{#each this.problem_solved}}{{{this}}}{{#unless @last}}, {{/unless}}{{/each}}
 {{/each}}
 
-The user has described the following problem:
-Problem: {{{problemDescription}}}
+User's problem: {{{problemDescription}}}
 
-Based on the user's problem, suggest up to 3 relevant products from the list that directly address and solve their issue. For each suggested product, provide its name and a concise reason explaining how it solves the problem. If no products are relevant, return an empty array for 'suggestedProducts'.`,
+Suggest up to 3 relevant products. Be technical and precise.`,
 });
 
 const productSolutionFinderFlow = ai.defineFlow(

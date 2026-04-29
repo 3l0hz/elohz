@@ -1,70 +1,82 @@
 {
   "placeholderImages": [
     {
-      "id": "hero-moto",
-      "description": "Motorcycle rider with action camera mount",
-      "imageUrl": "https://picsum.photos/seed/moto1/1200/600",
-      "imageHint": "motorcycle camera"
+      "id": "hero-action-1",
+      "description": "Accesorios profesionales para cámaras deportivas",
+      "imageUrl": "https://picsum.photos/seed/action1/1200/600",
+      "imageHint": "action camera accessories"
     },
     {
-      "id": "hero-selfie",
-      "description": "Traveler using a long selfie stick for panoramic shots",
-      "imageUrl": "https://picsum.photos/seed/selfie1/1200/600",
-      "imageHint": "selfie stick"
+      "id": "hero-action-2",
+      "description": "Graba, crea y lleva tu contenido al siguiente nivel",
+      "imageUrl": "https://picsum.photos/seed/action2/1200/600",
+      "imageHint": "motovlog helmet camera"
     },
     {
-      "id": "hero-insta360",
-      "description": "Insta360 camera on a rugged adventure",
-      "imageUrl": "https://picsum.photos/seed/insta1/1200/600",
-      "imageHint": "action camera"
+      "id": "prod-stick-120",
+      "description": "Selfie stick insta 360 1.20 mt",
+      "imageUrl": "https://picsum.photos/seed/s120/600/600",
+      "imageHint": "selfie stick action"
     },
     {
-      "id": "hero-guitar",
-      "description": "Electric guitar and effect pedals on stage",
-      "imageUrl": "https://picsum.photos/seed/guitar1/1200/600",
-      "imageHint": "guitar pedal"
-    },
-    {
-      "id": "product-stick-1",
-      "description": "Selfie Stick Insta360 1.20 m",
-      "imageUrl": "https://picsum.photos/seed/stick1/600/600",
-      "imageHint": "selfie stick"
-    },
-    {
-      "id": "product-moto-mount",
-      "description": "Soporte moto manillar",
-      "imageUrl": "https://picsum.photos/seed/mount1/600/600",
-      "imageHint": "motorcycle mount"
-    },
-    {
-      "id": "product-stick-3m",
-      "description": "Selfie Stick 3 metros Black",
-      "imageUrl": "https://picsum.photos/seed/stick3m/600/600",
+      "id": "prod-stick-3m",
+      "description": "Selfie Stick 3 metros black",
+      "imageUrl": "https://picsum.photos/seed/s3m/600/600",
       "imageHint": "long selfie stick"
     },
     {
-      "id": "product-case-x5",
-      "description": "Case metálico Insta360 X5",
-      "imageUrl": "https://picsum.photos/seed/casex5/600/600",
-      "imageHint": "camera case"
+      "id": "prod-stick-90",
+      "description": "Selfie 90 cm telesin",
+      "imageUrl": "https://picsum.photos/seed/s90/600/600",
+      "imageHint": "telesin selfie stick"
     },
     {
-      "id": "product-pedal-od",
-      "description": "Pedal Overdrive",
-      "imageUrl": "https://picsum.photos/seed/pedal1/600/600",
-      "imageHint": "overdrive pedal"
+      "id": "prod-moto-handle",
+      "description": "Soporte moto Manillar/Carenado",
+      "imageUrl": "https://picsum.photos/seed/mhandle/600/600",
+      "imageHint": "motorcycle handlebar mount"
     },
     {
-      "id": "product-pedal-delay",
-      "description": "Pedal Delay",
-      "imageUrl": "https://picsum.photos/seed/pedal2/600/600",
-      "imageHint": "delay pedal"
+      "id": "prod-windshield",
+      "description": "Soporte parabrisa sunnylife",
+      "imageUrl": "https://picsum.photos/seed/wind/600/600",
+      "imageHint": "suction cup mount"
     },
     {
-      "id": "product-tripod",
-      "description": "Mini trípode de bolsillo",
-      "imageUrl": "https://picsum.photos/seed/tripod1/600/600",
-      "imageHint": "mini tripod"
+      "id": "prod-helmet-chin",
+      "description": "Adaptador Casco Moto TELESIN",
+      "imageUrl": "https://picsum.photos/seed/helmet/600/600",
+      "imageHint": "helmet chin mount"
+    },
+    {
+      "id": "prod-tripod-ulanzi",
+      "description": "Mini trípode gopro Ulanzi",
+      "imageUrl": "https://picsum.photos/seed/tulanzi/600/600",
+      "imageHint": "mini tripod gopro"
+    },
+    {
+      "id": "prod-tripod-insta",
+      "description": "Mini trípode insta",
+      "imageUrl": "https://picsum.photos/seed/tinsta/600/600",
+      "imageHint": "mini tripod camera"
+    },
+    {
+      "id": "prod-phone-cnc",
+      "description": "Soporte smartphone giratorio CNC",
+      "imageUrl": "https://picsum.photos/seed/pcnc/600/600",
+      "imageHint": "phone tripod mount"
+    },
+    {
+      "id": "prod-lens-gp",
+      "description": "Lente repuesto GoPro 9/10/11/12",
+      "imageUrl": "https://picsum.photos/seed/lgp/600/600",
+      "imageHint": "gopro lens replacement"
+    },
+    {
+      "id": "prod-chest-mount",
+      "description": "Pechera Telesin",
+      "imageUrl": "https://picsum.photos/seed/chest/600/600",
+      "imageHint": "chest mount harness"
     }
   ]
 }
