@@ -29,44 +29,44 @@ export function AIProblemSolver() {
   };
 
   return (
-    <section className="py-16 bg-black text-white px-6 rounded-[3rem] mx-4 md:mx-10 my-10 overflow-hidden relative">
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2" />
+    <section className="py-24 bg-[#0B0B0B] text-white px-8 rounded-[3rem] border border-border overflow-hidden relative">
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 blur-[150px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
       
-      <div className="max-w-3xl mx-auto space-y-8 relative z-10">
-        <div className="text-center space-y-2">
-          <Badge className="bg-primary/20 text-primary border-primary/20 hover:bg-primary/30 mb-2">
-            AI Solution Finder
+      <div className="max-w-4xl mx-auto space-y-12 relative z-10">
+        <div className="text-center space-y-4">
+          <Badge className="bg-accent/10 text-accent border-accent/20 hover:bg-accent/20 mb-4 px-6 py-2 uppercase tracking-[0.2em] text-[10px] font-black">
+            AI Engine elohz
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-black">¿Qué problema quieres resolver hoy?</h2>
-          <p className="text-neutral-400">Describe tu necesidad y nuestra IA te recomendará el equipo perfecto.</p>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tighter">¿Cuál es tu próximo desafío?</h2>
+          <p className="text-muted-foreground text-lg md:text-xl font-medium max-w-2xl mx-auto">Nuestra inteligencia artificial seleccionará el equipamiento técnico de precisión que tu proyecto necesita.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-3">
+        <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
           <Input 
             value={problem}
             onChange={(e) => setProblem(e.target.value)}
-            placeholder="Ej: Tengo mucha vibración en mis videos de moto..."
-            className="bg-neutral-900 border-neutral-800 text-white h-14 rounded-full px-6 focus:ring-primary"
+            placeholder="Ej: Necesito estabilidad total en mis rutas de moto..."
+            className="bg-card border-border text-white h-16 rounded-2xl px-8 focus:border-white transition-premium text-lg"
           />
           <Button 
             disabled={loading}
-            className="bg-primary hover:bg-[#FFB800] text-black pill-button h-14 px-8 font-bold"
+            className="pill-button button-primary h-16 px-10 font-black uppercase text-xs tracking-widest"
           >
-            {loading ? <Loader2 className="animate-spin" /> : <Sparkles className="mr-2 h-5 w-5" />}
-            Buscar Solución
+            {loading ? <Loader2 className="animate-spin" /> : <Sparkles className="mr-3 h-5 w-5 text-accent" />}
+            Analizar
           </Button>
         </form>
 
         {results.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             {results.map((res, i) => (
-              <Card key={i} className="bg-neutral-900 border-neutral-800 p-6 flex flex-col justify-between hover:border-primary/50 transition-colors">
-                <div className="space-y-2">
-                  <h4 className="text-primary font-bold">{res.name}</h4>
-                  <p className="text-sm text-neutral-400">{res.reason}</p>
+              <Card key={i} className="bg-card border-border p-8 flex flex-col justify-between hover:border-white transition-premium rounded-[2rem]">
+                <div className="space-y-4">
+                  <h4 className="text-white text-xl font-black tracking-tight">{res.name}</h4>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{res.reason}</p>
                 </div>
-                <Button variant="link" className="text-primary p-0 h-auto self-start mt-4 font-bold">
-                  Ver producto <ShoppingCart className="ml-2 h-4 w-4" />
+                <Button variant="link" className="text-accent p-0 h-auto self-start mt-8 font-black uppercase text-[10px] tracking-widest hover:text-white transition-premium">
+                  Ver especificaciones <ShoppingCart className="ml-2 h-4 w-4" />
                 </Button>
               </Card>
             ))}

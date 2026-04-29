@@ -4,26 +4,26 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%; /* Light grey background */
-    --foreground: 0 0% 0%; /* #000000 */
-    --card: 0 0% 100%; /* #FFFFFF */
-    --card-foreground: 0 0% 0%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 0%;
-    --primary: 49 100% 50%; /* #FFD200 */
-    --primary-foreground: 0 0% 0%;
-    --secondary: 0 0% 0%; /* Black */
+    --background: 0 0% 4%; /* #0B0B0B - Negro Profundo */
+    --foreground: 0 0% 100%; /* Blanco puro */
+    --card: 0 0% 7%; /* #111111 - Gris oscuro para cards */
+    --card-foreground: 0 0% 100%;
+    --popover: 0 0% 7%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%; /* Botón principal Blanco */
+    --primary-foreground: 0 0% 0%; /* Texto negro sobre blanco */
+    --secondary: 0 0% 12%; /* #1F1F1F - Bordes y elementos secundarios */
     --secondary-foreground: 0 0% 100%;
-    --muted: 0 0% 91%; /* #E5E5E5 */
-    --muted-foreground: 215 8% 38%; /* #5F6368 */
-    --accent: 49 100% 50%;
+    --muted: 0 0% 12%;
+    --muted-foreground: 0 0% 63%; /* #A1A1A1 - Texto secundario */
+    --accent: 157 100% 50%; /* #00FF9C - Verde Neón para detalles */
     --accent-foreground: 0 0% 0%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 90%; /* #E5E5E5 */
-    --input: 0 0% 90%;
-    --ring: 49 100% 50%;
-    --radius: 1.5rem;
+    --border: 0 0% 12%; /* #1F1F1F */
+    --input: 0 0% 12%;
+    --ring: 0 0% 100%;
+    --radius: 1rem;
   }
 }
 
@@ -55,7 +55,15 @@
 }
 
 .pill-button {
-  @apply rounded-full px-6 py-2 font-semibold transition-all duration-300;
+  @apply rounded-2xl px-6 py-2 font-bold transition-all duration-300;
+}
+
+.button-primary {
+  @apply bg-white text-black hover:bg-[#EAEAEA] active:scale-95;
+}
+
+.button-secondary {
+  @apply bg-transparent border border-white text-white hover:bg-white/10 active:scale-95;
 }
 
 /* Hide scrollbar for clean menu experience */
@@ -65,4 +73,8 @@
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.transition-premium {
+  @apply transition-all duration-300 ease-in-out;
 }

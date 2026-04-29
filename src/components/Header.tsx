@@ -16,77 +16,82 @@ import Link from 'next/link';
 
 export function Header() {
   const navLinks = [
-    { name: 'Productos', hasSubmenu: true },
+    { name: 'Gear', hasSubmenu: true },
     { name: 'Insta360+', hasSubmenu: false },
-    { name: 'Empresa', hasSubmenu: true },
-    { name: 'Descargas', hasSubmenu: false },
-    { name: 'Soporte', hasSubmenu: false },
-    { name: 'Descubrir', hasSubmenu: true },
+    { name: 'Pro Series', hasSubmenu: true },
+    { name: 'Asistencia', hasSubmenu: false },
     { name: 'Trade-In', hasSubmenu: false },
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-white border-b border-neutral-100 shadow-sm h-16 transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 h-full flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full bg-black/80 backdrop-blur-lg border-b border-white/5 h-20 flex items-center transition-premium">
+      <div className="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-2xl font-[900] tracking-tighter text-black hover:opacity-80 transition-opacity">
+        <Link href="/" className="text-3xl font-black tracking-tighter text-white hover:opacity-80 transition-premium">
           elohz
         </Link>
 
-        {/* Hamburger Menu Trigger */}
-        <Sheet>
-          <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="hover:bg-neutral-100 rounded-lg group">
-              <Menu className="w-6 h-6 text-black group-active:scale-90 transition-transform" />
-            </Button>
-          </SheetTrigger>
-          <SheetContent side="left" className="w-full sm:max-w-md p-0 flex flex-col border-none shadow-2xl bg-white">
-            {/* Accessibility Titles (Screen Readers only) */}
-            <SheetHeader className="sr-only">
-              <SheetTitle>Menú de navegación</SheetTitle>
-              <SheetDescription>
-                Accede a nuestras categorías de productos, soporte y servicios de elohz.
-              </SheetDescription>
-            </SheetHeader>
+        {/* Desktop Navigation (Center) - Hidden for now as requested minimal structure */}
+        <nav className="hidden lg:flex items-center gap-12">
+          {navLinks.map((link) => (
+            <Link key={link.name} href="#" className="text-xs uppercase tracking-[0.2em] font-black text-muted-foreground hover:text-white transition-premium">
+              {link.name}
+            </Link>
+          ))}
+        </nav>
 
-            {/* Drawer Header with Close Button */}
-            <div className="flex items-center justify-between p-4 h-16 border-b border-neutral-50">
-              <SheetClose asChild>
-                <Button variant="ghost" size="icon" className="rounded-full hover:bg-neutral-100">
-                  <X className="w-6 h-6 text-neutral-800" />
-                </Button>
-              </SheetClose>
-              <div className="w-10 h-10 bg-neutral-100 rounded-lg flex items-center justify-center">
-                <Menu className="w-5 h-5 text-neutral-400" />
+        {/* Menu & Profile Icons */}
+        <div className="flex items-center gap-4">
+          <Button variant="ghost" size="icon" className="hidden sm:flex text-white hover:bg-white/5">
+            <User className="w-5 h-5" />
+          </Button>
+          
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="ghost" size="icon" className="text-white hover:bg-white/5 group">
+                <Menu className="w-6 h-6 group-active:scale-90 transition-premium" />
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left" className="w-full sm:max-w-md p-0 flex flex-col border-none bg-black text-white">
+              <SheetHeader className="sr-only">
+                <SheetTitle>Menú elohz</SheetTitle>
+                <SheetDescription>Explora nuestro catálogo de tecnología premium.</SheetDescription>
+              </SheetHeader>
+
+              <div className="flex items-center justify-between p-8 h-20 border-b border-white/5">
+                <span className="text-2xl font-black tracking-tighter">elohz</span>
+                <SheetClose asChild>
+                  <Button variant="ghost" size="icon" className="rounded-full hover:bg-white/10 text-white">
+                    <X className="w-6 h-6" />
+                  </Button>
+                </SheetClose>
               </div>
-            </div>
-            
-            {/* Navigation Links */}
-            <nav className="flex-1 overflow-y-auto scrollbar-hide py-2">
-              <ul className="divide-y divide-neutral-50">
-                {navLinks.map((link) => (
-                  <li key={link.name}>
-                    <Link 
-                      href="#" 
-                      className="flex items-center justify-between px-6 py-5 text-[17px] font-semibold text-neutral-800 hover:bg-neutral-50 hover:text-black transition-all active:bg-neutral-100"
-                    >
-                      {link.name}
-                      {link.hasSubmenu && <ChevronRight className="w-4 h-4 text-neutral-300" />}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
+              
+              <nav className="flex-1 overflow-y-auto scrollbar-hide py-8">
+                <ul className="space-y-2">
+                  {navLinks.map((link) => (
+                    <li key={link.name}>
+                      <Link 
+                        href="#" 
+                        className="flex items-center justify-between px-8 py-6 text-2xl font-black tracking-tighter text-muted-foreground hover:text-white hover:bg-white/5 transition-premium"
+                      >
+                        {link.name}
+                        {link.hasSubmenu && <ChevronRight className="w-6 h-6 text-white/20" />}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
 
-            {/* Bottom Account Section */}
-            <div className="p-6 border-t border-neutral-100 bg-white">
-              <Link href="#" className="flex items-center gap-3 text-lg font-bold text-neutral-800 hover:text-black transition-colors group">
-                <span>Cuenta</span>
-                <User className="w-5 h-5 text-neutral-500 group-hover:text-black transition-colors" />
-              </Link>
-            </div>
-          </SheetContent>
-        </Sheet>
+              <div className="p-8 border-t border-white/5 bg-black/50 backdrop-blur-md">
+                <Link href="#" className="flex items-center justify-between text-xl font-black tracking-tighter hover:text-accent transition-premium group">
+                  <span>Cuenta Personal</span>
+                  <User className="w-6 h-6 group-hover:text-accent transition-premium" />
+                </Link>
+              </div>
+            </SheetContent>
+          </Sheet>
+        </div>
       </div>
     </header>
   );
