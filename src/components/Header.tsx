@@ -14,24 +14,16 @@ import {
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from 'next/link';
+import { CATEGORIES } from '@/lib/catalog';
 
 export function Header() {
   const desktopLinks = [
     { name: 'Inicio', href: '/' },
-    { name: 'Selfie Sticks', href: '#' },
-    { name: 'Soportes Moto', href: '#' },
-    { name: 'Trípodes', href: '#' },
-    { name: 'Accesorios Cámara', href: '#' },
+    { name: 'Selfie Sticks', href: '/categoria/selfie-sticks' },
+    { name: 'Soportes Moto', href: '/categoria/soportes-moto' },
+    { name: 'Trípodes', href: '/categoria/tripodes' },
+    { name: 'Accesorios Cámara', href: '/categoria/accesorios-camara' },
     { name: 'Ofertas', href: '#', highlight: true },
-  ];
-
-  const categories = [
-    'Selfie Sticks',
-    'Soportes Moto',
-    'Trípodes',
-    'Soportes Smartphone',
-    'Accesorios Cámara',
-    'Accesorios Corporales',
   ];
 
   const brands = [
@@ -84,7 +76,7 @@ export function Header() {
 
               {/* Drawer Header */}
               <div className="flex items-center justify-between p-8 h-20 border-b border-white/5">
-                <span className="text-2xl font-black tracking-tighter">elohz</span>
+                <Link href="/" className="text-2xl font-black tracking-tighter">elohz</Link>
                 <SheetClose asChild>
                   <Button variant="ghost" size="icon" className="rounded-full hover:bg-white/10 text-white">
                     <X className="w-6 h-6" />
@@ -98,12 +90,14 @@ export function Header() {
                   <div className="space-y-6">
                     <h3 className="text-[10px] uppercase tracking-[0.3em] font-black text-muted-foreground">Categorías</h3>
                     <ul className="space-y-4">
-                      {categories.map((item) => (
-                        <li key={item}>
-                          <Link href="#" className="flex items-center justify-between text-2xl font-black tracking-tighter hover:text-white transition-premium group">
-                            <span>{item}</span>
-                            <ChevronRight className="w-5 h-5 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-premium text-accent" />
-                          </Link>
+                      {CATEGORIES.map((cat) => (
+                        <li key={cat.slug}>
+                          <SheetClose asChild>
+                            <Link href={`/categoria/${cat.slug}`} className="flex items-center justify-between text-2xl font-black tracking-tighter hover:text-white transition-premium group">
+                              <span>{cat.name}</span>
+                              <ChevronRight className="w-5 h-5 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-premium text-accent" />
+                            </Link>
+                          </SheetClose>
                         </li>
                       ))}
                     </ul>
@@ -127,14 +121,18 @@ export function Header() {
 
                   {/* Extra */}
                   <div className="space-y-6 pt-6 border-t border-white/5">
-                    <Link href="#" className="flex items-center gap-4 text-xl font-black tracking-tighter hover:text-accent transition-premium group">
-                      <Percent className="w-5 h-5 text-accent" />
-                      <span>Ofertas Especiales</span>
-                    </Link>
-                    <Link href="https://wa.me/56940628182" target="_blank" className="flex items-center gap-4 text-xl font-black tracking-tighter hover:text-accent transition-premium group">
-                      <MessageCircle className="w-5 h-5 text-accent" />
-                      <span>Contacto WhatsApp</span>
-                    </Link>
+                    <SheetClose asChild>
+                      <Link href="#" className="flex items-center gap-4 text-xl font-black tracking-tighter hover:text-accent transition-premium group">
+                        <Percent className="w-5 h-5 text-accent" />
+                        <span>Ofertas Especiales</span>
+                      </Link>
+                    </SheetClose>
+                    <SheetClose asChild>
+                      <Link href="https://wa.me/56940628182" target="_blank" className="flex items-center gap-4 text-xl font-black tracking-tighter hover:text-accent transition-premium group">
+                        <MessageCircle className="w-5 h-5 text-accent" />
+                        <span>Contacto WhatsApp</span>
+                      </Link>
+                    </SheetClose>
                   </div>
                 </div>
               </ScrollArea>

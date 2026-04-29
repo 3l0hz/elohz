@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { HeroCarousel } from '@/components/HeroCarousel';
 import { ThreeDProductCard } from '@/components/ThreeDProductCard';
@@ -10,65 +9,23 @@ import {
   MessageCircle, 
   CheckCircle, 
   ShieldCheck, 
-  Camera, 
-  Bike, 
   Instagram, 
   Youtube, 
-  Twitter,
-  ChevronRight
+  Twitter
 } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
-
-const catalog = [
-  {
-    category: "Selfie Sticks",
-    products: [
-      { id: 'ss-1', name: 'Selfie stick insta 360 1.20 mt', price: '$19.990', brand: 'Genérico', isTopPick: true, imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-120")?.imageUrl || "" },
-      { id: 'ss-2', name: 'Selfie Stick 3 metros (black)', price: '$32.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-3m")?.imageUrl || "" },
-      { id: 'ss-3', name: 'Selfie 90 cm telesin', price: '$24.990', brand: 'Telesin', imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-90")?.imageUrl || "" },
-    ]
-  },
-  {
-    category: "Soportes Moto / Vehículo",
-    products: [
-      { id: 'mv-1', name: 'Soporte moto Manillar/Carenado insta gp', price: '$19.990', brand: 'Genérico', isTopPick: true, imageUrl: PlaceHolderImages.find(img => img.id === "prod-moto-handle")?.imageUrl || "" },
-      { id: 'mv-2', name: 'Soporte parabrisa insta/gopro', price: '$22.990', brand: 'Sunnylife', imageUrl: PlaceHolderImages.find(img => img.id === "prod-windshield")?.imageUrl || "" },
-      { id: 'mv-3', name: 'Adaptador Casco Moto TELESIN', price: '$15.990', brand: 'Telesin', imageUrl: PlaceHolderImages.find(img => img.id === "prod-helmet-chin")?.imageUrl || "" },
-    ]
-  },
-  {
-    category: "Trípodes",
-    products: [
-      { id: 'tr-1', name: 'Mini trípode gopro', price: '$16.990', brand: 'Ulanzi', isTopPick: true, imageUrl: PlaceHolderImages.find(img => img.id === "prod-tripod-ulanzi")?.imageUrl || "" },
-      { id: 'tr-2', name: 'Mini trípode insta', price: '$14.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-tripod-insta")?.imageUrl || "" },
-    ]
-  },
-  {
-    category: "Soportes Smartphone",
-    products: [
-      { id: 'sp-1', name: 'Soporte smartphone giratorio CNC', price: '$12.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-phone-cnc")?.imageUrl || "" },
-      { id: 'sp-2', name: 'Soporte smartphone giratorio PLA', price: '$8.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-phone-cnc")?.imageUrl || "" },
-    ]
-  },
-  {
-    category: "Accesorios Cámara",
-    products: [
-      { id: 'ac-1', name: 'Lente repuesto GoPro 9/10/11/12', price: '$18.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-lens-gp")?.imageUrl || "" },
-      { id: 'ac-2', name: 'Soporte giratorio Insta 360', price: '$15.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-moto-handle")?.imageUrl || "" },
-      { id: 'ac-3', name: 'Pack soporte giratorio + selfie 1.20', price: '$34.990', brand: 'Genérico', isTopPick: true, imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-120")?.imageUrl || "" },
-      { id: 'ac-4', name: 'Adaptador magnético DJI Osmo Action 5 Pro', price: '$12.990', brand: 'Genérico', imageUrl: PlaceHolderImages.find(img => img.id === "prod-tripod-insta")?.imageUrl || "" },
-    ]
-  },
-  {
-    category: "Accesorios Corporales",
-    products: [
-      { id: 'bc-1', name: 'Pechera Telesin', price: '$26.990', brand: 'Telesin', isTopPick: true, imageUrl: PlaceHolderImages.find(img => img.id === "prod-chest-mount")?.imageUrl || "" },
-    ]
-  }
-];
+import { PRODUCTS, CATEGORIES } from '@/lib/catalog';
+import Link from 'next/link';
 
 export default function Home() {
+  // Group products by category for the homepage showcase
+  const catalogShowcase = CATEGORIES.map(category => ({
+    name: category.name,
+    slug: category.slug,
+    products: PRODUCTS.filter(p => p.categorySlug === category.slug)
+  })).filter(section => section.products.length > 0);
+
   return (
     <main className="min-h-screen pb-20 overflow-x-hidden bg-background">
       <HeroCarousel />
@@ -97,23 +54,23 @@ export default function Home() {
 
       {/* Catalog Sections */}
       <section className="py-24 px-6 max-w-7xl mx-auto space-y-32">
-        {catalog.map((section, idx) => (
+        {catalogShowcase.map((section, idx) => (
           <div key={idx} className="space-y-12">
             <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-l-4 border-accent pl-8">
               <div className="space-y-2">
                 <Badge className="bg-accent/10 text-accent border-accent/20 font-black text-[9px] tracking-[0.2em] px-3">
-                  {section.category.toUpperCase()}
+                  {section.name.toUpperCase()}
                 </Badge>
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase">{section.category}</h2>
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase">{section.name}</h2>
               </div>
               <p className="text-muted-foreground font-medium text-sm md:text-base max-w-xs">
-                Equipamiento técnico seleccionado para {section.category.toLowerCase()}.
+                Equipamiento técnico seleccionado para {section.name.toLowerCase()}.
               </p>
             </div>
             
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
               {section.products.map((product) => (
-                <ThreeDProductCard key={product.id} {...product} category={section.category} />
+                <ThreeDProductCard key={product.id} {...product} category={section.name} />
               ))}
             </div>
           </div>
@@ -168,10 +125,11 @@ export default function Home() {
           <div>
             <h4 className="font-black mb-8 uppercase text-xs tracking-[0.3em] text-white">Categorías</h4>
             <ul className="space-y-4 text-xs font-black tracking-widest uppercase text-muted-foreground">
-              <li className="hover:text-white cursor-pointer transition-premium">Selfie Sticks</li>
-              <li className="hover:text-white cursor-pointer transition-premium">Soportes Moto</li>
-              <li className="hover:text-white cursor-pointer transition-premium">Trípodes</li>
-              <li className="hover:text-white cursor-pointer transition-premium">Pecheras</li>
+              {CATEGORIES.map(cat => (
+                <li key={cat.slug} className="hover:text-white cursor-pointer transition-premium">
+                  <Link href={`/categoria/${cat.slug}`}>{cat.name}</Link>
+                </li>
+              ))}
             </ul>
           </div>
           <div>
