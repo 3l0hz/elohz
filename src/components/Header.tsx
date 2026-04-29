@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react';
-import { Menu, X, User, ChevronRight } from 'lucide-react';
+import { Menu, X, User, ChevronRight, MessageCircle, Percent } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -12,36 +12,60 @@ import {
   SheetTitle,
   SheetDescription,
 } from "@/components/ui/sheet";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from 'next/link';
 
 export function Header() {
-  const navLinks = [
-    { name: 'Gear', hasSubmenu: true },
-    { name: 'Insta360+', hasSubmenu: false },
-    { name: 'Pro Series', hasSubmenu: true },
-    { name: 'Asistencia', hasSubmenu: false },
-    { name: 'Trade-In', hasSubmenu: false },
+  const desktopLinks = [
+    { name: 'Inicio', href: '/' },
+    { name: 'Selfie Sticks', href: '#' },
+    { name: 'Soportes Moto', href: '#' },
+    { name: 'Trípodes', href: '#' },
+    { name: 'Accesorios Cámara', href: '#' },
+    { name: 'Ofertas', href: '#', highlight: true },
+  ];
+
+  const categories = [
+    'Selfie Sticks',
+    'Soportes Moto',
+    'Trípodes',
+    'Soportes Smartphone',
+    'Accesorios Cámara',
+    'Accesorios Corporales',
+  ];
+
+  const brands = [
+    'Insta360',
+    'GoPro',
+    'DJI',
+    'Telesin',
+    'Ulanzi',
+    'Sunnylife',
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-black/80 backdrop-blur-lg border-b border-white/5 h-20 flex items-center transition-premium">
+    <header className="sticky top-0 z-50 w-full bg-[#0B0B0B]/90 backdrop-blur-xl border-b border-white/5 h-20 flex items-center transition-all duration-300">
       <div className="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-3xl font-black tracking-tighter text-white hover:opacity-80 transition-premium">
           elohz
         </Link>
 
-        {/* Desktop Navigation (Center) - Hidden for now as requested minimal structure */}
-        <nav className="hidden lg:flex items-center gap-12">
-          {navLinks.map((link) => (
-            <Link key={link.name} href="#" className="text-xs uppercase tracking-[0.2em] font-black text-muted-foreground hover:text-white transition-premium">
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-10">
+          {desktopLinks.map((link) => (
+            <Link 
+              key={link.name} 
+              href={link.href} 
+              className={`text-[10px] uppercase tracking-[0.25em] font-black transition-premium hover:text-white ${link.highlight ? 'text-accent' : 'text-muted-foreground'}`}
+            >
               {link.name}
             </Link>
           ))}
         </nav>
 
-        {/* Menu & Profile Icons */}
-        <div className="flex items-center gap-4">
+        {/* Menu & Icons */}
+        <div className="flex items-center gap-2">
           <Button variant="ghost" size="icon" className="hidden sm:flex text-white hover:bg-white/5">
             <User className="w-5 h-5" />
           </Button>
@@ -52,12 +76,13 @@ export function Header() {
                 <Menu className="w-6 h-6 group-active:scale-90 transition-premium" />
               </Button>
             </SheetTrigger>
-            <SheetContent side="left" className="w-full sm:max-w-md p-0 flex flex-col border-none bg-black text-white">
+            <SheetContent side="right" className="w-full sm:max-w-md p-0 flex flex-col border-none bg-[#0B0B0B] text-white">
               <SheetHeader className="sr-only">
                 <SheetTitle>Menú elohz</SheetTitle>
-                <SheetDescription>Explora nuestro catálogo de tecnología premium.</SheetDescription>
+                <SheetDescription>Explora categorías, marcas y ofertas exclusivas de elohz.</SheetDescription>
               </SheetHeader>
 
+              {/* Drawer Header */}
               <div className="flex items-center justify-between p-8 h-20 border-b border-white/5">
                 <span className="text-2xl font-black tracking-tighter">elohz</span>
                 <SheetClose asChild>
@@ -67,26 +92,60 @@ export function Header() {
                 </SheetClose>
               </div>
               
-              <nav className="flex-1 overflow-y-auto scrollbar-hide py-8">
-                <ul className="space-y-2">
-                  {navLinks.map((link) => (
-                    <li key={link.name}>
-                      <Link 
-                        href="#" 
-                        className="flex items-center justify-between px-8 py-6 text-2xl font-black tracking-tighter text-muted-foreground hover:text-white hover:bg-white/5 transition-premium"
-                      >
-                        {link.name}
-                        {link.hasSubmenu && <ChevronRight className="w-6 h-6 text-white/20" />}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </nav>
+              <ScrollArea className="flex-1 px-8 py-10">
+                <div className="space-y-12 pb-12">
+                  {/* Categorías */}
+                  <div className="space-y-6">
+                    <h3 className="text-[10px] uppercase tracking-[0.3em] font-black text-muted-foreground">Categorías</h3>
+                    <ul className="space-y-4">
+                      {categories.map((item) => (
+                        <li key={item}>
+                          <Link href="#" className="flex items-center justify-between text-2xl font-black tracking-tighter hover:text-white transition-premium group">
+                            <span>{item}</span>
+                            <ChevronRight className="w-5 h-5 opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-premium text-accent" />
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
 
-              <div className="p-8 border-t border-white/5 bg-black/50 backdrop-blur-md">
-                <Link href="#" className="flex items-center justify-between text-xl font-black tracking-tighter hover:text-accent transition-premium group">
-                  <span>Cuenta Personal</span>
-                  <User className="w-6 h-6 group-hover:text-accent transition-premium" />
+                  {/* Marcas */}
+                  <div className="space-y-6">
+                    <h3 className="text-[10px] uppercase tracking-[0.3em] font-black text-muted-foreground">Marcas Pro</h3>
+                    <div className="grid grid-cols-2 gap-4">
+                      {brands.map((brand) => (
+                        <Link 
+                          key={brand} 
+                          href="#" 
+                          className="text-sm font-bold text-muted-foreground hover:text-white transition-premium"
+                        >
+                          {brand}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Extra */}
+                  <div className="space-y-6 pt-6 border-t border-white/5">
+                    <Link href="#" className="flex items-center gap-4 text-xl font-black tracking-tighter hover:text-accent transition-premium group">
+                      <Percent className="w-5 h-5 text-accent" />
+                      <span>Ofertas Especiales</span>
+                    </Link>
+                    <Link href="https://wa.me/56940628182" target="_blank" className="flex items-center gap-4 text-xl font-black tracking-tighter hover:text-accent transition-premium group">
+                      <MessageCircle className="w-5 h-5 text-accent" />
+                      <span>Contacto WhatsApp</span>
+                    </Link>
+                  </div>
+                </div>
+              </ScrollArea>
+
+              <div className="p-8 border-t border-white/5 bg-[#111111]/50 backdrop-blur-md">
+                <Link href="#" className="flex items-center justify-between text-xl font-black tracking-tighter hover:text-white transition-premium group">
+                  <div className="flex items-center gap-4">
+                    <User className="w-6 h-6 text-muted-foreground group-hover:text-white" />
+                    <span>Mi Cuenta</span>
+                  </div>
+                  <ChevronRight className="w-5 h-5 text-muted-foreground" />
                 </Link>
               </div>
             </SheetContent>
