@@ -27,7 +27,6 @@ export const PRODUCTS: Product[] = [
     name: 'Selfie stick insta 360 1.20 mt', 
     price: '$19.990', 
     brand: 'Genérico', 
-    badge: '🎥 Ideal para grabación',
     categoryName: "Selfie Sticks", 
     categorySlug: "selfie-sticks", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-120")?.imageUrl || "" 
@@ -37,7 +36,7 @@ export const PRODUCTS: Product[] = [
     name: 'Selfie Stick 3 metros (black)', 
     price: '$32.990', 
     brand: 'Genérico', 
-    badge: '🌄 Mayor alcance',
+    badge: '🔥 Más vendido',
     categoryName: "Selfie Sticks", 
     categorySlug: "selfie-sticks", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-3m")?.imageUrl || "" 
@@ -47,7 +46,6 @@ export const PRODUCTS: Product[] = [
     name: 'Selfie 90 cm telesin', 
     price: '$24.990', 
     brand: 'Telesin', 
-    badge: '🎥 Compacto',
     categoryName: "Selfie Sticks", 
     categorySlug: "selfie-sticks", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-90")?.imageUrl || "" 
@@ -59,7 +57,6 @@ export const PRODUCTS: Product[] = [
     name: 'Soporte moto Manillar/Carenado insta gp', 
     price: '$19.990', 
     brand: 'Genérico', 
-    badge: '🏍️ Uso en moto',
     categoryName: "Soportes Moto / Vehículo", 
     categorySlug: "soportes-moto", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-moto-handle")?.imageUrl || "" 
@@ -69,7 +66,7 @@ export const PRODUCTS: Product[] = [
     name: 'Soporte parabrisa insta/gopro', 
     price: '$22.990', 
     brand: 'Sunnylife', 
-    badge: '🚗 Uso en vehículo',
+    badge: '🔥 Más vendido',
     categoryName: "Soportes Moto / Vehículo", 
     categorySlug: "soportes-moto", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-windshield")?.imageUrl || "" 
@@ -79,7 +76,6 @@ export const PRODUCTS: Product[] = [
     name: 'Adaptador Casco Moto TELESIN', 
     price: '$15.990', 
     brand: 'Telesin', 
-    badge: '🏍️ Montaje en casco',
     categoryName: "Soportes Moto / Vehículo", 
     categorySlug: "soportes-moto", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-helmet-chin")?.imageUrl || "" 
@@ -91,7 +87,6 @@ export const PRODUCTS: Product[] = [
     name: 'Mini trípode gopro', 
     price: '$16.990', 
     brand: 'Ulanzi', 
-    badge: '📸 Grabación estable',
     categoryName: "Trípodes", 
     categorySlug: "tripodes", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-tripod-ulanzi")?.imageUrl || "" 
@@ -101,7 +96,6 @@ export const PRODUCTS: Product[] = [
     name: 'Mini trípode insta', 
     price: '$14.990', 
     brand: 'Genérico', 
-    badge: '📸 Grabación estable',
     categoryName: "Trípodes", 
     categorySlug: "tripodes", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-tripod-insta")?.imageUrl || "" 
@@ -113,7 +107,6 @@ export const PRODUCTS: Product[] = [
     name: 'Soporte smartphone giratorio CNC', 
     price: '$12.990', 
     brand: 'Genérico', 
-    badge: '📱 Rotación 360°',
     categoryName: "Soportes Smartphone", 
     categorySlug: "smartphone", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-phone-cnc")?.imageUrl || "" 
@@ -123,7 +116,6 @@ export const PRODUCTS: Product[] = [
     name: 'Soporte smartphone giratorio PLA', 
     price: '$8.990', 
     brand: 'Genérico', 
-    badge: '📱 Ligero y funcional',
     categoryName: "Soportes Smartphone", 
     categorySlug: "smartphone", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-phone-cnc")?.imageUrl || "" 
@@ -135,7 +127,7 @@ export const PRODUCTS: Product[] = [
     name: 'Lente repuesto GoPro 9/10/11/12', 
     price: '$18.990', 
     brand: 'Genérico', 
-    badge: '🔧 Repuesto esencial',
+    badge: '🔥 Más vendido',
     categoryName: "Accesorios Cámara", 
     categorySlug: "accesorios-camara", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-lens-gp")?.imageUrl || "" 
@@ -145,7 +137,6 @@ export const PRODUCTS: Product[] = [
     name: 'Soporte giratorio Insta 360', 
     price: '$15.990', 
     brand: 'Genérico', 
-    badge: '🎯 Contenido 360°',
     categoryName: "Accesorios Cámara", 
     categorySlug: "accesorios-camara", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-moto-handle")?.imageUrl || "" 
@@ -155,7 +146,6 @@ export const PRODUCTS: Product[] = [
     name: 'Pack soporte giratorio + selfie 1.20', 
     price: '$34.990', 
     brand: 'Genérico', 
-    badge: '🎁 Pack combinado',
     categoryName: "Accesorios Cámara", 
     categorySlug: "accesorios-camara", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-120")?.imageUrl || "" 
@@ -165,7 +155,6 @@ export const PRODUCTS: Product[] = [
     name: 'Adaptador magnético DJI Osmo Action 5 Pro', 
     price: '$12.990', 
     brand: 'Genérico', 
-    badge: '⚡ Montaje rápido',
     categoryName: "Accesorios Cámara", 
     categorySlug: "accesorios-camara", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-tripod-insta")?.imageUrl || "" 
@@ -177,7 +166,7 @@ export const PRODUCTS: Product[] = [
     name: 'Pechera Telesin', 
     price: '$26.990', 
     brand: 'Telesin', 
-    badge: '🦺 Grabación POV',
+    badge: '🔥 Más vendido',
     categoryName: "Accesorios Corporales", 
     categorySlug: "corporales", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-chest-mount")?.imageUrl || "" 

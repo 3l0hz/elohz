@@ -50,7 +50,7 @@ export function ThreeDProductCard({ id, name, price, category, imageUrl, brand, 
     >
       {badge && (
         <div className="absolute top-6 left-6 z-20">
-          <Badge className="bg-white/10 backdrop-blur-md text-white border-white/20 font-black text-[8px] tracking-widest px-3 py-1.5 rounded-full">
+          <Badge className="bg-white text-black border-none font-black text-[8px] tracking-widest px-3 py-1.5 rounded-full uppercase">
             {badge}
           </Badge>
         </div>
@@ -61,7 +61,7 @@ export function ThreeDProductCard({ id, name, price, category, imageUrl, brand, 
           <Badge variant="outline" className="border-[#1F1F1F] text-muted-foreground font-bold uppercase text-[8px] tracking-widest px-3 py-1 bg-black/50">
             {category}
           </Badge>
-          {brand && (
+          {brand && brand !== 'Genérico' && (
             <span className="text-[10px] font-black tracking-widest text-muted-foreground uppercase opacity-50">
               {brand}
             </span>
