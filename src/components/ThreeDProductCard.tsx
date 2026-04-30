@@ -66,9 +66,9 @@ export function ThreeDProductCard(product: Product) {
           </div>
         )}
         
-        <div className="p-5 md:p-8">
+        <div className="p-4 md:p-8">
           {/* Category and Brand Row */}
-          <div className="flex justify-between items-start mb-4 md:mb-6 min-h-[20px]">
+          <div className="flex justify-between items-start mb-3 md:mb-6 min-h-[20px]">
             {/* Category: Short on mobile, Full on desktop */}
             <Badge 
               variant="outline" 
@@ -90,7 +90,7 @@ export function ThreeDProductCard(product: Product) {
           </div>
 
           <div 
-            className="perspective-1000 relative h-40 md:h-56 w-full flex items-center justify-center cursor-pointer"
+            className="perspective-1000 relative h-44 md:h-56 w-full flex items-center justify-center cursor-pointer"
             onClick={() => setShowDetails(true)}
           >
             <div 
@@ -104,7 +104,7 @@ export function ThreeDProductCard(product: Product) {
                   : undefined
               }}
             >
-              <div className="relative w-32 h-32 md:w-44 md:h-44">
+              <div className="relative w-36 h-36 md:w-44 md:h-44">
                 <Image 
                   src={imageUrl} 
                   alt={name}
@@ -115,14 +115,14 @@ export function ThreeDProductCard(product: Product) {
             </div>
           </div>
 
-          <div className="mt-6 md:mt-8 space-y-2 min-h-[3.5rem] md:min-h-[4rem]">
+          <div className="mt-4 md:mt-8 space-y-1.5 md:space-y-2 min-h-[3.5rem] md:min-h-[4rem]">
             <h3 className="text-sm md:text-xl font-black tracking-tight leading-tight group-hover:text-white transition-premium line-clamp-2 uppercase">
               {name}
             </h3>
             <p className="text-lg md:text-2xl font-black text-white">{price}</p>
           </div>
 
-          <div className="mt-6 md:mt-8 flex flex-col gap-2">
+          <div className="mt-4 md:mt-8 flex flex-col gap-2">
             <Button 
               className="w-full pill-button button-primary h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-black"
               asChild
