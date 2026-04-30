@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview An AI agent that suggests products based on a user's described problem.
@@ -64,7 +65,7 @@ const AVAILABLE_PRODUCTS = [
   {
     name: 'Adaptador Casco Moto TELESIN',
     description: 'Montaje específico para el mentón o lateral del casco de moto. Ideal para tomas POV de motociclistas.',
-    problem_solved: ['POV motovlog', 'Montaje en casco', 'Ángulo de visión del piloto'],
+    problem_solved: ['POV en moto', 'Montaje en casco', 'Ángulo de visión del piloto'],
   },
   {
     name: 'Mini trípode gopro Ulanzi',
@@ -119,7 +120,7 @@ Available products:
 
 User's problem: {{{problemDescription}}}
 
-Suggest up to 3 relevant products. Be technical and precise. Avoid using the term "vlogger" or "vloguer". Use "youtuber" or "content creator" instead.`,
+Suggest up to 3 relevant products. Be technical and precise. Avoid using terms like "vlogger", "vloguer", "motovlogger" or "motovloggers". Use "youtuber", "content creator" or "action camera user" instead.`,
 });
 
 const productSolutionFinderFlow = ai.defineFlow(

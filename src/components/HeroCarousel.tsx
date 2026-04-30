@@ -22,9 +22,9 @@ const slides = [
     cta: "Explorar Catálogo",
   },
   {
-    tag: "MOTOVLOG READY",
+    tag: "PREPARADO PARA RUTA",
     title: "Perspectivas extremas",
-    subtitle: "Soportes de precisión para motovloggers y aventureros",
+    subtitle: "Soportes de precisión para creadores de contenido en moto y aventureros",
     image: PlaceHolderImages.find(img => img.id === "hero-action-2")?.imageUrl || "",
     cta: "Ver Soportes",
   },
