@@ -108,10 +108,13 @@ export function ThreeDProductCard(product: Product) {
       >
         <Card 
           className={cn(
-            "group relative overflow-hidden bg-[#111111] rounded-[1.5rem] md:rounded-[2rem] border cursor-pointer preserve-3d transition-all duration-300 ease-out shadow-2xl",
-            "border-white/[0.08] hover:border-white/20",
+            "group relative overflow-hidden bg-[#111111] rounded-[1.5rem] md:rounded-[2rem] border cursor-pointer preserve-3d transition-all duration-300 ease-out",
+            // Border: more defined in mobile for premium feel
+            "border-white/[0.18] md:border-white/[0.08] md:hover:border-white/20",
+            // Shadow/Glow: Replicating highlighted card look in mobile
+            "shadow-[0_0_35px_rgba(255,255,255,0.06),0_20px_60px_rgba(0,0,0,0.45)] md:shadow-2xl",
             isActive 
-              ? "scale-[1.02] border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.06)]" 
+              ? "scale-[0.98] md:scale-[1.02] border-white/25 md:border-white/20 shadow-[0_0_40px_rgba(255,255,255,0.08),0_20px_70px_rgba(0,0,0,0.55)]" 
               : "scale-100"
           )}
           style={{
@@ -132,12 +135,12 @@ export function ThreeDProductCard(product: Product) {
             }}
           />
 
-          {/* Mobile Premium Static/Active Glow Layer */}
+          {/* Mobile Premium Static/Active Glow Layer (Top-Center Illumination) */}
           <div 
             className={cn(
               "absolute inset-0 pointer-events-none z-30 transition-all duration-500 md:hidden",
-              "bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.05),transparent_60%)]",
-              isActive && "opacity-100 bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.12),transparent_70%)]"
+              "bg-[radial-gradient(circle_at_50%_-10%,rgba(255,255,255,0.08),transparent_60%)]",
+              isActive && "opacity-100 bg-[radial-gradient(circle_at_50%_-10%,rgba(255,255,255,0.15),transparent_70%)]"
             )}
           />
           
