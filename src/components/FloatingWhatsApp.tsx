@@ -22,11 +22,9 @@ export function FloatingWhatsApp() {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       
-      // Aparece al bajar (intención de explorar/comprar)
       if (currentScrollY > lastScrollY && currentScrollY > 100) {
         setIsVisible(true);
       } 
-      // Desaparece al subir (intención de volver al menú)
       else if (currentScrollY < lastScrollY) {
         setIsVisible(false);
       }
@@ -38,22 +36,32 @@ export function FloatingWhatsApp() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
+  const defaultMessage = encodeURIComponent("Hola, necesito asesoría sobre productos elohz.");
+
   return (
     <a 
-      href="https://wa.me/56940628182" 
+      href={`https://wa.me/56940628182?text=${defaultMessage}`} 
       target="_blank" 
       rel="noopener noreferrer"
       className={cn(
-        "fixed bottom-8 right-8 z-50 bg-white text-black p-4 rounded-2xl shadow-2xl transition-all duration-300 ease-out flex items-center justify-center group border border-white/20 active:scale-95 lg:hover:scale-110",
+        "fixed bottom-8 right-8 z-50 flex items-center justify-center group transition-all duration-500 ease-out",
+        "bg-white text-black h-[54px] md:h-[58px] min-w-[54px] md:min-w-[58px] rounded-full",
+        "shadow-[0_12px_40px_rgba(0,0,0,0.35)] border border-white/20",
+        "lg:hover:shadow-[0_0_28px_rgba(255,255,255,0.18)] lg:hover:scale-105 active:scale-95",
         isVisible 
           ? "opacity-100 translate-y-0 pointer-events-auto" 
           : "opacity-0 translate-y-[20px] pointer-events-none"
       )}
     >
-      <WhatsAppIcon className="w-6 h-6" />
-      <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-3 transition-all duration-500 whitespace-nowrap font-black text-[10px] uppercase tracking-widest">
-        Asesoría elohz
-      </span>
+      <div className="flex items-center px-4 md:px-5">
+        <WhatsAppIcon className="w-6 h-6 flex-shrink-0" />
+        <span className={cn(
+          "max-w-0 opacity-0 overflow-hidden whitespace-nowrap font-black text-[10px] uppercase tracking-[0.2em] transition-all duration-500 ease-out",
+          "lg:group-hover:max-w-[200px] lg:group-hover:opacity-100 lg:group-hover:ml-3"
+        )}>
+          Asesoría elohz
+        </span>
+      </div>
     </a>
   );
 }
