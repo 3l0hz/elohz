@@ -6,7 +6,6 @@ import { Toaster } from '@/components/ui/toaster';
 import Script from 'next/script';
 import { CartProvider } from '@/lib/cart-context';
 import { CartDrawer } from '@/components/CartDrawer';
-import { AnnouncementBanner } from '@/components/AnnouncementBanner';
 
 export const metadata: Metadata = {
   title: 'elohz | Tech Gadgets & Action Accessories',
@@ -32,9 +31,8 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased bg-background text-foreground selection:bg-primary selection:text-black">
         <CartProvider>
-          <AnnouncementBanner />
           <Header />
-          <div className="pt-[120px]">
+          <div className="pt-20">
             {children}
           </div>
           <CartDrawer />

@@ -60,8 +60,8 @@ export function Header() {
 
   return (
     <header className={cn(
-      "fixed top-10 z-50 w-full bg-[#0B0B0B]/90 backdrop-blur-xl border-b border-white/5 h-20 flex items-center transition-all duration-300 ease-out",
-      !isVisible ? "-translate-y-[calc(100%+40px)]" : "translate-y-0"
+      "fixed top-0 z-50 w-full bg-[#0B0B0B]/90 backdrop-blur-xl border-b border-white/5 h-20 flex items-center transition-all duration-300 ease-out",
+      !isVisible ? "-translate-y-full" : "translate-y-0"
     )}>
       <div className="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
         {/* Logo */}
