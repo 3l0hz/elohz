@@ -16,6 +16,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import Image from 'next/image';
 import { PRODUCTS, CATEGORIES } from '@/lib/catalog';
 import Link from 'next/link';
+import { FloatingWhatsApp } from '@/components/FloatingWhatsApp';
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg 
@@ -169,17 +170,7 @@ export default function Home() {
       </footer>
 
       {/* WhatsApp Floating Button */}
-      <a 
-        href="https://wa.me/56940628182" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="fixed bottom-8 right-8 z-50 bg-white text-black p-4 rounded-2xl shadow-2xl hover:scale-110 active:scale-95 transition-premium flex items-center justify-center group border border-white/20"
-      >
-        <WhatsAppIcon className="w-6 h-6" />
-        <span className="max-w-0 overflow-hidden group-hover:max-w-xs group-hover:ml-3 transition-all duration-500 whitespace-nowrap font-black text-[10px] uppercase tracking-widest">
-          Asesoría elohz
-        </span>
-      </a>
+      <FloatingWhatsApp />
     </main>
   );
 }
