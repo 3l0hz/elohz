@@ -70,7 +70,7 @@ export default function Home() {
             
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
               {section.products.map((product) => (
-                <ThreeDProductCard key={product.id} {...product} category={section.name} />
+                <ThreeDProductCard key={product.id} {...product} />
               ))}
             </div>
           </div>
@@ -89,7 +89,7 @@ export default function Home() {
             <Badge className="bg-white text-black font-black text-[10px] tracking-widest">CONTENT CREATORS</Badge>
             <h2 className="text-5xl md:text-7xl font-black leading-[0.9] tracking-tighter uppercase">Diseñado para la acción</h2>
             <p className="text-muted-foreground text-xl leading-relaxed">
-              Somos especialistas en accesorios para cámaras deportivas. Si eres motovlogger, deportista extremo o creador de contenido, elohz tiene el gear que necesitas para capturar lo imposible.
+              Somos especialistas en accesorios para cámaras deportivas. Si eres motociclista, deportista extremo, youtuber o una de las personas que graban contenido técnico, elohz tiene el gear que necesitas para capturar lo imposible.
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
               <Button className="pill-button button-primary h-14 px-12 text-[10px] font-black uppercase tracking-widest">Ver Colección Pro</Button>
