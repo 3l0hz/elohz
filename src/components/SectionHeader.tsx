@@ -14,8 +14,8 @@ interface SectionHeaderProps {
 export function SectionHeader({ badge, title, description, className }: SectionHeaderProps) {
   return (
     <div className={cn("flex flex-col md:flex-row md:items-end justify-between gap-6 relative pl-8 overflow-hidden", className)}>
-      {/* Static Vertical Line */}
-      <div className="absolute left-0 top-0 bottom-0 w-[3px] md:w-1 bg-accent" />
+      {/* Static Vertical Line - Thinner for premium feel */}
+      <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-accent" />
       
       <div className="space-y-3">
         {/* Badge */}
