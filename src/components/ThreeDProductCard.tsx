@@ -44,7 +44,8 @@ export function ThreeDProductCard(product: Product) {
       "Soportes Smartphone": "Smartphone",
       "Accesorios Corporales": "POV",
       "Selfie Sticks": "Selfie",
-      "Trípodes": "Trípode"
+      "Trípodes": "Trípode",
+      "Adaptadores Casco": "Casco"
     };
     return map[name] || name;
   };
@@ -69,29 +70,26 @@ export function ThreeDProductCard(product: Product) {
         {/* Profundidad visual permanente */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
         
-        {badge && (
-          <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20">
-            <Badge className="bg-white text-black border-none font-black text-[7px] md:text-[8px] tracking-widest px-2 py-1 md:px-3 md:py-1.5 rounded-full uppercase whitespace-nowrap shadow-xl">
-              {badge}
-            </Badge>
-          </div>
-        )}
-        
         <div className="p-4 md:p-8 flex flex-col h-full relative z-10">
-          <div className="flex justify-between items-start mb-2 md:mb-6 min-h-[20px]">
-            <Badge 
-              variant="outline" 
-              className={cn(
-                "border-white/10 text-muted-foreground font-bold uppercase text-[7px] md:text-[8px] tracking-widest px-2 py-0.5 md:px-3 md:py-1 bg-black/40 backdrop-blur-sm whitespace-nowrap",
-                badge && "hidden sm:inline-flex"
+          {/* Header con Badges y Marca */}
+          <div className="flex justify-between items-start mb-4 md:mb-6 min-h-[48px] md:min-h-[60px]">
+            <div className="flex flex-col items-start gap-1.5">
+              {badge && (
+                <Badge className="bg-white text-black border-none font-black text-[7px] md:text-[8px] tracking-widest px-2 py-1 md:px-3 md:py-1.5 rounded-full uppercase whitespace-nowrap shadow-xl w-fit">
+                  {badge}
+                </Badge>
               )}
-            >
-              <span className="md:hidden">{getShortCategory(categoryName)}</span>
-              <span className="hidden md:inline">{categoryName}</span>
-            </Badge>
+              <Badge 
+                variant="outline" 
+                className="border-white/10 text-muted-foreground font-bold uppercase text-[7px] md:text-[8px] tracking-widest px-2 py-0.5 md:px-3 md:py-1 bg-black/40 backdrop-blur-sm whitespace-nowrap w-fit"
+              >
+                <span className="md:hidden">{getShortCategory(categoryName)}</span>
+                <span className="hidden md:inline">{categoryName}</span>
+              </Badge>
+            </div>
 
             {brand && brand !== 'Genérico' && (
-              <span className="text-[7px] md:text-[10px] font-black tracking-widest text-muted-foreground/60 uppercase ml-auto truncate max-w-[60px] md:max-w-none">
+              <span className="text-[7px] md:text-[10px] font-black tracking-widest text-muted-foreground/60 uppercase ml-auto pt-1 truncate max-w-[60px] md:max-w-none">
                 {brand}
               </span>
             )}
