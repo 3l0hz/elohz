@@ -3,7 +3,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { PRODUCTS, CATEGORIES } from '@/lib/catalog';
 import { ThreeDProductCard } from '@/components/ThreeDProductCard';
-import { Badge } from '@/components/ui/badge';
+import { SectionHeader } from '@/components/SectionHeader';
 import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 
@@ -46,17 +46,11 @@ export default async function CategoryPage({ params }: PageProps) {
             Volver al inicio
           </Link>
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-l-4 border-accent pl-8">
-            <div className="space-y-2">
-              <Badge className="bg-accent/10 text-accent border-accent/20 font-black text-[9px] tracking-[0.2em] px-3">
-                CATÁLOGO PROFESIONAL
-              </Badge>
-              <h1 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-none">{category.name}</h1>
-            </div>
-            <p className="text-muted-foreground font-medium text-sm md:text-base max-w-xs">
-              {categoryProducts.length} productos encontrados en esta categoría.
-            </p>
-          </div>
+          <SectionHeader 
+            badge="CATÁLOGO PROFESIONAL"
+            title={category.name}
+            description={`${categoryProducts.length} productos encontrados en esta categoría.`}
+          />
         </div>
 
         {/* Grid */}

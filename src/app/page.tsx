@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { HeroCarousel } from '@/components/HeroCarousel';
 import { ThreeDProductCard } from '@/components/ThreeDProductCard';
 import { AIProblemSolver } from '@/components/AIProblemSolver';
-import { Badge } from '@/components/ui/badge';
+import { SectionHeader } from '@/components/SectionHeader';
 import { Button } from '@/components/ui/button';
 import { 
   Truck, 
@@ -13,8 +12,6 @@ import {
   Youtube, 
   Twitter
 } from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import Image from 'next/image';
 import { PRODUCTS, CATEGORIES } from '@/lib/catalog';
 import Link from 'next/link';
 import { FloatingWhatsApp } from '@/components/FloatingWhatsApp';
@@ -69,17 +66,11 @@ export default function Home() {
       <section className="py-24 px-6 max-w-7xl mx-auto space-y-32">
         {catalogShowcase.map((section, idx) => (
           <div key={idx} className="space-y-12">
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-l-4 border-accent pl-8">
-              <div className="space-y-2">
-                <Badge className="bg-accent/10 text-accent border-accent/20 font-black text-[9px] tracking-[0.2em] px-3">
-                  {section.name.toUpperCase()}
-                </Badge>
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase">{section.name}</h2>
-              </div>
-              <p className="text-muted-foreground font-medium text-sm md:text-base max-w-xs">
-                Equipamiento técnico seleccionado para {section.name.toLowerCase()}.
-              </p>
-            </div>
+            <SectionHeader 
+              badge={section.name}
+              title={section.name}
+              description={`Equipamiento técnico seleccionado para ${section.name.toLowerCase()}.`}
+            />
             
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-8">
               {section.products.map((product) => (
