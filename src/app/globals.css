@@ -44,10 +44,18 @@
   transform-style: preserve-3d;
 }
 
+.translate-z-10 {
+  transform: translateZ(10px);
+}
+
+.translate-z-20 {
+  transform: translateZ(25px);
+}
+
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0px); }
+  0% { transform: translateY(0px) translateZ(25px); }
+  50% { transform: translateY(-8px) translateZ(35px); }
+  100% { transform: translateY(0px) translateZ(25px); }
 }
 
 .animate-float-3d {
@@ -75,10 +83,18 @@
 }
 
 .transition-premium {
-  @apply transition-all duration-300 ease-in-out;
+  @apply transition-all duration-500 ease-out;
 }
 
 /* Custom backdrop for premium feel */
 [data-state=open].DialogOverlay {
   @apply backdrop-blur-md bg-black/80;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
