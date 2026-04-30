@@ -43,15 +43,15 @@ export function ActionSection() {
     >
       {/* Dynamic Background Layers */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Base Ambient Glow */}
-        <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[600px] h-[600px] bg-accent/5 blur-[120px] rounded-full animate-pulse duration-[8000ms]" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-white/[0.02] blur-[100px] rounded-full" />
+        {/* Base Fixed Glows - Strategic placement for depth */}
+        <div className="absolute top-1/4 left-1/4 -translate-y-1/2 w-[800px] h-[800px] bg-accent/5 blur-[140px] rounded-full opacity-40 animate-pulse duration-[10000ms]" />
+        <div className="absolute bottom-0 right-1/4 w-[600px] h-[600px] bg-accent/[0.03] blur-[120px] rounded-full opacity-30" />
         
-        {/* Interactive Mouse Follow Glow (Desktop only) */}
+        {/* Interactive Mouse Follow Glow (Desktop only) - Subtle Green Action */}
         <div 
-          className="absolute hidden lg:block w-[800px] h-[800px] rounded-full transition-opacity duration-700 pointer-events-none"
+          className="absolute hidden lg:block w-[1000px] h-[1000px] rounded-full transition-opacity duration-1000 pointer-events-none"
           style={{
-            background: `radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 70%)`,
+            background: `radial-gradient(circle at center, rgba(0,255,156,0.1) 0%, transparent 75%)`,
             left: `${mousePos.x}px`,
             top: `${mousePos.y}px`,
             transform: 'translate(-50%, -50%)',
@@ -60,8 +60,8 @@ export function ActionSection() {
           }}
         />
 
-        {/* Noise / Texture Overlay */}
-        <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+        {/* Ultra-subtle Noise Texture Overlay */}
+        <div className="absolute inset-0 opacity-[0.02] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
       </div>
 
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 items-center gap-20 relative z-10">
