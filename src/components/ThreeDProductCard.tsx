@@ -16,10 +16,9 @@ export function ThreeDProductCard(product: Product) {
   const [isActive, setIsActive] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
   
-  // 3D & Reflection State
+  // 3D & Reflection State (Desktop Focused)
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [shine, setShine] = useState({ x: 50, y: 50, opacity: 0 });
-  const [floating, setFloating] = useState({ y: 0, scale: 1 });
 
   const { name, price, categoryName, imageUrl, brand, badge } = product;
   const whatsappLink = `https://wa.me/56940628182?text=Hola,%20quisiera%20consultar%20por%20el%20producto:%20${encodeURIComponent(name)}`;
@@ -38,7 +37,7 @@ export function ThreeDProductCard(product: Product) {
     return map[name] || name;
   };
 
-  // Scroll visibility observer
+  // Scroll visibility observer (Apple style entrance)
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -63,64 +62,16 @@ export function ThreeDProductCard(product: Product) {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     
+    // Smooth 3D rotation
     const rotateX = ((y - centerY) / centerY) * -6;
     const rotateY = ((x - centerX) / centerX) * 6;
     
+    // Dynamic shine reflection
     const shineX = (x / rect.width) * 100;
     const shineY = (y / rect.height) * 100;
 
     setRotate({ x: rotateX, y: rotateY });
     setShine({ x: shineX, y: shineY, opacity: 0.15 });
-  };
-
-  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
-    setIsActive(true);
-    setFloating({ y: -4, scale: 1.04 });
-    
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const touch = e.touches[0];
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
-    
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = ((y - centerY) / centerY) * -3;
-    const rotateY = ((x - centerX) / centerX) * 3;
-
-    setRotate({ x: rotateX, y: rotateY });
-    setShine({ x: (x / rect.width) * 100, y: (y / rect.height) * 100, opacity: 0.1 });
-  };
-
-  const handleTouchMove = (e: React.TouchEvent<HTMLDivElement>) => {
-    if (!cardRef.current || !isActive) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const touch = e.touches[0];
-    const x = touch.clientX - rect.left;
-    const y = touch.clientY - rect.top;
-    
-    // Boundary check
-    if (x < 0 || x > rect.width || y < 0 || y > rect.height) {
-      handleTouchEnd();
-      return;
-    }
-
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    
-    const rotateX = ((y - centerY) / centerY) * -3;
-    const rotateY = ((x - centerX) / centerX) * 3;
-
-    setRotate({ x: rotateX, y: rotateY });
-    setShine({ x: (x / rect.width) * 100, y: (y / rect.height) * 100, opacity: 0.1 });
-  };
-
-  const handleTouchEnd = () => {
-    setIsActive(false);
-    setRotate({ x: 0, y: 0 });
-    setShine(prev => ({ ...prev, opacity: 0 }));
-    setFloating({ y: 0, scale: 1 });
   };
 
   const handleMouseLeave = () => {
@@ -135,20 +86,33 @@ export function ThreeDProductCard(product: Product) {
     }
   };
 
+  // Simple touch handlers for mobile stability
+  const handleTouchStart = () => {
+    setIsActive(true);
+  };
+
+  const handleTouchEnd = () => {
+    setIsActive(false);
+  };
+
   return (
     <>
       <div 
         ref={cardRef}
         className={cn(
           "perspective-1000 transition-all duration-700 ease-out touch-none",
-          isVisible ? "opacity-100 translate-y-0 scale-100 blur-0" : "opacity-0 translate-y-6 scale-[0.96] blur-sm"
+          isVisible 
+            ? "opacity-100 translate-y-0 scale-100 blur-0" 
+            : "opacity-0 translate-y-6 scale-[0.96] blur-sm"
         )}
       >
         <Card 
           className={cn(
             "group relative overflow-hidden bg-[#111111] rounded-[2rem] border cursor-pointer preserve-3d transition-all duration-300 ease-out shadow-2xl",
             "border-white/[0.08] hover:border-white/20",
-            isActive ? "scale-[0.98] border-white/25 shadow-[0_0_30px_rgba(255,255,255,0.06)]" : "scale-100"
+            isActive 
+              ? "scale-[0.98] md:scale-[1.02] border-white/25 shadow-[0_0_30px_rgba(255,255,255,0.06)]" 
+              : "scale-100"
           )}
           style={{
             transform: `rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`,
@@ -157,7 +121,6 @@ export function ThreeDProductCard(product: Product) {
           onMouseLeave={handleMouseLeave}
           onMouseEnter={handleMouseEnter}
           onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
           onClick={() => setShowDetails(true)}
         >
@@ -197,14 +160,9 @@ export function ThreeDProductCard(product: Product) {
               </Badge>
             </div>
 
-            {/* Image Container: Touch 3D Floating Effect */}
+            {/* Image Container */}
             <div className="relative h-44 md:h-56 w-full flex items-center justify-center overflow-hidden translate-z-20">
-              <div 
-                className="relative w-36 h-36 md:w-44 md:h-44 transition-all duration-300 ease-out md:group-hover:scale-[1.05]"
-                style={{
-                  transform: `translateY(${floating.y}px) scale(${floating.scale})`,
-                }}
-              >
+              <div className="relative w-36 h-36 md:w-44 md:h-44 transition-all duration-300 ease-out md:group-hover:scale-[1.05]">
                 <Image 
                   src={imageUrl} 
                   alt={name}
