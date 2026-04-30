@@ -2,15 +2,15 @@
   "placeholderImages": [
     {
       "id": "hero-action-1",
-      "description": "Accesorios profesionales para cámaras deportivas",
-      "imageUrl": "https://picsum.photos/seed/action1/1200/600",
-      "imageHint": "action camera accessories"
+      "description": "Salto extremo en skate",
+      "imageUrl": "https://picsum.photos/seed/extreme-skate/1200/800",
+      "imageHint": "skateboarding jump"
     },
     {
       "id": "hero-action-2",
-      "description": "Graba, crea y lleva tu contenido al siguiente nivel",
-      "imageUrl": "https://picsum.photos/seed/action2/1200/600",
-      "imageHint": "motovlog helmet camera"
+      "description": "Downhill extremo en montaña",
+      "imageUrl": "https://picsum.photos/seed/downhill-mtb/1200/800",
+      "imageHint": "downhill biking"
     },
     {
       "id": "prod-stick-120",
