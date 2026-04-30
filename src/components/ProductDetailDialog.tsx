@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Box, Play, ImageIcon, ChevronLeft, ChevronRight } from "lucide-react";
+import { MessageCircle, Box, Play, ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
 import { Product } from '@/lib/catalog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
@@ -32,7 +32,7 @@ interface MediaItem {
 
 export function ProductDetailDialog({ product, open, onOpenChange }: ProductDetailDialogProps) {
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
-  const [is3dActive, setIs3dActive] = useState(false);
+  const [isZoomed, setIsZoomed] = useState(false);
 
   // Construct media gallery
   const mediaGallery: MediaItem[] = [
@@ -48,50 +48,58 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
   useEffect(() => {
     if (!open) {
       setActiveMediaIndex(0);
-      setIs3dActive(false);
+      setIsZoomed(false);
     }
   }, [open]);
 
+  const handleNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setActiveMediaIndex(prev => (prev < mediaGallery.length - 1 ? prev + 1 : 0));
+  };
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setActiveMediaIndex(prev => (prev > 0 ? prev - 1 : mediaGallery.length - 1));
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-6xl p-0 overflow-hidden bg-[#0B0B0B] border-white/5 rounded-[2.5rem] flex flex-col md:flex-row h-[95vh] md:h-[85vh]">
+      <DialogContent className={cn(
+        "max-w-[100vw] md:max-w-6xl p-0 overflow-hidden bg-[#0B0B0B] border-white/5 md:rounded-[2.5rem] flex flex-col md:flex-row h-[100dvh] md:h-[85vh] transition-all duration-500 ease-out",
+        "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-bottom-10"
+      )}>
         <DialogHeader className="sr-only">
           <DialogTitle>{product.name}</DialogTitle>
           <DialogDescription>Detalles multimedia y técnicos del producto.</DialogDescription>
         </DialogHeader>
 
         {/* Gallery Section */}
-        <div className="relative w-full md:w-3/5 bg-[#0B0B0B] flex flex-col">
-          <div className="relative flex-1 group overflow-hidden bg-[#0F0F0F]">
-            {/* Main Viewport */}
-            <div className="absolute inset-0 flex items-center justify-center p-4">
+        <div className="relative w-full md:w-3/5 bg-[#0F0F0F] flex flex-col border-r border-white/5">
+          {/* Main Viewport */}
+          <div 
+            className="relative flex-1 group overflow-hidden flex items-center justify-center cursor-zoom-in"
+            onClick={() => activeMedia.type === 'image' && setIsZoomed(true)}
+          >
+            <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_0%,transparent_70%)]" />
+            
+            <div className="relative w-full h-full flex items-center justify-center p-6 md:p-12 z-10 transition-all duration-500">
               {activeMedia.type === 'image' && (
-                <div className="relative w-full h-full flex items-center justify-center">
+                <div className="relative w-full h-full animate-in fade-in zoom-in-95 duration-500">
                   <Image 
                     src={activeMedia.url} 
                     alt={product.name}
                     fill
-                    className="object-contain p-4 md:p-12 transition-all duration-700"
+                    className="object-contain"
+                    priority
                   />
-                  {product.model3dUrl && (
-                    <button 
-                      onClick={() => {
-                        const index3d = mediaGallery.findIndex(m => m.type === '3d');
-                        if (index3d !== -1) setActiveMediaIndex(index3d);
-                      }}
-                      className="absolute inset-0 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center bg-black/20 backdrop-blur-[2px]"
-                    >
-                      <div className="bg-white/10 backdrop-blur-xl border border-white/20 px-6 py-3 rounded-2xl flex items-center gap-3 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                        <Box className="w-5 h-5 text-accent" />
-                        <span className="text-[10px] font-black tracking-widest uppercase">Ver en 3D</span>
-                      </div>
-                    </button>
-                  )}
+                  <div className="absolute bottom-4 right-4 md:opacity-0 md:group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-md p-2 rounded-xl border border-white/10">
+                    <Maximize2 className="w-5 h-5 text-white/70" />
+                  </div>
                 </div>
               )}
 
               {activeMedia.type === '3d' && (
-                <div className="w-full h-full">
+                <div className="w-full h-full animate-in fade-in duration-500">
                   {/* @ts-ignore */}
                   <model-viewer
                     src={activeMedia.url}
@@ -106,50 +114,56 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
               )}
 
               {activeMedia.type === 'video' && (
-                <div className="w-full h-full flex items-center justify-center p-4">
+                <div className="w-full h-full flex items-center justify-center p-4 animate-in fade-in duration-500">
                   <video 
                     src={activeMedia.url} 
                     controls 
-                    className="max-h-full max-w-full rounded-2xl"
+                    className="max-h-full max-w-full rounded-3xl shadow-2xl"
                     poster={product.imageUrl}
                   />
                 </div>
               )}
             </div>
 
-            {/* Navigation Arrows */}
-            <button 
-              onClick={() => setActiveMediaIndex(prev => (prev > 0 ? prev - 1 : mediaGallery.length - 1))}
-              className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-premium z-20 md:opacity-0 md:group-hover:opacity-100"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button 
-              onClick={() => setActiveMediaIndex(prev => (prev < mediaGallery.length - 1 ? prev + 1 : 0))}
-              className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white transition-premium z-20 md:opacity-0 md:group-hover:opacity-100"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
+            {/* Navigation Arrows (Only if more than 1 media) */}
+            {mediaGallery.length > 1 && (
+              <>
+                <button 
+                  onClick={handlePrev}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/20 backdrop-blur-xl border border-white/10 text-white transition-premium z-20 md:opacity-0 md:group-hover:opacity-100 hover:bg-white/10 active:scale-90"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button 
+                  onClick={handleNext}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/20 backdrop-blur-xl border border-white/10 text-white transition-premium z-20 md:opacity-0 md:group-hover:opacity-100 hover:bg-white/10 active:scale-90"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </>
+            )}
 
             {/* Badges Overlay */}
-            <div className="absolute top-8 left-8 z-30 flex flex-col gap-2">
+            <div className="absolute top-6 left-6 z-30 flex flex-col gap-2">
               {product.badge && (
-                <Badge className="bg-white text-black font-black text-[9px] px-4 py-2 tracking-widest uppercase rounded-xl border-none">
+                <Badge className="bg-white text-black font-black text-[9px] px-4 py-2 tracking-widest uppercase rounded-xl border-none shadow-2xl">
                   {product.badge}
                 </Badge>
               )}
             </div>
           </div>
 
-          {/* Thumbnails */}
-          <div className="h-24 border-t border-white/5 bg-[#0B0B0B] p-4 flex gap-3 overflow-x-auto no-scrollbar scroll-smooth">
+          {/* Thumbnails Bar */}
+          <div className="h-28 border-t border-white/5 bg-[#0B0B0B] p-5 flex items-center justify-center gap-4 overflow-x-auto no-scrollbar">
             {mediaGallery.map((item, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveMediaIndex(idx)}
                 className={cn(
-                  "relative h-full aspect-square rounded-xl overflow-hidden border-2 transition-premium flex-shrink-0",
-                  activeMediaIndex === idx ? "border-accent" : "border-transparent opacity-40 hover:opacity-100"
+                  "relative h-16 aspect-square rounded-2xl overflow-hidden border-2 transition-all duration-300 flex-shrink-0 active:scale-90",
+                  activeMediaIndex === idx 
+                    ? "border-accent scale-110 shadow-lg shadow-accent/20" 
+                    : "border-transparent opacity-40 hover:opacity-100"
                 )}
               >
                 {item.type === 'image' && (
@@ -168,47 +182,61 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
               </button>
             ))}
           </div>
+
+          {/* Close button for mobile inside gallery area if needed */}
+          <button 
+            onClick={() => onOpenChange(false)}
+            className="md:hidden absolute top-6 right-6 z-50 p-3 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white"
+          >
+            <X className="w-5 h-5" />
+          </button>
         </div>
 
         {/* Content Section */}
-        <div className="flex-1 flex flex-col p-8 md:p-12 space-y-10 overflow-hidden bg-[#0B0B0B]">
+        <div className="flex-1 flex flex-col p-8 md:p-12 space-y-10 overflow-hidden bg-[#0B0B0B] relative">
           <ScrollArea className="flex-1 pr-4">
-            <div className="space-y-10">
-              <div className="space-y-4">
+            <div className="space-y-12 pb-24 md:pb-0">
+              <div className="space-y-6">
                 <div className="flex flex-wrap items-center gap-3">
-                  <Badge variant="outline" className="border-accent/20 text-accent font-black text-[8px] tracking-[0.2em] px-3 py-1 bg-accent/5 rounded-lg">
+                  <Badge variant="outline" className="border-accent/20 text-accent font-black text-[9px] tracking-[0.2em] px-4 py-1.5 bg-accent/5 rounded-xl">
                     {product.categoryName.toUpperCase()}
                   </Badge>
                   {product.brand && product.brand !== 'Genérico' && (
-                    <span className="text-[10px] font-black tracking-widest text-muted-foreground uppercase bg-white/5 px-2 py-1 rounded-md">
+                    <span className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase bg-white/5 px-3 py-1.5 rounded-xl border border-white/5">
                       {product.brand}
                     </span>
                   )}
                 </div>
-                <div className="space-y-1">
-                  <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase leading-[0.9]">{product.name}</h2>
-                  <p className="text-3xl font-black text-white pt-4 tracking-tight">{product.price}</p>
+                <div className="space-y-2">
+                  <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-[0.9] text-white">{product.name}</h2>
+                  <div className="flex items-baseline gap-2 pt-4">
+                    <span className="text-3xl md:text-5xl font-black text-white tracking-tighter">{product.price}</span>
+                    <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">En stock</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="space-y-8">
-                <div className="space-y-3">
-                  <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-accent">Descripción</h4>
-                  <p className="text-sm leading-relaxed text-muted-foreground font-medium uppercase tracking-tight">
+              <div className="space-y-12">
+                <div className="space-y-4">
+                  <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-accent flex items-center gap-3">
+                    <span className="w-8 h-[1px] bg-accent/30" />
+                    Descripción
+                  </h4>
+                  <p className="text-sm md:text-base leading-relaxed text-muted-foreground font-medium uppercase tracking-tight">
                     {product.description}
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-8 pt-4">
-                  <div className="space-y-3 p-6 rounded-3xl bg-white/5 border border-white/5">
-                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Compatibilidad Técnica</h4>
-                    <p className="text-xs leading-relaxed text-white font-bold uppercase tracking-tight">
+                <div className="grid grid-cols-1 gap-6">
+                  <div className="group space-y-4 p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-premium">
+                    <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-muted-foreground">Compatibilidad Técnica</h4>
+                    <p className="text-sm leading-relaxed text-white font-bold uppercase tracking-tight group-hover:text-accent transition-premium">
                       {product.compatibility}
                     </p>
                   </div>
-                  <div className="space-y-3 p-6 rounded-3xl bg-white/5 border border-white/5">
-                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Uso Profesional</h4>
-                    <p className="text-xs leading-relaxed text-white font-bold uppercase tracking-tight">
+                  <div className="group space-y-4 p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-premium">
+                    <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-muted-foreground">Uso Profesional</h4>
+                    <p className="text-sm leading-relaxed text-white font-bold uppercase tracking-tight group-hover:text-accent transition-premium">
                       {product.recommendedUse}
                     </p>
                   </div>
@@ -217,25 +245,46 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
             </div>
           </ScrollArea>
 
-          <div className="pt-8 border-t border-white/5 flex flex-col gap-4">
+          {/* Sticky Footer for CTA */}
+          <div className="pt-8 md:pt-12 border-t border-white/5 flex flex-col gap-4 bg-[#0B0B0B] z-10">
             <Button 
-              className="w-full h-16 rounded-[1.25rem] bg-white text-black hover:bg-[#EAEAEA] font-black text-xs uppercase tracking-[0.2em] transition-premium shadow-xl shadow-white/5"
+              className="w-full h-20 rounded-[1.5rem] bg-white text-black hover:bg-[#EAEAEA] font-black text-sm uppercase tracking-[0.2em] transition-premium shadow-2xl shadow-white/5 active:scale-[0.98]"
               asChild
             >
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-5 h-5 mr-3" />
+                <MessageCircle className="w-6 h-6 mr-3" />
                 Comprar por WhatsApp
               </a>
             </Button>
             <Button 
               variant="ghost" 
               onClick={() => onOpenChange(false)}
-              className="w-full h-14 rounded-2xl text-muted-foreground hover:text-white hover:bg-white/5 font-black text-[10px] uppercase tracking-[0.2em]"
+              className="hidden md:flex w-full h-14 rounded-2xl text-muted-foreground hover:text-white hover:bg-white/5 font-black text-[10px] uppercase tracking-[0.2em]"
             >
               Cerrar Galería
             </Button>
           </div>
         </div>
+
+        {/* Lightbox / Zoom View */}
+        {isZoomed && activeMedia.type === 'image' && (
+          <div 
+            className="fixed inset-0 z-[100] bg-black/95 backdrop-blur-2xl flex items-center justify-center p-4 animate-in fade-in duration-300 cursor-zoom-out"
+            onClick={() => setIsZoomed(false)}
+          >
+            <button className="absolute top-8 right-8 text-white p-4 hover:rotate-90 transition-all duration-500">
+              <X className="w-10 h-10" />
+            </button>
+            <div className="relative w-full h-full max-w-5xl max-h-[80vh]">
+              <Image 
+                src={activeMedia.url} 
+                alt="Zoom view"
+                fill
+                className="object-contain"
+              />
+            </div>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );
