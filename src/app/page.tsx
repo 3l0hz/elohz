@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { HeroCarousel } from '@/components/HeroCarousel';
 import { ThreeDProductCard } from '@/components/ThreeDProductCard';
@@ -17,6 +18,7 @@ import Image from 'next/image';
 import { PRODUCTS, CATEGORIES } from '@/lib/catalog';
 import Link from 'next/link';
 import { FloatingWhatsApp } from '@/components/FloatingWhatsApp';
+import { ActionSection } from '@/components/ActionSection';
 
 const WhatsAppIcon = ({ className }: { className?: string }) => (
   <svg 
@@ -93,31 +95,8 @@ export default function Home() {
         <AIProblemSolver />
       </div>
 
-      {/* Call to Action for Creators */}
-      <section className="py-32 bg-[#111111] px-6 border-y border-[#1F1F1F]">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 items-center gap-20">
-          <div className="space-y-8">
-            <Badge className="bg-white text-black font-black text-[10px] tracking-widest">CONTENT CREATORS</Badge>
-            <h2 className="text-5xl md:text-7xl font-black leading-[0.9] tracking-tighter uppercase">Diseñado para la acción</h2>
-            <p className="text-muted-foreground text-xl leading-relaxed">
-              Somos especialistas en accesorios para cámaras deportivas. Si eres motociclista, deportista extremo, youtuber o una de las personas que graban contenido técnico, elohz tiene el gear que necesitas para capturar lo imposible.
-            </p>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <Button className="pill-button button-primary h-14 px-12 text-[10px] font-black uppercase tracking-widest">Ver Colección Pro</Button>
-              <Button variant="outline" className="pill-button h-14 px-12 text-[10px] font-black uppercase tracking-widest border-white/20">Asesoría Técnica</Button>
-            </div>
-          </div>
-          <div className="relative aspect-square rounded-[3rem] overflow-hidden shadow-2xl border border-[#1F1F1F] group">
-            <Image 
-              src={PlaceHolderImages.find(img => img.id === "hero-action-2")?.imageUrl || ""}
-              alt="Action Creators"
-              fill
-              className="object-cover transition-transform duration-1000 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
-          </div>
-        </div>
-      </section>
+      {/* Call to Action for Creators - Now Interactive */}
+      <ActionSection />
 
       {/* Footer */}
       <footer className="bg-background border-t border-[#1F1F1F] pt-24 pb-12 px-6">
