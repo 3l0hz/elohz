@@ -43,7 +43,7 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
   ];
 
   const activeMedia = mediaGallery[activeMediaIndex];
-  const whatsappLink = `https://wa.me/56940628182?text=Hola,%20estoy%20interesado%20en%20el%20producto:%20${encodeURIComponent(product.name)}`;
+  const whatsappLink = `https://wa.me/56940628182?text=Hola,%20quisiera%20consultar%20por%20el%20producto:%20${encodeURIComponent(product.name)}`;
 
   useEffect(() => {
     if (!open) {
@@ -240,7 +240,7 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
             >
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="w-5 h-5 mr-2" />
-                Comprar por WhatsApp
+                Consultar por WhatsApp
               </a>
             </Button>
             <DialogClose asChild>

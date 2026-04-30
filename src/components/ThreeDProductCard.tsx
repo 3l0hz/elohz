@@ -18,7 +18,6 @@ export function ThreeDProductCard(product: Product) {
   const { name, price, categoryName, imageUrl, brand, badge } = product;
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Solo aplicar efecto 3D en dispositivos con mouse (desktop)
     if (!isHovered) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -35,11 +34,11 @@ export function ThreeDProductCard(product: Product) {
     setRotation({ x: 0, y: 0 });
   };
 
-  const whatsappLink = `https://wa.me/56940628182?text=Hola,%20estoy%20interesado%20en%20el%20producto:%20${encodeURIComponent(name)}`;
+  const whatsappLink = `https://wa.me/56940628182?text=Hola,%20quisiera%20consultar%20por%20el%20producto:%20${encodeURIComponent(name)}`;
 
   const getShortCategory = (name: string) => {
     const map: Record<string, string> = {
-      "Soportes Moto / Vehículo": "Moto",
+      "Soportes Moto / Vehículo": "Moto / Vehículo",
       "Accesorios Cámara": "Cámara",
       "Soportes Smartphone": "Smartphone",
       "Accesorios Corporales": "POV",
@@ -55,11 +54,8 @@ export function ThreeDProductCard(product: Product) {
       <Card 
         className={cn(
           "group relative overflow-hidden bg-[#111111] transition-all duration-500 rounded-[2rem] border cursor-pointer",
-          // Estilo base Mobile (Premium)
           "border-white/[0.08] shadow-[0_0_30px_rgba(255,255,255,0.04)]",
-          // Feedback Táctil Mobile
           "active:scale-[0.98] active:border-white/[0.22] active:shadow-[0_0_40px_rgba(255,255,255,0.08)]",
-          // Estilo Desktop Hover
           "md:hover:border-white/30 md:active:scale-100 md:shadow-lg"
         )}
         onMouseEnter={() => setIsHovered(true)}
@@ -67,32 +63,30 @@ export function ThreeDProductCard(product: Product) {
         onMouseLeave={resetRotation}
         onClick={() => setShowDetails(true)}
       >
-        {/* Profundidad visual permanente */}
         <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
         
         <div className="p-4 md:p-8 flex flex-col h-full relative z-10">
-          {/* Header con Badges y Marca */}
-          <div className="flex justify-between items-start mb-4 md:mb-6 min-h-[48px] md:min-h-[60px]">
-            <div className="flex flex-col items-start gap-1.5">
+          <div className="flex flex-col gap-2 mb-4 md:mb-6 min-h-[64px] md:min-h-[80px]">
+            <div className="flex justify-between items-start w-full">
               {badge && (
                 <Badge className="bg-white text-black border-none font-black text-[7px] md:text-[8px] tracking-widest px-2 py-1 md:px-3 md:py-1.5 rounded-full uppercase whitespace-nowrap shadow-xl w-fit">
                   {badge}
                 </Badge>
               )}
-              <Badge 
-                variant="outline" 
-                className="border-white/10 text-muted-foreground font-bold uppercase text-[7px] md:text-[8px] tracking-widest px-2 py-0.5 md:px-3 md:py-1 bg-black/40 backdrop-blur-sm whitespace-nowrap w-fit"
-              >
-                <span className="md:hidden">{getShortCategory(categoryName)}</span>
-                <span className="hidden md:inline">{categoryName}</span>
-              </Badge>
+              {brand && brand !== 'Genérico' && (
+                <span className="text-[7px] md:text-[10px] font-black tracking-widest text-muted-foreground/60 uppercase ml-auto pt-1 truncate max-w-[60px] md:max-w-none">
+                  {brand}
+                </span>
+              )}
             </div>
-
-            {brand && brand !== 'Genérico' && (
-              <span className="text-[7px] md:text-[10px] font-black tracking-widest text-muted-foreground/60 uppercase ml-auto pt-1 truncate max-w-[60px] md:max-w-none">
-                {brand}
-              </span>
-            )}
+            
+            <Badge 
+              variant="outline" 
+              className="border-white/10 text-muted-foreground font-bold uppercase text-[7px] md:text-[8px] tracking-widest px-2 py-0.5 md:px-3 md:py-1 bg-black/40 backdrop-blur-sm whitespace-nowrap w-fit"
+            >
+              <span className="md:hidden">{getShortCategory(categoryName)}</span>
+              <span className="hidden md:inline">{categoryName}</span>
+            </Badge>
           </div>
 
           <div className="perspective-1000 relative h-44 md:h-56 w-full flex items-center justify-center">
@@ -133,7 +127,7 @@ export function ThreeDProductCard(product: Product) {
             >
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2" />
-                WhatsApp
+                Consultar
               </a>
             </Button>
             <Button 
