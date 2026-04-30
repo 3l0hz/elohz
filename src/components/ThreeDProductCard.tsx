@@ -102,7 +102,7 @@ export function ThreeDProductCard(product: Product) {
             "border-white/[0.18] md:border-white/[0.08] md:hover:border-white/20",
             "shadow-[0_0_35px_rgba(255,255,255,0.06),0_20px_60px_rgba(0,0,0,0.45)] md:shadow-2xl",
             "active:scale-[0.98] md:hover:scale-[1.02] md:hover:shadow-[0_0_40px_rgba(255,255,255,0.08),0_20px_70px_rgba(0,0,0,0.55)]",
-            "before:absolute before:inset-0 before:z-30 before:pointer-events-none before:bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08),transparent_70%)] md:before:hidden",
+            "before:absolute before:inset-0 before:z-30 before:pointer-events-none before:bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.08),transparent_70%)]",
             "active:before:opacity-100 transition-all"
           )}
           style={{
@@ -183,11 +183,7 @@ export function ThreeDProductCard(product: Product) {
               </Button>
               <Button 
                 variant="ghost"
-                className={cn(
-                  "w-full h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-bold transition-all group/btn active:scale-[0.98] lg:hover:translate-y-[-1px]",
-                  "bg-white/5 text-white border border-white/10", // Mobile: siempre visible premium
-                  "md:bg-transparent md:text-muted-foreground/60 md:border-transparent md:hover:text-white md:hover:bg-white/5" // Desktop: hover reactivo
-                )}
+                className="w-full h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-muted-foreground/60 hover:text-white transition-all group/btn active:scale-[0.98] lg:hover:translate-y-[-1px]"
                 onClick={() => setShowDetails(true)}
               >
                 <Eye className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2 transition-transform lg:group-hover/btn:scale-110" />
