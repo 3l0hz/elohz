@@ -256,7 +256,7 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
               )}
             >
               {isAdded ? <Check className="w-5 h-5 mr-2 animate-in zoom-in" /> : <ShoppingCart className="w-5 h-5 mr-2" />}
-              {isAdded ? "Añadido al carrito" : "Agregar al carrito"}
+              {isAdded ? "Añadido" : "Agregar"}
             </Button>
             <DialogClose asChild>
               <Button variant="ghost" className="hidden md:flex text-muted-foreground hover:text-white text-[10px] uppercase tracking-widest font-black">

@@ -34,7 +34,9 @@ export default function RootLayout({
         <CartProvider>
           <AnnouncementBanner />
           <Header />
-          {children}
+          <div className="pt-[120px]">
+            {children}
+          </div>
           <CartDrawer />
           <Toaster />
         </CartProvider>

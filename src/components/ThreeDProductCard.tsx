@@ -19,13 +19,11 @@ export function ThreeDProductCard(product: Product) {
   const cardRef = useRef<HTMLDivElement>(null);
   const { addItem, setIsOpen } = useCart();
   
-  // 3D & Reflection State (Desktop Focused)
   const [rotate, setRotate] = useState({ x: 0, y: 0 });
   const [shine, setShine] = useState({ x: 50, y: 50, opacity: 0 });
 
   const { name, price, categoryName, imageUrl, brand, badge } = product;
 
-  // Short category logic for mobile
   const getShortCategory = (name: string) => {
     const map: Record<string, string> = {
       "Soportes Moto / Vehículo": "Moto / Vehículo",
@@ -39,7 +37,6 @@ export function ThreeDProductCard(product: Product) {
     return map[name] || name;
   };
 
-  // Scroll visibility observer (Apple style entrance)
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -64,11 +61,9 @@ export function ThreeDProductCard(product: Product) {
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
     
-    // Smooth 3D rotation
     const rotateX = ((y - centerY) / centerY) * -6;
     const rotateY = ((x - centerX) / centerX) * 6;
     
-    // Dynamic shine reflection
     const shineX = (x / rect.width) * 100;
     const shineY = (y / rect.height) * 100;
 
@@ -116,10 +111,9 @@ export function ThreeDProductCard(product: Product) {
           onMouseLeave={handleMouseLeave}
           onClick={() => setShowDetails(true)}
         >
-          {/* Mobile Premium Static Glow Layer */}
+          {/* Brillo Premium Estático en Mobile */}
           <div className="absolute inset-0 pointer-events-none z-30 transition-all duration-500 md:hidden bg-[radial-gradient(circle_at_50%_-10%,rgba(255,255,255,0.08),transparent_60%)] group-active:opacity-0" />
           
-          {/* Dynamic Reflection Layer (Desktop Only) */}
           <div 
             className="absolute inset-0 pointer-events-none z-30 transition-opacity duration-300 hidden md:block"
             style={{
@@ -127,11 +121,9 @@ export function ThreeDProductCard(product: Product) {
             }}
           />
           
-          {/* Glass Effect Overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none z-10" />
           
           <div className="p-3 md:p-6 flex flex-col h-full relative z-20">
-            {/* Top Section: Badges and Brand */}
             <div className="flex flex-col gap-1.5 mb-2 translate-z-10">
               <div className="flex justify-between items-start w-full">
                 {badge ? (
@@ -155,7 +147,6 @@ export function ThreeDProductCard(product: Product) {
               </Badge>
             </div>
 
-            {/* Image Container */}
             <div className="relative h-[180px] md:h-80 w-full flex items-center justify-center overflow-hidden translate-z-20">
               <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,156,0.03)_0%,transparent_70%)] md:hidden" />
               
@@ -170,7 +161,6 @@ export function ThreeDProductCard(product: Product) {
               </div>
             </div>
 
-            {/* Info Section */}
             <div className="mt-2 space-y-2 flex-grow translate-z-10">
               <h3 className="text-xs md:text-2xl font-black tracking-tight leading-tight uppercase line-clamp-2 text-white/90">
                 {name}
@@ -178,7 +168,6 @@ export function ThreeDProductCard(product: Product) {
               <p className="text-base md:text-2xl font-black text-white">{price}</p>
             </div>
 
-            {/* Actions */}
             <div className="mt-4 flex flex-col gap-2 translate-z-10">
               <Button 
                 className={cn(
@@ -192,7 +181,7 @@ export function ThreeDProductCard(product: Product) {
                 ) : (
                   <ShoppingCart className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2" />
                 )}
-                {isAdded ? "Añadido" : "Agregar al carrito"}
+                {isAdded ? "Añadido" : "Agregar"}
               </Button>
               <Button 
                 variant="ghost"

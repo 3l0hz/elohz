@@ -1,7 +1,7 @@
 
 "use client"
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, User, ChevronRight, MessageCircle, Percent, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -18,9 +18,27 @@ import Link from 'next/link';
 import { CATEGORIES } from '@/lib/catalog';
 import { useCart } from '@/lib/cart-context';
 import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 export function Header() {
   const { totalItems, setIsOpen } = useCart();
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
   
   const desktopLinks = [
     { name: 'Inicio', href: '/' },
@@ -41,7 +59,10 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-10 z-50 w-full bg-[#0B0B0B]/90 backdrop-blur-xl border-b border-white/5 h-20 flex items-center transition-all duration-300">
+    <header className={cn(
+      "fixed top-10 z-50 w-full bg-[#0B0B0B]/90 backdrop-blur-xl border-b border-white/5 h-20 flex items-center transition-all duration-300 ease-out",
+      !isVisible ? "-translate-y-[calc(100%+40px)]" : "translate-y-0"
+    )}>
       <div className="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-3xl font-black tracking-tighter text-white hover:opacity-80 transition-premium">
