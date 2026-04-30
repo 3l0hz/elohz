@@ -65,7 +65,7 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={cn(
-        "max-w-[95vw] md:max-w-6xl p-0 overflow-hidden bg-[#0B0B0B] border-white/10 md:rounded-[2.5rem] flex flex-col md:flex-row h-[90vh] md:h-[85vh] transition-all duration-500 ease-out outline-none",
+        "max-w-[95vw] md:max-w-6xl p-0 overflow-hidden bg-[#0B0B0B] border-white/10 md:rounded-[2.5rem] flex flex-col md:flex-row h-[92vh] md:h-[85vh] transition-all duration-500 ease-out outline-none",
         "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-[0.94] data-[state=open]:slide-in-from-bottom-0",
         "data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-[0.96]"
       )}>
@@ -77,7 +77,7 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
         {/* Gallery Section */}
         <div className="relative w-full md:w-3/5 bg-[#0F0F0F] flex flex-col border-r border-white/5 overflow-hidden">
           <div 
-            className="relative flex-1 group overflow-hidden flex items-center justify-center cursor-zoom-in min-h-[300px] md:min-h-0"
+            className="relative flex-1 group overflow-hidden flex items-center justify-center cursor-zoom-in min-h-[280px] md:min-h-0"
             onClick={() => activeMedia.type === 'image' && setIsZoomed(true)}
           >
             <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_0%,transparent_70%)]" />
@@ -150,13 +150,13 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
             </div>
           </div>
 
-          <div className="h-20 md:h-24 border-t border-white/5 bg-[#0B0B0B] p-4 flex items-center justify-center gap-3 overflow-x-auto scrollbar-hide">
+          <div className="h-16 md:h-24 border-t border-white/5 bg-[#0B0B0B] p-3 md:p-4 flex items-center justify-center gap-3 overflow-x-auto scrollbar-hide">
             {mediaGallery.map((item, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveMediaIndex(idx)}
                 className={cn(
-                  "relative h-12 aspect-square rounded-xl overflow-hidden border-2 transition-all duration-300 flex-shrink-0 active:scale-90",
+                  "relative h-10 md:h-12 aspect-square rounded-xl overflow-hidden border-2 transition-all duration-300 flex-shrink-0 active:scale-90",
                   activeMediaIndex === idx 
                     ? "border-accent scale-105" 
                     : "border-transparent opacity-40 hover:opacity-100"
@@ -187,10 +187,10 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
         </div>
 
         {/* Info Section */}
-        <div className="flex-1 flex flex-col p-6 md:p-10 space-y-6 overflow-hidden bg-[#0B0B0B]">
+        <div className="flex-1 flex flex-col p-5 md:p-10 bg-[#0B0B0B] overflow-hidden">
           <ScrollArea className="flex-1">
-            <div className="space-y-8 pb-8">
-              <div className="space-y-4">
+            <div className="space-y-4 md:space-y-8 pb-6">
+              <div className="space-y-3 md:space-y-4">
                 <div className="flex flex-wrap items-center gap-2">
                   <Badge variant="outline" className="border-accent/20 text-accent font-black text-[9px] tracking-[0.2em] px-3 py-1 bg-accent/5 rounded-lg">
                     {product.categoryName.toUpperCase()}
@@ -201,15 +201,15 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
                     </span>
                   )}
                 </div>
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase leading-none text-white">{product.name}</h2>
-                <div className="flex items-baseline gap-2 pt-2">
-                  <span className="text-2xl md:text-4xl font-black text-white tracking-tighter">{product.price}</span>
+                <h2 className="text-2xl md:text-5xl font-black tracking-tighter uppercase leading-none text-white">{product.name}</h2>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-xl md:text-4xl font-black text-white tracking-tighter">{product.price}</span>
                   <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest">Stock disponible</span>
                 </div>
               </div>
 
-              <div className="space-y-8">
-                <div className="space-y-3">
+              <div className="space-y-6 md:space-y-8">
+                <div className="space-y-2 md:space-y-3">
                   <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-accent flex items-center gap-2">
                     <span className="w-4 h-[1px] bg-accent/30" />
                     Especificaciones
@@ -219,12 +219,12 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-4">
-                  <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2">
+                <div className="grid grid-cols-1 gap-3 md:gap-4">
+                  <div className="p-4 md:p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-1 md:space-y-2">
                     <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Compatibilidad</h4>
                     <p className="text-xs leading-relaxed text-white font-bold uppercase">{product.compatibility}</p>
                   </div>
-                  <div className="p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-2">
+                  <div className="p-4 md:p-6 rounded-2xl bg-white/[0.02] border border-white/5 space-y-1 md:space-y-2">
                     <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">Uso Profesional</h4>
                     <p className="text-xs leading-relaxed text-white font-bold uppercase">{product.recommendedUse}</p>
                   </div>
@@ -235,12 +235,12 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
 
           <div className="pt-4 border-t border-white/5 flex flex-col gap-3">
             <Button 
-              className="w-full h-14 rounded-xl bg-white text-black hover:bg-[#EAEAEA] font-black text-xs uppercase tracking-widest transition-premium active:scale-95 shadow-xl"
+              className="w-full h-13 md:h-14 rounded-2xl bg-white text-black hover:bg-[#EAEAEA] font-black text-[10px] md:text-xs uppercase tracking-widest transition-premium active:scale-95 shadow-xl"
               asChild
             >
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="w-5 h-5 mr-2" />
-                Consultar Compra
+                Comprar por WhatsApp
               </a>
             </Button>
             <DialogClose asChild>
