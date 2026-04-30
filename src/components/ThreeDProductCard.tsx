@@ -25,7 +25,7 @@ export function ThreeDProductCard(product: Product) {
     const y = e.clientY - rect.top;
     const centerX = rect.width / 2;
     const centerY = rect.height / 2;
-    const rotateY = ((x - centerX) / centerX) * 8; // Rotación más suave
+    const rotateY = ((x - centerX) / centerX) * 8; 
     const rotateX = ((centerY - y) / centerY) * 8;
     setRotation({ x: rotateX, y: rotateY });
   };
@@ -53,9 +53,13 @@ export function ThreeDProductCard(product: Product) {
     <>
       <Card 
         className={cn(
-          "group relative overflow-hidden bg-[#111111] border-[#1F1F1F] transition-all duration-500 rounded-[2rem] border shadow-lg",
-          "active:scale-[0.98] active:shadow-2xl active:border-white/20", // Feedback táctil mobile
-          "md:hover:border-white/30 md:active:scale-100" // Reset scale en desktop hover
+          "group relative overflow-hidden bg-[#111111] transition-all duration-500 rounded-[2rem] border cursor-pointer",
+          // Estilo base Mobile (Premium)
+          "border-white/[0.08] shadow-[0_0_30px_rgba(255,255,255,0.04)]",
+          // Feedback Táctil Mobile
+          "active:scale-[0.98] active:border-white/[0.22] active:shadow-[0_0_40px_rgba(255,255,255,0.08)]",
+          // Estilo Desktop Hover
+          "md:hover:border-white/30 md:active:scale-100 md:shadow-lg"
         )}
         onMouseEnter={() => setIsHovered(true)}
         onMouseMove={handleMouseMove}
@@ -63,7 +67,7 @@ export function ThreeDProductCard(product: Product) {
         onClick={() => setShowDetails(true)}
       >
         {/* Profundidad visual permanente */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
         
         {badge && (
           <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20">
@@ -73,12 +77,12 @@ export function ThreeDProductCard(product: Product) {
           </div>
         )}
         
-        <div className="p-4 md:p-8 flex flex-col h-full">
+        <div className="p-4 md:p-8 flex flex-col h-full relative z-10">
           <div className="flex justify-between items-start mb-2 md:mb-6 min-h-[20px]">
             <Badge 
               variant="outline" 
               className={cn(
-                "border-[#1F1F1F] text-muted-foreground font-bold uppercase text-[7px] md:text-[8px] tracking-widest px-2 py-0.5 md:px-3 md:py-1 bg-black/30 whitespace-nowrap",
+                "border-white/10 text-muted-foreground font-bold uppercase text-[7px] md:text-[8px] tracking-widest px-2 py-0.5 md:px-3 md:py-1 bg-black/40 backdrop-blur-sm whitespace-nowrap",
                 badge && "hidden sm:inline-flex"
               )}
             >
@@ -87,7 +91,7 @@ export function ThreeDProductCard(product: Product) {
             </Badge>
 
             {brand && brand !== 'Genérico' && (
-              <span className="text-[7px] md:text-[10px] font-black tracking-widest text-muted-foreground uppercase opacity-40 ml-auto truncate max-w-[60px] md:max-w-none">
+              <span className="text-[7px] md:text-[10px] font-black tracking-widest text-muted-foreground/60 uppercase ml-auto truncate max-w-[60px] md:max-w-none">
                 {brand}
               </span>
             )}
@@ -110,14 +114,14 @@ export function ThreeDProductCard(product: Product) {
                   src={imageUrl} 
                   alt={name}
                   fill
-                  className="object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.6)]"
+                  className="object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.7)]"
                 />
               </div>
             </div>
           </div>
 
-          <div className="mt-4 space-y-1.5 md:space-y-2 flex-grow">
-            <h3 className="text-sm md:text-xl font-black tracking-tight leading-tight uppercase line-clamp-2">
+          <div className="mt-4 space-y-1 md:space-y-2 flex-grow">
+            <h3 className="text-sm md:text-xl font-black tracking-tight leading-tight uppercase line-clamp-2 text-white/90">
               {name}
             </h3>
             <p className="text-lg md:text-2xl font-black text-white">{price}</p>
