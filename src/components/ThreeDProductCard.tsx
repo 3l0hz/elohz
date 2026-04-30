@@ -36,6 +36,19 @@ export function ThreeDProductCard(product: Product) {
 
   const whatsappLink = `https://wa.me/56940628182?text=Hola,%20estoy%20interesado%20en%20el%20producto:%20${encodeURIComponent(name)}`;
 
+  // Mapping for short category names on mobile
+  const getShortCategory = (name: string) => {
+    const map: Record<string, string> = {
+      "Soportes Moto / Vehículo": "Moto",
+      "Accesorios Cámara": "Cámara",
+      "Soportes Smartphone": "Smartphone",
+      "Accesorios Corporales": "POV",
+      "Selfie Sticks": "Selfie",
+      "Trípodes": "Trípode"
+    };
+    return map[name] || name;
+  };
+
   return (
     <>
       <Card 
@@ -44,28 +57,40 @@ export function ThreeDProductCard(product: Product) {
         onMouseMove={handleMouseMove}
         onMouseLeave={resetRotation}
       >
+        {/* Priority Badge: Más vendido */}
         {badge && (
-          <div className="absolute top-6 left-6 z-20">
-            <Badge className="bg-white text-black border-none font-black text-[8px] tracking-widest px-3 py-1.5 rounded-full uppercase">
+          <div className="absolute top-4 left-4 md:top-6 md:left-6 z-20">
+            <Badge className="bg-white text-black border-none font-black text-[7px] md:text-[8px] tracking-widest px-2 py-1 md:px-3 md:py-1.5 rounded-full uppercase whitespace-nowrap shadow-xl">
               {badge}
             </Badge>
           </div>
         )}
         
-        <div className="p-6 md:p-8">
-          <div className="flex justify-between items-start mb-6">
-            <Badge variant="outline" className="border-[#1F1F1F] text-muted-foreground font-bold uppercase text-[8px] tracking-widest px-3 py-1 bg-black/50">
-              {categoryName}
+        <div className="p-5 md:p-8">
+          {/* Category and Brand Row */}
+          <div className="flex justify-between items-start mb-4 md:mb-6 min-h-[20px]">
+            {/* Category: Short on mobile, Full on desktop */}
+            <Badge 
+              variant="outline" 
+              className={cn(
+                "border-[#1F1F1F] text-muted-foreground font-bold uppercase text-[7px] md:text-[8px] tracking-widest px-2 py-0.5 md:px-3 md:py-1 bg-black/50 whitespace-nowrap transition-premium",
+                badge && "hidden sm:inline-flex" // Hide secondary category on very small screens if "Más vendido" exists
+              )}
+            >
+              <span className="md:hidden">{getShortCategory(categoryName)}</span>
+              <span className="hidden md:inline">{categoryName}</span>
             </Badge>
+
+            {/* Brand: Only if not Genérico */}
             {brand && brand !== 'Genérico' && (
-              <span className="text-[10px] font-black tracking-widest text-muted-foreground uppercase opacity-50">
+              <span className="text-[7px] md:text-[10px] font-black tracking-widest text-muted-foreground uppercase opacity-50 ml-auto truncate max-w-[60px] md:max-w-none">
                 {brand}
               </span>
             )}
           </div>
 
           <div 
-            className="perspective-1000 relative h-48 md:h-56 w-full flex items-center justify-center cursor-pointer"
+            className="perspective-1000 relative h-40 md:h-56 w-full flex items-center justify-center cursor-pointer"
             onClick={() => setShowDetails(true)}
           >
             <div 
@@ -79,7 +104,7 @@ export function ThreeDProductCard(product: Product) {
                   : undefined
               }}
             >
-              <div className="relative w-40 h-40 md:w-44 md:h-44">
+              <div className="relative w-32 h-32 md:w-44 md:h-44">
                 <Image 
                   src={imageUrl} 
                   alt={name}
@@ -90,29 +115,29 @@ export function ThreeDProductCard(product: Product) {
             </div>
           </div>
 
-          <div className="mt-8 space-y-2 min-h-[4rem]">
-            <h3 className="text-lg md:text-xl font-black tracking-tight leading-tight group-hover:text-white transition-premium line-clamp-2 uppercase">
+          <div className="mt-6 md:mt-8 space-y-2 min-h-[3.5rem] md:min-h-[4rem]">
+            <h3 className="text-sm md:text-xl font-black tracking-tight leading-tight group-hover:text-white transition-premium line-clamp-2 uppercase">
               {name}
             </h3>
-            <p className="text-xl md:text-2xl font-black text-white">{price}</p>
+            <p className="text-lg md:text-2xl font-black text-white">{price}</p>
           </div>
 
-          <div className="mt-8 flex flex-col gap-2">
+          <div className="mt-6 md:mt-8 flex flex-col gap-2">
             <Button 
-              className="w-full pill-button button-primary h-11 text-[10px] uppercase tracking-widest font-black"
+              className="w-full pill-button button-primary h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-black"
               asChild
             >
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-4 h-4 mr-2" />
+                <MessageCircle className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2" />
                 WhatsApp
               </a>
             </Button>
             <Button 
               variant="ghost"
               onClick={() => setShowDetails(true)}
-              className="w-full pill-button h-11 text-[10px] uppercase tracking-widest font-black text-muted-foreground hover:text-white hover:bg-white/5"
+              className="w-full pill-button h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-black text-muted-foreground hover:text-white hover:bg-white/5"
             >
-              <Eye className="w-4 h-4 mr-2" />
+              <Eye className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2" />
               Detalles
             </Button>
           </div>
