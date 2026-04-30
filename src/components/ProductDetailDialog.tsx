@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -251,15 +250,15 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
             <Button 
               onClick={handleAddToCart}
               className={cn(
-                "w-full h-13 md:h-14 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-widest transition-all active:scale-95 shadow-xl",
-                isAdded ? "bg-accent text-black" : "bg-white text-black hover:bg-[#EAEAEA]"
+                "w-full h-13 md:h-14 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-widest transition-all active:scale-95 shadow-xl btn-premium-shine",
+                isAdded ? "bg-accent text-black active:scale-[0.98] lg:hover:scale-[1.02]" : "bg-white text-black hover:bg-[#EAEAEA] lg:hover:scale-[1.02]"
               )}
             >
               {isAdded ? <Check className="w-5 h-5 mr-2 animate-in zoom-in" /> : <ShoppingCart className="w-5 h-5 mr-2" />}
               {isAdded ? "Añadido" : "Agregar"}
             </Button>
             <DialogClose asChild>
-              <Button variant="ghost" className="hidden md:flex text-muted-foreground hover:text-white text-[10px] uppercase tracking-widest font-black">
+              <Button variant="ghost" className="hidden md:flex text-muted-foreground hover:text-white text-[10px] uppercase tracking-widest font-black transition-all lg:hover:translate-y-[-1px] active:scale-95">
                 Volver al catálogo
               </Button>
             </DialogClose>

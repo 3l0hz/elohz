@@ -125,12 +125,12 @@ export function ThreeDProductCard(product: Product) {
             <div className="flex flex-col gap-1.5 mb-2 translate-z-10">
               <div className="flex justify-between items-start w-full">
                 {badge ? (
-                  <Badge className="bg-white text-black border-none font-bold text-[7px] md:text-[8px] tracking-widest px-2 py-0.5 md:px-3 md:py-1.5 rounded-full uppercase shadow-xl font-body">
+                  <Badge className="bg-white text-black border-none font-bold text-[7px] md:text-[8px] tracking-widest px-2 py-0.5 md:px-3 md:py-1.5 rounded-full uppercase shadow-xl">
                     {badge}
                   </Badge>
                 ) : <div className="h-4" />}
                 {brand && brand !== 'Genérico' && (
-                  <span className="text-[7px] md:text-[10px] font-bold tracking-[0.2em] text-muted-foreground/60 uppercase ml-auto pt-0.5 truncate font-body">
+                  <span className="text-[7px] md:text-[10px] font-bold tracking-[0.2em] text-muted-foreground/60 uppercase ml-auto pt-0.5 truncate">
                     {brand}
                   </span>
                 )}
@@ -138,7 +138,7 @@ export function ThreeDProductCard(product: Product) {
               
               <Badge 
                 variant="outline" 
-                className="border-white/10 text-muted-foreground font-bold uppercase text-[7px] md:text-[8px] tracking-[0.2em] px-2 py-0.5 md:px-3 md:py-1 bg-black/40 backdrop-blur-sm w-fit font-body"
+                className="border-white/10 text-muted-foreground font-bold uppercase text-[7px] md:text-[8px] tracking-[0.2em] px-2 py-0.5 md:px-3 md:py-1 bg-black/40 backdrop-blur-sm w-fit"
               >
                 <span className="md:hidden">{getShortCategory(categoryName)}</span>
                 <span className="hidden md:inline">{categoryName}</span>
@@ -160,32 +160,32 @@ export function ThreeDProductCard(product: Product) {
             </div>
 
             <div className="mt-2 space-y-1 md:space-y-2 flex-grow translate-z-10">
-              <h3 className="text-sm md:text-xl font-bold tracking-tight leading-tight uppercase line-clamp-2 text-white/90 font-headline">
+              <h3 className="text-sm md:text-xl font-bold tracking-tight leading-tight uppercase line-clamp-2 text-white/90">
                 {name}
               </h3>
-              <p className="text-base md:text-2xl font-extrabold text-white tracking-tighter font-headline">{price}</p>
+              <p className="text-base md:text-2xl font-extrabold text-white tracking-tighter">{price}</p>
             </div>
 
             <div className="mt-4 flex flex-col gap-2 translate-z-10">
               <Button 
                 className={cn(
-                  "w-full h-11 md:h-12 text-[10px] uppercase tracking-widest font-bold transition-all pill-button",
-                  isAdded ? "bg-accent text-black" : "button-primary"
+                  "w-full h-11 md:h-12 text-[10px] uppercase tracking-widest font-bold transition-all pill-button btn-premium-shine",
+                  isAdded ? "bg-accent text-black active:scale-[0.98] lg:hover:scale-[1.02]" : "button-primary"
                 )}
                 onClick={handleAddToCart}
               >
                 {isAdded ? (
                   <Check className="w-4 h-4 mr-2 animate-in zoom-in" />
                 ) : (
-                  <ShoppingCart className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2" />
+                  <ShoppingCart className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2 transition-transform lg:group-hover/btn:translate-x-1" />
                 )}
                 {isAdded ? "Añadido" : "Agregar"}
               </Button>
               <Button 
                 variant="ghost"
-                className="w-full h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-muted-foreground/60 hover:text-white hover:bg-white/5 font-body"
+                className="w-full h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-muted-foreground/60 hover:text-white hover:bg-white/5 group/btn transition-all active:scale-[0.98] lg:hover:translate-y-[-1px]"
               >
-                <Eye className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2" />
+                <Eye className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2 transition-transform lg:group-hover/btn:scale-110" />
                 Detalles
               </Button>
             </div>
