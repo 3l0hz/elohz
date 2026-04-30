@@ -333,7 +333,7 @@ export function CheckoutDialog({ open, onOpenChange }: CheckoutDialogProps) {
                       <div className="flex flex-col gap-4">
                         <Button 
                           type="submit"
-                          className="w-full h-14 rounded-2xl bg-white text-black hover:bg-[#EAEAEA] font-black text-xs uppercase tracking-widest shadow-xl transition-all btn-premium-shine"
+                          className="w-full h-14 rounded-2xl button-primary font-black text-xs uppercase tracking-widest shadow-xl transition-all"
                         >
                           Enviar Pedido <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>

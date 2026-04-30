@@ -71,7 +71,7 @@
 
 /* Premium Button Styles */
 .btn-premium {
-  @apply relative overflow-hidden transition-all duration-300 active:scale-[0.98] lg:hover:scale-[1.02] shadow-sm lg:hover:shadow-lg;
+  @apply relative overflow-hidden transition-all duration-300 active:scale-[0.98] lg:hover:scale-[1.02] shadow-sm lg:hover:shadow-2xl;
 }
 
 .btn-premium-shine {
@@ -99,11 +99,11 @@
 }
 
 .button-primary {
-  @apply bg-white text-black hover:bg-[#EAEAEA] btn-premium btn-premium-shine;
+  @apply bg-white text-black border border-transparent hover:bg-black hover:text-white hover:border-white/20 btn-premium btn-premium-shine;
 }
 
 .button-secondary {
-  @apply bg-transparent border border-white text-white hover:bg-white/10 active:scale-95 btn-premium;
+  @apply bg-transparent border border-white/20 text-white hover:bg-white/10 active:scale-95 btn-premium;
 }
 
 .scrollbar-hide::-webkit-scrollbar {

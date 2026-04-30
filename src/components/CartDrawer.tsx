@@ -106,7 +106,7 @@ export function CartDrawer() {
               <div className="flex flex-col gap-3">
                 <Button 
                   onClick={handleCheckoutClick}
-                  className="w-full h-14 rounded-2xl bg-white text-black hover:bg-[#EAEAEA] font-black text-xs uppercase tracking-widest shadow-xl transition-all active:scale-[0.98] lg:hover:scale-[1.02] btn-premium-shine group/checkout"
+                  className="w-full h-14 rounded-2xl button-primary text-xs uppercase tracking-widest shadow-xl group/checkout"
                 >
                   <ShoppingBag className="w-5 h-5 mr-2" />
                   Confirmar compra
