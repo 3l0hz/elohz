@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useCart } from '@/lib/cart-context';
 import {
   Dialog,
@@ -12,16 +12,17 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Textarea } from "@/components/ui/textarea";
 import { 
   CheckCircle2, 
   ArrowRight, 
   Truck, 
   ChevronLeft, 
   ShoppingBag,
-  Info
+  Info,
+  MapPin,
+  Clock
 } from "lucide-react";
 import { cn } from '@/lib/utils';
 import { useForm } from "react-hook-form";
@@ -42,6 +43,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+
+// Configuración de Tarifas de Envío
+const SHIPPING_METHODS = [
+  { id: 'stgo-express', name: 'Santiago Cercano (Express)', price: 3500, detail: 'Entrega 24-48 hrs hábiles' },
+  { id: 'rm-ext', name: 'Zona RM Extendida', price: 4500, detail: 'Comunas periféricas RM' },
+  { id: 'regiones', name: 'Regiones (Starken/Chilexpress)', price: 0, detail: 'Envío por pagar al recibir' },
+  { id: 'retiro', name: 'Retiro en Oficina / Especial', price: 0, detail: 'Coordinación por WhatsApp' },
+];
 
 const formSchema = z.object({
   fullName: z.string().min(3, "Nombre muy corto"),
@@ -81,26 +91,33 @@ export function CheckoutDialog({ open, onOpenChange }: CheckoutDialogProps) {
     },
   });
 
+  const watchFields = form.watch(["address", "commune", "shippingMethod"]);
+  const hasDeliveryInfo = !!(watchFields[0] && watchFields[1]);
+  
+  const selectedMethod = useMemo(() => {
+    return SHIPPING_METHODS.find(m => m.id === watchFields[2]) || SHIPPING_METHODS[0];
+  }, [watchFields[2]]);
+
+  const grandTotal = totalPrice + (selectedMethod?.price || 0);
+
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Generar mensaje de WhatsApp para el equipo
+    const currentShipping = SHIPPING_METHODS.find(m => m.id === values.shippingMethod);
+    
     let msg = `*NUEVO PEDIDO ELOHZ*\n\n`;
     msg += `*Cliente:* ${values.fullName}\n`;
     msg += `*RUT:* ${values.rut}\n`;
     msg += `*Teléfono:* ${values.phone}\n`;
     msg += `*Email:* ${values.email}\n`;
     msg += `*Dirección:* ${values.address}, ${values.addressDetail || ''} - ${values.commune}, ${values.region}\n`;
-    msg += `*Envío:* ${values.shippingMethod}\n\n`;
+    msg += `*Envío:* ${currentShipping?.name} ($${currentShipping?.price.toLocaleString('es-CL')})\n\n`;
     msg += `*PRODUCTOS:*\n`;
     items.forEach((item, i) => {
       msg += `${i + 1}. ${item.name} x ${item.quantity} - ${item.price}\n`;
     });
-    msg += `\n*TOTAL ESTIMADO:* $${totalPrice.toLocaleString('es-CL')}\n`;
+    msg += `\n*TOTAL PEDIDO:* $${grandTotal.toLocaleString('es-CL')}\n`;
     if (values.notes) msg += `\n*NOTAS:* ${values.notes}`;
 
-    // Abrir WhatsApp
     window.open(`https://wa.me/56940628182?text=${encodeURIComponent(msg)}`, '_blank');
-    
-    // Mostrar éxito
     setIsSuccess(true);
   }
 
@@ -141,7 +158,6 @@ export function CheckoutDialog({ open, onOpenChange }: CheckoutDialogProps) {
           </div>
         ) : (
           <>
-            {/* Form Section */}
             <div className="flex-1 flex flex-col bg-[#0B0B0B] overflow-hidden">
               <div className="p-8 border-b border-white/5 flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -149,8 +165,8 @@ export function CheckoutDialog({ open, onOpenChange }: CheckoutDialogProps) {
                     <Truck className="w-5 h-5 text-accent" />
                   </div>
                   <div>
-                    <h2 className="text-xl font-black tracking-tighter uppercase text-white">Datos de Despacho</h2>
-                    <p className="text-[10px] font-black tracking-widest text-muted-foreground uppercase">Formulario Profesional elohz</p>
+                    <h2 className="text-xl font-black tracking-tighter uppercase text-white">Confirmación Pedido</h2>
+                    <p className="text-[10px] font-black tracking-widest text-muted-foreground uppercase">Despacho Profesional elohz</p>
                   </div>
                 </div>
               </div>
@@ -158,175 +174,229 @@ export function CheckoutDialog({ open, onOpenChange }: CheckoutDialogProps) {
               <ScrollArea className="flex-1">
                 <div className="p-8 pb-12">
                   <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <FormField
-                          control={form.control}
-                          name="fullName"
-                          render={({ field }) => (
-                            <FormItem className="space-y-3">
-                              <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Nombre Completo</FormLabel>
-                              <FormControl>
-                                <Input placeholder="EJ: JUAN PÉREZ" className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
-                              </FormControl>
-                              <FormMessage className="text-[10px] uppercase font-black text-red-400" />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="rut"
-                          render={({ field }) => (
-                            <FormItem className="space-y-3">
-                              <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">RUT</FormLabel>
-                              <FormControl>
-                                <Input placeholder="12.345.678-9" className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
-                              </FormControl>
-                              <FormMessage className="text-[10px] uppercase font-black text-red-400" />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="phone"
-                          render={({ field }) => (
-                            <FormItem className="space-y-3">
-                              <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Teléfono</FormLabel>
-                              <FormControl>
-                                <Input placeholder="+56 9 1234 5678" className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
-                              </FormControl>
-                              <FormMessage className="text-[10px] uppercase font-black text-red-400" />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="email"
-                          render={({ field }) => (
-                            <FormItem className="space-y-3">
-                              <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Email</FormLabel>
-                              <FormControl>
-                                <Input placeholder="EMAIL@EJEMPLO.COM" className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
-                              </FormControl>
-                              <FormMessage className="text-[10px] uppercase font-black text-red-400" />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="region"
-                          render={({ field }) => (
-                            <FormItem className="space-y-3">
-                              <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Región</FormLabel>
-                              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                <FormControl>
-                                  <SelectTrigger className="h-12 bg-white/5 border-white/10 rounded-xl text-xs font-bold uppercase">
-                                    <SelectValue placeholder="SELECCIONA REGIÓN" />
-                                  </SelectTrigger>
-                                </FormControl>
-                                <SelectContent className="bg-[#111111] border-white/10 text-white font-bold text-xs uppercase">
-                                  <SelectItem value="metropolitana">Región Metropolitana</SelectItem>
-                                  <SelectItem value="valparaiso">Región de Valparaíso</SelectItem>
-                                  <SelectItem value="biobio">Región del Biobío</SelectItem>
-                                  <SelectItem value="otra">Otras Regiones</SelectItem>
-                                </SelectContent>
-                              </Select>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <FormField
-                          control={form.control}
-                          name="commune"
-                          render={({ field }) => (
-                            <FormItem className="space-y-3">
-                              <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Comuna</FormLabel>
-                              <FormControl>
-                                <Input placeholder="EJ: PROVIDENCIA" className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
-                              </FormControl>
-                              <FormMessage />
-                            </FormItem>
-                          )}
-                        />
-                        <div className="md:col-span-2">
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
+                      <div className="space-y-8">
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-accent flex items-center gap-3">
+                          <span className="w-8 h-[1px] bg-accent/30" />
+                          Datos Personales
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <FormField
                             control={form.control}
-                            name="address"
+                            name="fullName"
                             render={({ field }) => (
                               <FormItem className="space-y-3">
-                                <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Dirección</FormLabel>
+                                <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Nombre Completo</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="CALLE PRINCIPAL" className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
+                                  <Input placeholder="EJ: JUAN PÉREZ" className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage className="text-[10px] uppercase font-black text-red-400" />
                               </FormItem>
                             )}
                           />
-                        </div>
-                        <div className="md:col-span-2">
                           <FormField
                             control={form.control}
-                            name="addressDetail"
+                            name="rut"
                             render={({ field }) => (
                               <FormItem className="space-y-3">
-                                <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Número / Depto / Referencia</FormLabel>
+                                <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">RUT</FormLabel>
                                 <FormControl>
-                                  <Input placeholder="DPTO 202 - CERCA DE..." className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
+                                  <Input placeholder="12.345.678-9" className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage className="text-[10px] uppercase font-black text-red-400" />
                               </FormItem>
                             )}
                           />
-                        </div>
-                        <div className="md:col-span-2">
                           <FormField
                             control={form.control}
-                            name="shippingMethod"
+                            name="phone"
                             render={({ field }) => (
                               <FormItem className="space-y-3">
-                                <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Método de Envío</FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
-                                  <FormControl>
-                                    <SelectTrigger className="h-12 bg-white/5 border-white/10 rounded-xl text-xs font-bold uppercase">
-                                      <SelectValue placeholder="MÉTODO DE ENVÍO" />
-                                    </SelectTrigger>
-                                  </FormControl>
-                                  <SelectContent className="bg-[#111111] border-white/10 text-white font-bold text-xs uppercase">
-                                    <SelectItem value="stgo-express">Express Stgo (24-48 hrs)</SelectItem>
-                                    <SelectItem value="regiones-starken">Regiones (Starken/Chilexpress)</SelectItem>
-                                    <SelectItem value="retiro">Retiro en oficina elohz</SelectItem>
-                                  </SelectContent>
-                                </Select>
-                                <FormMessage />
+                                <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Teléfono</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="+56 9 1234 5678" className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
+                                </FormControl>
+                                <FormMessage className="text-[10px] uppercase font-black text-red-400" />
                               </FormItem>
                             )}
                           />
-                        </div>
-                        <div className="md:col-span-2">
                           <FormField
                             control={form.control}
-                            name="notes"
+                            name="email"
                             render={({ field }) => (
                               <FormItem className="space-y-3">
-                                <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Notas Opcionales</FormLabel>
+                                <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Email</FormLabel>
                                 <FormControl>
-                                  <Textarea 
-                                    placeholder="¿ALGUNA INDICACIÓN EXTRA?" 
-                                    className="min-h-[100px] bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase resize-none" 
-                                    {...field} 
-                                  />
+                                  <Input placeholder="EMAIL@EJEMPLO.COM" className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
                                 </FormControl>
-                                <FormMessage />
+                                <FormMessage className="text-[10px] uppercase font-black text-red-400" />
                               </FormItem>
                             )}
                           />
                         </div>
                       </div>
 
-                      <div className="p-6 rounded-2xl bg-accent/5 border border-accent/10 flex gap-4 items-start">
-                        <Info className="w-5 h-5 text-accent flex-shrink-0 mt-0.5" />
-                        <p className="text-[10px] font-black uppercase tracking-widest leading-relaxed text-white">
-                          Los envíos se realizan el mismo día hábil para compras confirmadas hasta las 18:00 hrs. Después de ese horario, el despacho se agenda para el siguiente día hábil.
+                      <div className="space-y-8">
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-accent flex items-center gap-3">
+                          <span className="w-8 h-[1px] bg-accent/30" />
+                          Dirección de Entrega
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <FormField
+                            control={form.control}
+                            name="region"
+                            render={({ field }) => (
+                              <FormItem className="space-y-3">
+                                <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Región</FormLabel>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <FormControl>
+                                    <SelectTrigger className="h-12 bg-white/5 border-white/10 rounded-xl text-xs font-bold uppercase">
+                                      <SelectValue placeholder="SELECCIONA REGIÓN" />
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent className="bg-[#111111] border-white/10 text-white font-bold text-xs uppercase">
+                                    <SelectItem value="metropolitana">Región Metropolitana</SelectItem>
+                                    <SelectItem value="valparaiso">Región de Valparaíso</SelectItem>
+                                    <SelectItem value="biobio">Región del Biobío</SelectItem>
+                                    <SelectItem value="otra">Otras Regiones</SelectItem>
+                                  </SelectContent>
+                                </Select>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <FormField
+                            control={form.control}
+                            name="commune"
+                            render={({ field }) => (
+                              <FormItem className="space-y-3">
+                                <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Comuna</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="EJ: PROVIDENCIA" className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          <div className="md:col-span-2">
+                            <FormField
+                              control={form.control}
+                              name="address"
+                              render={({ field }) => (
+                                <FormItem className="space-y-3">
+                                  <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Calle y Número</FormLabel>
+                                  <FormControl>
+                                    <Input placeholder="EJ: AV. PROVIDENCIA 1234" className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                          <div className="md:col-span-2">
+                            <FormField
+                              control={form.control}
+                              name="addressDetail"
+                              render={({ field }) => (
+                                <FormItem className="space-y-3">
+                                  <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Depto / Casa / Referencia (Opcional)</FormLabel>
+                                  <FormControl>
+                                    <Input placeholder="DPTO 502, PORTÓN NEGRO..." className="h-12 bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase" {...field} />
+                                  </FormControl>
+                                  <FormMessage />
+                                </FormItem>
+                              )}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-8">
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-accent flex items-center gap-3">
+                          <span className="w-8 h-[1px] bg-accent/30" />
+                          Método de Envío
+                        </h3>
+                        
+                        {!hasDeliveryInfo ? (
+                          <div className="p-8 rounded-2xl bg-white/[0.02] border border-white/5 flex flex-col items-center text-center space-y-4 animate-in fade-in zoom-in duration-500">
+                            <div className="p-3 bg-white/5 rounded-full">
+                              <MapPin className="w-6 h-6 text-muted-foreground" />
+                            </div>
+                            <div className="space-y-1">
+                              <p className="text-xs font-black uppercase tracking-widest text-white">Ingresa tu dirección de envío</p>
+                              <p className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">Para calcular los métodos disponibles según tu cobertura.</p>
+                            </div>
+                          </div>
+                        ) : (
+                          <FormField
+                            control={form.control}
+                            name="shippingMethod"
+                            render={({ field }) => (
+                              <FormItem className="space-y-4 animate-in slide-in-from-top-4 duration-500">
+                                <FormControl>
+                                  <RadioGroup
+                                    onValueChange={field.onChange}
+                                    defaultValue={field.value}
+                                    className="grid grid-cols-1 md:grid-cols-2 gap-4"
+                                  >
+                                    {SHIPPING_METHODS.map((method) => (
+                                      <FormItem key={method.id} className="space-y-0">
+                                        <FormControl>
+                                          <RadioGroupItem value={method.id} className="sr-only" />
+                                        </FormControl>
+                                        <FormLabel className={cn(
+                                          "flex flex-col p-6 rounded-2xl border transition-all cursor-pointer hover:border-white/20 active:scale-[0.98]",
+                                          field.value === method.id 
+                                            ? "bg-accent/[0.03] border-accent/50 text-white" 
+                                            : "bg-white/[0.02] border-white/5 text-muted-foreground"
+                                        )}>
+                                          <div className="flex justify-between items-start mb-2">
+                                            <span className="text-[11px] font-black uppercase tracking-tight">{method.name}</span>
+                                            <span className="text-xs font-black text-white">
+                                              {method.price > 0 ? `$${method.price.toLocaleString('es-CL')}` : 'Gratis / Por Pagar'}
+                                            </span>
+                                          </div>
+                                          <p className="text-[9px] font-bold uppercase tracking-[0.1em] opacity-60">{method.detail}</p>
+                                        </FormLabel>
+                                      </FormItem>
+                                    ))}
+                                  </RadioGroup>
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        )}
+                      </div>
+
+                      <div className="space-y-8">
+                        <h3 className="text-[10px] font-black uppercase tracking-[0.3em] text-accent flex items-center gap-3">
+                          <span className="w-8 h-[1px] bg-accent/30" />
+                          Notas Finales
+                        </h3>
+                        <FormField
+                          control={form.control}
+                          name="notes"
+                          render={({ field }) => (
+                            <FormItem className="space-y-3">
+                              <FormLabel className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">Comentarios o Indicaciones Especiales</FormLabel>
+                              <FormControl>
+                                <Textarea 
+                                  placeholder="EJ: DEJAR EN CONSERJERÍA, LLAMAR AL LLEGAR..." 
+                                  className="min-h-[120px] bg-white/5 border-white/10 rounded-xl focus:border-white transition-all text-xs font-bold uppercase resize-none" 
+                                  {...field} 
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+
+                      <div className="p-6 rounded-2xl bg-[#111111] border border-white/5 flex gap-4 items-center">
+                        <Clock className="w-5 h-5 text-accent flex-shrink-0" />
+                        <p className="text-[9px] font-black uppercase tracking-widest leading-relaxed text-muted-foreground">
+                          Despacho prioritario: Las compras realizadas antes de las 18:00 hrs se procesan el mismo día hábil.
                         </p>
                       </div>
 
@@ -335,7 +405,7 @@ export function CheckoutDialog({ open, onOpenChange }: CheckoutDialogProps) {
                           type="submit"
                           className="w-full h-14 rounded-2xl button-primary font-black text-xs uppercase tracking-widest shadow-xl transition-all"
                         >
-                          Enviar Pedido <ArrowRight className="w-4 h-4 ml-2" />
+                          Confirmar Pedido <ArrowRight className="w-4 h-4 ml-2" />
                         </Button>
                         <Button 
                           type="button"
@@ -343,7 +413,7 @@ export function CheckoutDialog({ open, onOpenChange }: CheckoutDialogProps) {
                           onClick={() => onOpenChange(false)}
                           className="w-full h-12 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-white"
                         >
-                          <ChevronLeft className="w-4 h-4 mr-2" /> Volver al carrito
+                          <ChevronLeft className="w-4 h-4 mr-2" /> Volver al Carrito
                         </Button>
                       </div>
                     </form>
@@ -352,11 +422,10 @@ export function CheckoutDialog({ open, onOpenChange }: CheckoutDialogProps) {
               </ScrollArea>
             </div>
 
-            {/* Summary Section */}
             <div className="w-full md:w-[380px] bg-[#0F0F0F] border-l border-white/5 flex flex-col overflow-hidden">
               <div className="p-8 border-b border-white/5 h-20 flex items-center">
                 <ShoppingBag className="w-5 h-5 text-accent mr-3" />
-                <h3 className="text-sm font-black tracking-[0.3em] uppercase text-white">Resumen Pedido</h3>
+                <h3 className="text-sm font-black tracking-[0.3em] uppercase text-white">Resumen Compra</h3>
               </div>
               
               <ScrollArea className="flex-1">
@@ -381,13 +450,18 @@ export function CheckoutDialog({ open, onOpenChange }: CheckoutDialogProps) {
                   <span>${totalPrice.toLocaleString('es-CL')}</span>
                 </div>
                 <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground">
-                  <span>Envío Estimado</span>
-                  <span className="text-accent">Por Calcular</span>
+                  <span>Costo Envío</span>
+                  <span className={cn(selectedMethod?.price > 0 ? "text-white" : "text-accent")}>
+                    {selectedMethod?.price > 0 ? `$${selectedMethod.price.toLocaleString('es-CL')}` : 'Por calcular'}
+                  </span>
                 </div>
                 <div className="pt-4 flex justify-between items-center border-t border-white/5">
-                  <span className="text-xs font-black uppercase tracking-[0.3em] text-white">Total</span>
-                  <span className="text-2xl font-black text-white tracking-tighter">${totalPrice.toLocaleString('es-CL')}</span>
+                  <span className="text-xs font-black uppercase tracking-[0.3em] text-white">Total Final</span>
+                  <span className="text-2xl font-black text-white tracking-tighter">${grandTotal.toLocaleString('es-CL')}</span>
                 </div>
+                <p className="text-[8px] font-bold text-center uppercase tracking-widest text-muted-foreground/60 pt-2">
+                  * Pago se coordina vía transferencia por WhatsApp
+                </p>
               </div>
             </div>
           </>
