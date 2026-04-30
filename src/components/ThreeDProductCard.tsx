@@ -135,9 +135,9 @@ export function ThreeDProductCard(product: Product) {
           {/* Glass Effect Overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none z-10" />
           
-          <div className="p-3 md:p-8 flex flex-col h-full relative z-20">
+          <div className="p-3 md:p-6 flex flex-col h-full relative z-20">
             {/* Top Section: Badges and Brand */}
-            <div className="flex flex-col gap-1.5 mb-1 md:mb-4 translate-z-10">
+            <div className="flex flex-col gap-1.5 mb-1 md:mb-2 translate-z-10">
               <div className="flex justify-between items-start w-full">
                 {badge ? (
                   <Badge className="bg-white text-black border-none font-black text-[7px] md:text-[8px] tracking-widest px-2 py-0.5 md:px-3 md:py-1.5 rounded-full uppercase whitespace-nowrap shadow-xl">
@@ -182,7 +182,7 @@ export function ThreeDProductCard(product: Product) {
             </div>
 
             {/* Info Section - Balanced Layout */}
-            <div className="mt-1 md:mt-4 space-y-1 md:space-y-2 flex-grow translate-z-10">
+            <div className="mt-1 md:mt-2 space-y-1 md:space-y-2 flex-grow translate-z-10">
               <h3 className="text-xs md:text-2xl font-black tracking-tight leading-tight uppercase line-clamp-2 text-white/90">
                 {name}
               </h3>
@@ -190,7 +190,7 @@ export function ThreeDProductCard(product: Product) {
             </div>
 
             {/* Actions - Desktop and Mobile Optimized Buttons */}
-            <div className="mt-3 md:mt-5 flex flex-col gap-2 translate-z-10">
+            <div className="mt-3 md:mt-4 flex flex-col gap-2 translate-z-10">
               <Button 
                 className="w-full pill-button button-primary h-11 md:h-12 text-[9px] md:text-[10px] uppercase tracking-widest font-black"
                 asChild
