@@ -30,7 +30,18 @@ export function AIProblemSolver() {
 
   return (
     <section className="py-24 bg-[#0B0B0B] text-white px-8 rounded-[3rem] border border-border overflow-hidden relative">
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-accent/10 blur-[150px] rounded-full -translate-y-1/2 translate-x-1/2 pointer-events-none" />
+      {/* AI Energy Field Background */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {/* Animated Glows */}
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-accent/10 blur-[120px] rounded-full -translate-y-1/2 translate-x-1/2 animate-drift opacity-60" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-accent/[0.05] blur-[100px] rounded-full translate-y-1/2 -translate-x-1/4 animate-drift-reverse opacity-40" />
+        
+        {/* Tech Mesh / Noise Overlay */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
+        
+        {/* Subtle Ambient Radial Mask */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)]" />
+      </div>
       
       <div className="max-w-4xl mx-auto space-y-12 relative z-10">
         <div className="text-center space-y-4">
@@ -46,7 +57,7 @@ export function AIProblemSolver() {
             value={problem}
             onChange={(e) => setProblem(e.target.value)}
             placeholder="Ej: Necesito estabilidad total en mis rutas de moto..."
-            className="bg-card border-border text-white h-16 rounded-2xl px-8 focus:border-white transition-premium text-lg"
+            className="bg-card/80 backdrop-blur-md border-border text-white h-16 rounded-2xl px-8 focus:border-white transition-premium text-lg"
           />
           <Button 
             disabled={loading}
@@ -60,7 +71,7 @@ export function AIProblemSolver() {
         {results.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
             {results.map((res, i) => (
-              <Card key={i} className="bg-card border-border p-8 flex flex-col justify-between hover:border-white transition-premium rounded-[2rem]">
+              <Card key={i} className="bg-card/40 backdrop-blur-md border-border p-8 flex flex-col justify-between hover:border-white transition-premium rounded-[2rem]">
                 <div className="space-y-4">
                   <h4 className="text-white text-xl font-black tracking-tight">{res.name}</h4>
                   <p className="text-sm text-muted-foreground leading-relaxed">{res.reason}</p>

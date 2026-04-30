@@ -61,8 +61,30 @@
   100% { transform: translateY(0px) translateZ(25px); }
 }
 
+@keyframes drift {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, -20px) scale(1.1); }
+  66% { transform: translate(-30px, 40px) scale(0.9); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
+@keyframes drift-reverse {
+  0% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-40px, 30px) scale(1.2); }
+  66% { transform: translate(20px, -50px) scale(0.85); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+
 .animate-float-3d {
   animation: float 4s ease-in-out infinite;
+}
+
+.animate-drift {
+  animation: drift 20s ease-in-out infinite;
+}
+
+.animate-drift-reverse {
+  animation: drift-reverse 25s ease-in-out infinite;
 }
 
 .pill-button {
