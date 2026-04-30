@@ -131,6 +131,15 @@ export function ThreeDProductCard(product: Product) {
               background: `radial-gradient(circle at ${shine.x}% ${shine.y}%, rgba(255,255,255,${shine.opacity}), transparent 50%)`,
             }}
           />
+
+          {/* Mobile Premium Static/Active Glow Layer */}
+          <div 
+            className={cn(
+              "absolute inset-0 pointer-events-none z-30 transition-all duration-500 md:hidden",
+              "bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.05),transparent_60%)]",
+              isActive && "opacity-100 bg-[radial-gradient(circle_at_15%_15%,rgba(255,255,255,0.12),transparent_70%)]"
+            )}
+          />
           
           {/* Glass Effect Overlay */}
           <div className="absolute inset-0 bg-gradient-to-br from-white/[0.04] to-transparent pointer-events-none z-10" />
