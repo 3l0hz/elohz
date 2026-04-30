@@ -1,4 +1,3 @@
-
 "use client"
 
 import React, { useState } from 'react';
@@ -6,7 +5,7 @@ import Image from 'next/image';
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Eye, Star } from "lucide-react";
+import { MessageCircle, Eye } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface ProductProps {
@@ -16,10 +15,10 @@ interface ProductProps {
   category: string;
   imageUrl: string;
   brand?: string;
-  isTopPick?: boolean;
+  badge?: string;
 }
 
-export function ThreeDProductCard({ id, name, price, category, imageUrl, brand, isTopPick }: ProductProps) {
+export function ThreeDProductCard({ id, name, price, category, imageUrl, brand, badge }: ProductProps) {
   const [rotation, setRotation] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
 
@@ -49,10 +48,10 @@ export function ThreeDProductCard({ id, name, price, category, imageUrl, brand, 
       onMouseMove={handleMouseMove}
       onMouseLeave={resetRotation}
     >
-      {isTopPick && (
+      {badge && (
         <div className="absolute top-6 left-6 z-20">
-          <Badge className="bg-accent text-black font-black text-[8px] tracking-widest px-3 py-1 flex gap-1 items-center">
-            <Star className="w-2 h-2 fill-black" /> TOP PICK
+          <Badge className="bg-white/10 backdrop-blur-md text-white border-white/20 font-black text-[8px] tracking-widest px-3 py-1.5 rounded-full">
+            {badge}
           </Badge>
         </div>
       )}
