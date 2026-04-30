@@ -21,14 +21,13 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
         <Script 
           type="module" 
           src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js" 
           strategy="afterInteractive"
         />
       </head>
-      <body className="font-body antialiased bg-background text-foreground selection:bg-primary selection:text-black">
+      <body className="antialiased bg-background text-foreground selection:bg-primary selection:text-black">
         <CartProvider>
           <Header />
           <div className="pt-20">
