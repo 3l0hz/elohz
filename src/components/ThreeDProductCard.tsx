@@ -183,7 +183,12 @@ export function ThreeDProductCard(product: Product) {
               </Button>
               <Button 
                 variant="ghost"
-                className="w-full h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-bold text-muted-foreground/60 hover:text-white hover:bg-white/5 group/btn transition-all active:scale-[0.98] lg:hover:translate-y-[-1px]"
+                className={cn(
+                  "w-full h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-bold transition-all group/btn active:scale-[0.98] lg:hover:translate-y-[-1px]",
+                  "bg-white/5 text-white border border-white/10", // Mobile: siempre visible premium
+                  "md:bg-transparent md:text-muted-foreground/60 md:border-transparent md:hover:text-white md:hover:bg-white/5" // Desktop: hover reactivo
+                )}
+                onClick={() => setShowDetails(true)}
               >
                 <Eye className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2 transition-transform lg:group-hover/btn:scale-110" />
                 Detalles
