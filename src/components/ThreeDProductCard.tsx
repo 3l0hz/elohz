@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useRef, useEffect } from 'react';
@@ -100,10 +101,10 @@ export function ThreeDProductCard(product: Product) {
       <div 
         ref={cardRef}
         className={cn(
-          "perspective-1000 transition-all duration-700 ease-out touch-none",
+          "perspective-1000 transition-all duration-500 ease-out touch-none",
           isVisible 
             ? "opacity-100 translate-y-0 scale-100 blur-0" 
-            : "opacity-0 translate-y-6 scale-[0.96] blur-sm"
+            : "opacity-0 translate-y-4 scale-[0.98] blur-sm"
         )}
       >
         <Card 
@@ -111,7 +112,7 @@ export function ThreeDProductCard(product: Product) {
             "group relative overflow-hidden bg-[#111111] rounded-[2rem] border cursor-pointer preserve-3d transition-all duration-300 ease-out shadow-2xl",
             "border-white/[0.08] hover:border-white/20",
             isActive 
-              ? "scale-[0.98] md:scale-[1.02] border-white/25 shadow-[0_0_30px_rgba(255,255,255,0.06)]" 
+              ? "scale-[0.98] border-white/20 shadow-[0_0_30px_rgba(255,255,255,0.06)]" 
               : "scale-100"
           )}
           style={{
@@ -124,9 +125,9 @@ export function ThreeDProductCard(product: Product) {
           onTouchEnd={handleTouchEnd}
           onClick={() => setShowDetails(true)}
         >
-          {/* Dynamic Reflection Layer */}
+          {/* Dynamic Reflection Layer (Desktop Only) */}
           <div 
-            className="absolute inset-0 pointer-events-none z-30 transition-opacity duration-300"
+            className="absolute inset-0 pointer-events-none z-30 transition-opacity duration-300 hidden md:block"
             style={{
               background: `radial-gradient(circle at ${shine.x}% ${shine.y}%, rgba(255,255,255,${shine.opacity}), transparent 50%)`,
             }}
@@ -137,7 +138,7 @@ export function ThreeDProductCard(product: Product) {
           
           <div className="p-4 md:p-8 flex flex-col h-full relative z-20">
             {/* Top Section: Badges and Brand */}
-            <div className="flex flex-col gap-2 mb-4 md:mb-6 min-h-[64px] md:min-h-[80px] translate-z-10">
+            <div className="flex flex-col gap-2 mb-2 md:mb-6 min-h-[64px] md:min-h-[80px] translate-z-10">
               <div className="flex justify-between items-start w-full">
                 {badge && (
                   <Badge className="bg-white text-black border-none font-black text-[7px] md:text-[8px] tracking-widest px-2 py-1 md:px-3 md:py-1.5 rounded-full uppercase whitespace-nowrap shadow-xl">
@@ -160,9 +161,15 @@ export function ThreeDProductCard(product: Product) {
               </Badge>
             </div>
 
-            {/* Image Container */}
-            <div className="relative h-44 md:h-56 w-full flex items-center justify-center overflow-hidden translate-z-20">
-              <div className="relative w-36 h-36 md:w-44 md:h-44 transition-all duration-300 ease-out md:group-hover:scale-[1.05]">
+            {/* Image Container - Protagonist in Mobile */}
+            <div className="relative h-[200px] md:h-56 w-full flex items-center justify-center overflow-hidden translate-z-20">
+              {/* Radial gradient background (Mobile Focus) */}
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,156,0.03)_0%,transparent_70%)] md:hidden" />
+              
+              <div className={cn(
+                "relative w-48 h-48 md:w-44 md:h-44 transition-all duration-300 ease-out",
+                isActive ? "scale-[1.03] md:scale-[1.05]" : "scale-100"
+              )}>
                 <Image 
                   src={imageUrl} 
                   alt={name}
@@ -171,23 +178,23 @@ export function ThreeDProductCard(product: Product) {
                     "object-contain transition-all duration-300",
                     isActive ? "drop-shadow-[0_25px_45px_rgba(0,0,0,0.85)]" : "drop-shadow-[0_20px_40px_rgba(0,0,0,0.7)]"
                   )}
-                  sizes="(max-width: 768px) 144px, 176px"
+                  sizes="(max-width: 768px) 192px, 176px"
                 />
               </div>
             </div>
 
-            {/* Info Section */}
-            <div className="mt-4 space-y-1 md:space-y-2 flex-grow translate-z-10">
+            {/* Info Section - Tighter Mobile Layout */}
+            <div className="mt-2 md:mt-8 space-y-1 md:space-y-2 flex-grow translate-z-10">
               <h3 className="text-sm md:text-xl font-black tracking-tight leading-tight uppercase line-clamp-2 text-white/90">
                 {name}
               </h3>
               <p className="text-lg md:text-2xl font-black text-white">{price}</p>
             </div>
 
-            {/* Actions */}
+            {/* Actions - Mobile Optimized Buttons */}
             <div className="mt-4 md:mt-8 flex flex-col gap-2 translate-z-10">
               <Button 
-                className="w-full pill-button button-primary h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-black"
+                className="w-full pill-button button-primary h-12 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-black"
                 asChild
                 onClick={(e) => e.stopPropagation()}
               >
@@ -198,7 +205,7 @@ export function ThreeDProductCard(product: Product) {
               </Button>
               <Button 
                 variant="ghost"
-                className="w-full pill-button h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-black text-muted-foreground hover:text-white hover:bg-white/5"
+                className="w-full pill-button h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-black text-muted-foreground/60 hover:text-white hover:bg-white/5"
               >
                 <Eye className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2" />
                 Detalles
