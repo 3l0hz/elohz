@@ -65,7 +65,7 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={cn(
-        "max-w-[100vw] md:max-w-6xl p-0 overflow-hidden bg-[#0B0B0B] border-white/5 md:rounded-[2.5rem] flex flex-col md:flex-row h-[100dvh] md:h-[85vh] transition-all duration-500 ease-out",
+        "max-w-[100vw] md:max-w-6xl p-0 overflow-hidden bg-[#0B0B0B] border-white/5 md:rounded-[2.5rem] flex flex-col md:flex-row h-[100dvh] md:h-[85vh] transition-all duration-500 ease-out outline-none",
         "data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:slide-in-from-bottom-10"
       )}>
         <DialogHeader className="sr-only">
@@ -74,32 +74,33 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
         </DialogHeader>
 
         {/* Gallery Section */}
-        <div className="relative w-full md:w-3/5 bg-[#0F0F0F] flex flex-col border-r border-white/5">
-          {/* Main Viewport */}
+        <div className="relative w-full md:w-3/5 bg-[#0F0F0F] flex flex-col border-r border-white/5 overflow-hidden">
+          {/* Main Viewport - Integrated Area */}
           <div 
-            className="relative flex-1 group overflow-hidden flex items-center justify-center cursor-zoom-in"
+            className="relative flex-1 group overflow-hidden flex items-center justify-center cursor-zoom-in min-h-[320px] md:min-h-0"
             onClick={() => activeMedia.type === 'image' && setIsZoomed(true)}
           >
             <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_0%,transparent_70%)]" />
             
             <div className="relative w-full h-full flex items-center justify-center p-6 md:p-12 z-10 transition-all duration-500">
               {activeMedia.type === 'image' && (
-                <div className="relative w-full h-full animate-in fade-in zoom-in-95 duration-500">
+                <div className="relative w-full h-full animate-in fade-in zoom-in-[0.98] duration-300">
                   <Image 
                     src={activeMedia.url} 
                     alt={product.name}
                     fill
-                    className="object-contain"
+                    className="object-contain drop-shadow-2xl"
                     priority
                   />
-                  <div className="absolute bottom-4 right-4 md:opacity-0 md:group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-md p-2 rounded-xl border border-white/10">
+                  {/* Zoom indicator on desktop */}
+                  <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity bg-black/40 backdrop-blur-md p-2.5 rounded-xl border border-white/10 hidden md:block">
                     <Maximize2 className="w-5 h-5 text-white/70" />
                   </div>
                 </div>
               )}
 
               {activeMedia.type === '3d' && (
-                <div className="w-full h-full animate-in fade-in duration-500">
+                <div className="w-full h-full animate-in fade-in duration-300">
                   {/* @ts-ignore */}
                   <model-viewer
                     src={activeMedia.url}
@@ -114,7 +115,7 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
               )}
 
               {activeMedia.type === 'video' && (
-                <div className="w-full h-full flex items-center justify-center p-4 animate-in fade-in duration-500">
+                <div className="w-full h-full flex items-center justify-center p-4 animate-in fade-in duration-300">
                   <video 
                     src={activeMedia.url} 
                     controls 
@@ -125,18 +126,18 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
               )}
             </div>
 
-            {/* Navigation Arrows (Only if more than 1 media) */}
+            {/* Navigation Arrows - Integrated Glass Effect */}
             {mediaGallery.length > 1 && (
               <>
                 <button 
                   onClick={handlePrev}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/20 backdrop-blur-xl border border-white/10 text-white transition-premium z-20 md:opacity-0 md:group-hover:opacity-100 hover:bg-white/10 active:scale-90"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/30 backdrop-blur-xl border border-white/10 text-white transition-all duration-300 z-20 hover:bg-white/10 hover:scale-110 active:scale-90 group-hover:opacity-100 opacity-60 md:opacity-0"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button 
                   onClick={handleNext}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/20 backdrop-blur-xl border border-white/10 text-white transition-premium z-20 md:opacity-0 md:group-hover:opacity-100 hover:bg-white/10 active:scale-90"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 p-4 rounded-full bg-black/30 backdrop-blur-xl border border-white/10 text-white transition-all duration-300 z-20 hover:bg-white/10 hover:scale-110 active:scale-90 group-hover:opacity-100 opacity-60 md:opacity-0"
                 >
                   <ChevronRight className="w-6 h-6" />
                 </button>
@@ -153,8 +154,8 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
             </div>
           </div>
 
-          {/* Thumbnails Bar */}
-          <div className="h-28 border-t border-white/5 bg-[#0B0B0B] p-5 flex items-center justify-center gap-4 overflow-x-auto no-scrollbar">
+          {/* Thumbnails Bar - Positioned BELOW */}
+          <div className="h-28 border-t border-white/5 bg-[#0B0B0B] p-5 flex items-center justify-center gap-4 overflow-x-auto scrollbar-hide">
             {mediaGallery.map((item, idx) => (
               <button
                 key={idx}
@@ -162,8 +163,8 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
                 className={cn(
                   "relative h-16 aspect-square rounded-2xl overflow-hidden border-2 transition-all duration-300 flex-shrink-0 active:scale-90",
                   activeMediaIndex === idx 
-                    ? "border-accent scale-110 shadow-lg shadow-accent/20" 
-                    : "border-transparent opacity-40 hover:opacity-100"
+                    ? "border-accent scale-105 shadow-lg shadow-accent/10" 
+                    : "border-transparent opacity-30 hover:opacity-100"
                 )}
               >
                 {item.type === 'image' && (
@@ -183,7 +184,7 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
             ))}
           </div>
 
-          {/* Close button for mobile inside gallery area if needed */}
+          {/* Close button for mobile inside gallery area */}
           <button 
             onClick={() => onOpenChange(false)}
             className="md:hidden absolute top-6 right-6 z-50 p-3 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-white"
