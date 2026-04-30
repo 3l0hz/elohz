@@ -1,8 +1,12 @@
+
 import type {Metadata} from 'next';
 import './globals.css';
 import { Header } from '@/components/Header';
 import { Toaster } from '@/components/ui/toaster';
 import Script from 'next/script';
+import { CartProvider } from '@/lib/cart-context';
+import { CartDrawer } from '@/components/CartDrawer';
+import { AnnouncementBanner } from '@/components/AnnouncementBanner';
 
 export const metadata: Metadata = {
   title: 'elohz | Tech Gadgets & Action Accessories',
@@ -27,9 +31,13 @@ export default function RootLayout({
         />
       </head>
       <body className="font-body antialiased bg-background text-foreground selection:bg-primary selection:text-black">
-        <Header />
-        {children}
-        <Toaster />
+        <CartProvider>
+          <AnnouncementBanner />
+          <Header />
+          {children}
+          <CartDrawer />
+          <Toaster />
+        </CartProvider>
       </body>
     </html>
   );

@@ -1,7 +1,8 @@
+
 "use client"
 
 import React from 'react';
-import { Menu, X, User, ChevronRight, MessageCircle, Percent } from 'lucide-react';
+import { Menu, X, User, ChevronRight, MessageCircle, Percent, ShoppingBag } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
@@ -15,8 +16,12 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import Link from 'next/link';
 import { CATEGORIES } from '@/lib/catalog';
+import { useCart } from '@/lib/cart-context';
+import { Badge } from '@/components/ui/badge';
 
 export function Header() {
+  const { totalItems, setIsOpen } = useCart();
+  
   const desktopLinks = [
     { name: 'Inicio', href: '/' },
     { name: 'Selfie Sticks', href: '/categoria/selfie-sticks' },
@@ -36,7 +41,7 @@ export function Header() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#0B0B0B]/90 backdrop-blur-xl border-b border-white/5 h-20 flex items-center transition-all duration-300">
+    <header className="sticky top-10 z-50 w-full bg-[#0B0B0B]/90 backdrop-blur-xl border-b border-white/5 h-20 flex items-center transition-all duration-300">
       <div className="max-w-7xl mx-auto w-full px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="text-3xl font-black tracking-tighter text-white hover:opacity-80 transition-premium">
@@ -58,6 +63,20 @@ export function Header() {
 
         {/* Menu & Icons */}
         <div className="flex items-center gap-2">
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="text-white hover:bg-white/5 relative group"
+            onClick={() => setIsOpen(true)}
+          >
+            <ShoppingBag className="w-5 h-5 group-active:scale-90 transition-all" />
+            {totalItems > 0 && (
+              <Badge className="absolute -top-1 -right-1 w-5 h-5 p-0 flex items-center justify-center bg-accent text-black font-black text-[10px] border-2 border-[#0B0B0B]">
+                {totalItems}
+              </Badge>
+            )}
+          </Button>
+
           <Button variant="ghost" size="icon" className="hidden sm:flex text-white hover:bg-white/5">
             <User className="w-5 h-5" />
           </Button>

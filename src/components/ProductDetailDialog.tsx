@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect } from 'react';
@@ -12,10 +13,11 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { MessageCircle, Box, Play, ChevronLeft, ChevronRight, X, Maximize2 } from "lucide-react";
+import { ShoppingCart, Box, Play, ChevronLeft, ChevronRight, X, Maximize2, Check } from "lucide-react";
 import { Product } from '@/lib/catalog';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
+import { useCart } from '@/lib/cart-context';
 
 interface ProductDetailDialogProps {
   product: Product;
@@ -34,6 +36,8 @@ interface MediaItem {
 export function ProductDetailDialog({ product, open, onOpenChange }: ProductDetailDialogProps) {
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [isAdded, setIsAdded] = useState(false);
+  const { addItem, setIsOpen } = useCart();
 
   const mediaGallery: MediaItem[] = [
     { type: 'image', url: product.imageUrl },
@@ -43,12 +47,12 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
   ];
 
   const activeMedia = mediaGallery[activeMediaIndex];
-  const whatsappLink = `https://wa.me/56940628182?text=Hola,%20quisiera%20consultar%20por%20el%20producto:%20${encodeURIComponent(product.name)}`;
 
   useEffect(() => {
     if (!open) {
       setActiveMediaIndex(0);
       setIsZoomed(false);
+      setIsAdded(false);
     }
   }, [open]);
 
@@ -60,6 +64,16 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
   const handlePrev = (e: React.MouseEvent) => {
     e.stopPropagation();
     setActiveMediaIndex(prev => (prev > 0 ? prev - 1 : mediaGallery.length - 1));
+  };
+
+  const handleAddToCart = () => {
+    addItem(product);
+    setIsAdded(true);
+    setTimeout(() => {
+      setIsAdded(false);
+      onOpenChange(false);
+      setIsOpen(true);
+    }, 800);
   };
 
   return (
@@ -235,13 +249,14 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
 
           <div className="pt-4 border-t border-white/5 flex flex-col gap-3">
             <Button 
-              className="w-full h-13 md:h-14 rounded-2xl bg-white text-black hover:bg-[#EAEAEA] font-black text-[10px] md:text-xs uppercase tracking-widest transition-premium active:scale-95 shadow-xl"
-              asChild
+              onClick={handleAddToCart}
+              className={cn(
+                "w-full h-13 md:h-14 rounded-2xl font-black text-[10px] md:text-xs uppercase tracking-widest transition-all active:scale-95 shadow-xl",
+                isAdded ? "bg-accent text-black" : "bg-white text-black hover:bg-[#EAEAEA]"
+              )}
             >
-              <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-5 h-5 mr-2" />
-                Consultar por WhatsApp
-              </a>
+              {isAdded ? <Check className="w-5 h-5 mr-2 animate-in zoom-in" /> : <ShoppingCart className="w-5 h-5 mr-2" />}
+              {isAdded ? "Añadido al carrito" : "Agregar al carrito"}
             </Button>
             <DialogClose asChild>
               <Button variant="ghost" className="hidden md:flex text-muted-foreground hover:text-white text-[10px] uppercase tracking-widest font-black">
