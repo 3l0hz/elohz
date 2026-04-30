@@ -5,7 +5,6 @@ import { Toaster } from '@/components/ui/toaster';
 import Script from 'next/script';
 import { CartProvider } from '@/lib/cart-context';
 import { CartDrawer } from '@/components/CartDrawer';
-import { CursorGlow } from '@/components/CursorGlow';
 
 export const metadata: Metadata = {
   title: 'elohz | Tech Gadgets & Action Accessories',
@@ -30,7 +29,6 @@ export default function RootLayout({
       </head>
       <body className="antialiased bg-background text-foreground selection:bg-primary selection:text-black">
         <CartProvider>
-          <CursorGlow />
           <Header />
           <div className="pt-20">
             {children}
