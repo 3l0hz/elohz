@@ -46,7 +46,7 @@
 
 @keyframes float {
   0% { transform: translateY(0px) rotateY(0deg); }
-  50% { transform: translateY(-10px) rotateY(180deg); }
+  50% { transform: translateY(-8px) rotateY(180deg); }
   100% { transform: translateY(0px) rotateY(360deg); }
 }
 
@@ -66,7 +66,6 @@
   @apply bg-transparent border border-white text-white hover:bg-white/10 active:scale-95;
 }
 
-/* Hide scrollbar for clean menu experience */
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
@@ -77,4 +76,9 @@
 
 .transition-premium {
   @apply transition-all duration-300 ease-in-out;
+}
+
+/* Custom backdrop for premium feel */
+[data-state=open].DialogOverlay {
+  @apply backdrop-blur-md bg-black/80;
 }
