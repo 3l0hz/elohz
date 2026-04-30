@@ -12,6 +12,9 @@ export interface Product {
   description: string;
   compatibility: string;
   recommendedUse: string;
+  additionalImages?: string[];
+  model3dUrl?: string;
+  videoUrl?: string;
 }
 
 export const CATEGORIES = [
@@ -35,7 +38,11 @@ export const PRODUCTS: Product[] = [
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-stick-120")?.imageUrl || "",
     description: "Selfie stick de 1.20 metros ideal para cámaras Insta360 y grabaciones en movimiento. Su tamaño permite lograr mejores ángulos en viajes, deportes, rutas, paseos y contenido 360°. Recomendado para creadores de contenido que buscan una toma más amplia sin cargar accesorios grandes.",
     compatibility: "Insta360 y cámaras deportivas compatibles con el sistema de montaje adecuado.",
-    recommendedUse: "Viajes, deportes, contenido 360°, grabaciones outdoor y tomas en movimiento."
+    recommendedUse: "Viajes, deportes, contenido 360°, grabaciones outdoor y tomas en movimiento.",
+    additionalImages: [
+       "https://picsum.photos/seed/ss1-1/800/800",
+       "https://picsum.photos/seed/ss1-2/800/800"
+    ]
   },
   { 
     id: 'ss-2', 
@@ -72,7 +79,7 @@ export const PRODUCTS: Product[] = [
     categoryName: "Soportes Moto / Vehículo", 
     categorySlug: "soportes-moto", 
     imageUrl: PlaceHolderImages.find(img => img.id === "prod-moto-handle")?.imageUrl || "",
-    description: "Soporte para instalar cámaras deportivas en moto, manillar o carenado. Permite capturar rutas, recorridos y contenido en primera persona con mayor estabilidad. Ideal para youtubers, motociclistas y creadores de contenido que graban desde la moto.",
+    description: "Soporte para instalar cámaras deportivas en moto, manillar o carenado. Permite capturar rutas, recorridos y contenido en primera persona con mayor estabilidad. Ideal para youtubers, motociclistas y creadores de contenido en moto que graban desde la moto.",
     compatibility: "GoPro, Insta360 y cámaras deportivas compatibles con adaptador tipo action cam.",
     recommendedUse: "Moto, rutas, grabación POV, viajes y contenido para YouTube."
   },
