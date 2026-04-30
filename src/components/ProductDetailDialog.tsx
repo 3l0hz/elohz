@@ -72,7 +72,7 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
       setIsAdded(false);
       onOpenChange(false);
       setIsOpen(true);
-    }, 800);
+    }, 1000);
   };
 
   return (
@@ -251,11 +251,12 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
               onClick={handleAddToCart}
               className={cn(
                 "w-full h-13 md:h-14 rounded-2xl button-primary font-black text-[10px] md:text-xs uppercase tracking-widest shadow-xl",
-                isAdded && "bg-accent text-black"
+                "active:translate-y-[1px] active:scale-[0.98]",
+                isAdded && "bg-white text-black hover:bg-white"
               )}
             >
-              {isAdded ? <Check className="w-5 h-5 mr-2 animate-in zoom-in" /> : <ShoppingCart className="w-5 h-5 mr-2" />}
-              {isAdded ? "Añadido" : "Agregar"}
+              {isAdded ? <Check className="w-5 h-5 mr-2 animate-in zoom-in text-black" /> : <ShoppingCart className="w-5 h-5 mr-2 text-black" />}
+              <span className="text-black">{isAdded ? "Agregado" : "Agregar"}</span>
             </Button>
             <DialogClose asChild>
               <Button variant="ghost" className="hidden md:flex text-muted-foreground hover:text-white text-[10px] uppercase tracking-widest font-black transition-all lg:hover:translate-y-[-1px] active:scale-95">

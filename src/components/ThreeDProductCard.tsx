@@ -82,7 +82,7 @@ export function ThreeDProductCard(product: Product) {
     setTimeout(() => {
       setIsAdded(false);
       setIsOpen(true);
-    }, 800);
+    }, 1000);
   };
 
   const handleWhatsAppConsult = (e: React.MouseEvent) => {
@@ -189,17 +189,18 @@ export function ThreeDProductCard(product: Product) {
             <div className="mt-4 flex flex-col gap-2 translate-z-10">
               <Button 
                 className={cn(
-                  "w-full h-11 md:h-12 text-[10px] uppercase tracking-widest font-black transition-all pill-button btn-premium-shine",
-                  isAdded ? "bg-accent text-black active:scale-[0.98] lg:hover:scale-[1.02]" : "button-primary"
+                  "w-full h-11 md:h-12 text-[10px] uppercase tracking-widest font-black transition-all pill-button btn-premium-shine button-primary",
+                  "active:translate-y-[1px] active:scale-[0.98]",
+                  isAdded && "bg-white text-black hover:bg-white"
                 )}
                 onClick={handleAddToCart}
               >
                 {isAdded ? (
-                  <Check className="w-4 h-4 mr-2 animate-in zoom-in" />
+                  <Check className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2 animate-in zoom-in text-black" />
                 ) : (
-                  <ShoppingCart className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2 transition-transform lg:group-hover/btn:translate-x-1" />
+                  <ShoppingCart className="w-3.5 h-3.5 md:w-4 md:h-4 mr-2 transition-transform lg:group-hover/btn:translate-x-1 text-black" />
                 )}
-                {isAdded ? "Añadido" : "Agregar"}
+                <span className="text-black">{isAdded ? "Agregado" : "Agregar"}</span>
               </Button>
               <Button 
                 variant="ghost"
