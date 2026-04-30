@@ -45,13 +45,13 @@
 }
 
 @keyframes float {
-  0% { transform: translateY(0px) rotateY(0deg); }
-  50% { transform: translateY(-8px) rotateY(180deg); }
-  100% { transform: translateY(0px) rotateY(360deg); }
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
 }
 
 .animate-float-3d {
-  animation: float 8s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
 }
 
 .pill-button {

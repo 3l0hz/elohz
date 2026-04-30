@@ -11,28 +11,9 @@ import { Product } from '@/lib/catalog';
 import { ProductDetailDialog } from '@/components/ProductDetailDialog';
 
 export function ThreeDProductCard(product: Product) {
-  const [rotation, setRotation] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
   const { name, price, categoryName, imageUrl, brand, badge } = product;
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isHovered) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateY = ((x - centerX) / centerX) * 8; 
-    const rotateX = ((centerY - y) / centerY) * 8;
-    setRotation({ x: rotateX, y: rotateY });
-  };
-
-  const resetRotation = () => {
-    setIsHovered(false);
-    setRotation({ x: 0, y: 0 });
-  };
 
   const whatsappLink = `https://wa.me/56940628182?text=Hola,%20quisiera%20consultar%20por%20el%20producto:%20${encodeURIComponent(name)}`;
 
@@ -49,23 +30,23 @@ export function ThreeDProductCard(product: Product) {
     return map[name] || name;
   };
 
+  const isSoldOut = false; // Placeholder for future logic
+
   return (
     <>
       <Card 
         className={cn(
-          "group relative overflow-hidden bg-[#111111] transition-all duration-500 rounded-[2rem] border cursor-pointer",
+          "group relative overflow-hidden bg-[#111111] transition-all duration-300 rounded-[2rem] border cursor-pointer",
           "border-white/[0.08] shadow-[0_0_30px_rgba(255,255,255,0.04)]",
-          "active:scale-[0.98] active:border-white/[0.22] active:shadow-[0_0_40px_rgba(255,255,255,0.08)]",
-          "md:hover:border-white/30 md:active:scale-100 md:shadow-lg"
+          "hover:scale-[1.02] hover:border-white/20 hover:shadow-[0_20px_40px_rgba(0,0,0,0.6)]",
+          "active:scale-[0.98] transition-premium"
         )}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={resetRotation}
         onClick={() => setShowDetails(true)}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-white/[0.03] to-transparent pointer-events-none" />
         
         <div className="p-4 md:p-8 flex flex-col h-full relative z-10">
+          {/* Top Section: Badges and Brand */}
           <div className="flex flex-col gap-2 mb-4 md:mb-6 min-h-[64px] md:min-h-[80px]">
             <div className="flex justify-between items-start w-full">
               {badge && (
@@ -89,29 +70,20 @@ export function ThreeDProductCard(product: Product) {
             </Badge>
           </div>
 
-          <div className="perspective-1000 relative h-44 md:h-56 w-full flex items-center justify-center">
-            <div 
-              className={cn(
-                "preserve-3d transition-transform duration-500 ease-out",
-                !isHovered && "animate-float-3d"
-              )}
-              style={{
-                transform: isHovered 
-                  ? `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg) scale(1.05)` 
-                  : undefined
-              }}
-            >
-              <div className="relative w-36 h-36 md:w-44 md:h-44">
-                <Image 
-                  src={imageUrl} 
-                  alt={name}
-                  fill
-                  className="object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.7)]"
-                />
-              </div>
+          {/* Image Container: Clean Scale Effect */}
+          <div className="relative h-44 md:h-56 w-full flex items-center justify-center overflow-hidden">
+            <div className="relative w-36 h-36 md:w-44 md:h-44 transition-transform duration-500 ease-out group-hover:scale-[1.05] animate-float-3d">
+              <Image 
+                src={imageUrl} 
+                alt={name}
+                fill
+                className="object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]"
+                sizes="(max-width: 768px) 144px, 176px"
+              />
             </div>
           </div>
 
+          {/* Info Section */}
           <div className="mt-4 space-y-1 md:space-y-2 flex-grow">
             <h3 className="text-sm md:text-xl font-black tracking-tight leading-tight uppercase line-clamp-2 text-white/90">
               {name}
@@ -119,6 +91,7 @@ export function ThreeDProductCard(product: Product) {
             <p className="text-lg md:text-2xl font-black text-white">{price}</p>
           </div>
 
+          {/* Actions */}
           <div className="mt-4 md:mt-8 flex flex-col gap-2">
             <Button 
               className="w-full pill-button button-primary h-10 md:h-11 text-[9px] md:text-[10px] uppercase tracking-widest font-black"
