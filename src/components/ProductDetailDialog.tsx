@@ -77,7 +77,7 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
         <div className="relative w-full md:w-3/5 bg-[#0F0F0F] flex flex-col border-r border-white/5 overflow-hidden">
           {/* Main Viewport - Integrated Area */}
           <div 
-            className="relative flex-1 group overflow-hidden flex items-center justify-center cursor-zoom-in min-h-[320px] md:min-h-0"
+            className="relative flex-1 group overflow-hidden flex items-center justify-center cursor-zoom-in min-h-[300px] md:min-h-0"
             onClick={() => activeMedia.type === 'image' && setIsZoomed(true)}
           >
             <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_0%,transparent_70%)]" />
@@ -155,13 +155,13 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
           </div>
 
           {/* Thumbnails Bar - Positioned BELOW */}
-          <div className="h-28 border-t border-white/5 bg-[#0B0B0B] p-5 flex items-center justify-center gap-4 overflow-x-auto scrollbar-hide">
+          <div className="h-20 md:h-28 border-t border-white/5 bg-[#0B0B0B] p-3 md:p-5 flex items-center justify-center gap-3 md:gap-4 overflow-x-auto scrollbar-hide">
             {mediaGallery.map((item, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveMediaIndex(idx)}
                 className={cn(
-                  "relative h-16 aspect-square rounded-2xl overflow-hidden border-2 transition-all duration-300 flex-shrink-0 active:scale-90",
+                  "relative h-12 md:h-16 aspect-square rounded-xl md:rounded-2xl overflow-hidden border-2 transition-all duration-300 flex-shrink-0 active:scale-90",
                   activeMediaIndex === idx 
                     ? "border-accent scale-105 shadow-lg shadow-accent/10" 
                     : "border-transparent opacity-30 hover:opacity-100"
@@ -172,12 +172,12 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
                 )}
                 {item.type === '3d' && (
                   <div className="w-full h-full flex items-center justify-center bg-[#111111]">
-                    <Box className="w-6 h-6 text-accent" />
+                    <Box className="w-5 h-5 md:w-6 md:h-6 text-accent" />
                   </div>
                 )}
                 {item.type === 'video' && (
                   <div className="w-full h-full flex items-center justify-center bg-[#111111]">
-                    <Play className="w-6 h-6 text-white" />
+                    <Play className="w-5 h-5 md:w-6 md:h-6 text-white" />
                   </div>
                 )}
               </button>
@@ -194,50 +194,50 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
         </div>
 
         {/* Content Section */}
-        <div className="flex-1 flex flex-col p-8 md:p-12 space-y-10 overflow-hidden bg-[#0B0B0B] relative">
-          <ScrollArea className="flex-1 pr-4">
-            <div className="space-y-12 pb-24 md:pb-0">
-              <div className="space-y-6">
-                <div className="flex flex-wrap items-center gap-3">
-                  <Badge variant="outline" className="border-accent/20 text-accent font-black text-[9px] tracking-[0.2em] px-4 py-1.5 bg-accent/5 rounded-xl">
+        <div className="flex-1 flex flex-col p-6 md:p-12 space-y-6 md:space-y-10 overflow-hidden bg-[#0B0B0B] relative">
+          <ScrollArea className="flex-1 pr-2 md:pr-4">
+            <div className="space-y-8 md:space-y-12 pb-12 md:pb-0">
+              <div className="space-y-4 md:space-y-6">
+                <div className="flex flex-wrap items-center gap-2 md:gap-3">
+                  <Badge variant="outline" className="border-accent/20 text-accent font-black text-[8px] md:text-[9px] tracking-[0.2em] px-3 md:px-4 py-1.5 bg-accent/5 rounded-xl">
                     {product.categoryName.toUpperCase()}
                   </Badge>
                   {product.brand && product.brand !== 'Genérico' && (
-                    <span className="text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase bg-white/5 px-3 py-1.5 rounded-xl border border-white/5">
+                    <span className="text-[8px] md:text-[10px] font-black tracking-[0.2em] text-muted-foreground uppercase bg-white/5 px-2 md:px-3 py-1.5 rounded-xl border border-white/5">
                       {product.brand}
                     </span>
                   )}
                 </div>
                 <div className="space-y-2">
-                  <h2 className="text-4xl md:text-6xl font-black tracking-tighter uppercase leading-[0.9] text-white">{product.name}</h2>
-                  <div className="flex items-baseline gap-2 pt-4">
-                    <span className="text-3xl md:text-5xl font-black text-white tracking-tighter">{product.price}</span>
-                    <span className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">En stock</span>
+                  <h2 className="text-3xl md:text-6xl font-black tracking-tighter uppercase leading-[0.95] md:leading-[0.9] text-white">{product.name}</h2>
+                  <div className="flex items-baseline gap-2 pt-2 md:pt-4">
+                    <span className="text-2xl md:text-5xl font-black text-white tracking-tighter">{product.price}</span>
+                    <span className="text-[9px] md:text-[10px] font-black text-muted-foreground uppercase tracking-widest">En stock</span>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-12">
-                <div className="space-y-4">
-                  <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-accent flex items-center gap-3">
-                    <span className="w-8 h-[1px] bg-accent/30" />
+              <div className="space-y-8 md:space-y-12">
+                <div className="space-y-3 md:space-y-4">
+                  <h4 className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em] text-accent flex items-center gap-3">
+                    <span className="w-6 md:w-8 h-[1px] bg-accent/30" />
                     Descripción
                   </h4>
-                  <p className="text-sm md:text-base leading-relaxed text-muted-foreground font-medium uppercase tracking-tight">
+                  <p className="text-xs md:text-base leading-relaxed text-muted-foreground font-medium uppercase tracking-tight">
                     {product.description}
                   </p>
                 </div>
 
-                <div className="grid grid-cols-1 gap-6">
-                  <div className="group space-y-4 p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-premium">
-                    <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-muted-foreground">Compatibilidad Técnica</h4>
-                    <p className="text-sm leading-relaxed text-white font-bold uppercase tracking-tight group-hover:text-accent transition-premium">
+                <div className="grid grid-cols-1 gap-4 md:gap-6">
+                  <div className="group space-y-3 md:space-y-4 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-premium">
+                    <h4 className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em] text-muted-foreground">Compatibilidad Técnica</h4>
+                    <p className="text-xs md:text-sm leading-relaxed text-white font-bold uppercase tracking-tight group-hover:text-accent transition-premium">
                       {product.compatibility}
                     </p>
                   </div>
-                  <div className="group space-y-4 p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-premium">
-                    <h4 className="text-[11px] font-black uppercase tracking-[0.3em] text-muted-foreground">Uso Profesional</h4>
-                    <p className="text-sm leading-relaxed text-white font-bold uppercase tracking-tight group-hover:text-accent transition-premium">
+                  <div className="group space-y-3 md:space-y-4 p-6 md:p-8 rounded-[1.5rem] md:rounded-[2.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-premium">
+                    <h4 className="text-[10px] md:text-[11px] font-black uppercase tracking-[0.3em] text-muted-foreground">Uso Profesional</h4>
+                    <p className="text-xs md:text-sm leading-relaxed text-white font-bold uppercase tracking-tight group-hover:text-accent transition-premium">
                       {product.recommendedUse}
                     </p>
                   </div>
@@ -247,13 +247,13 @@ export function ProductDetailDialog({ product, open, onOpenChange }: ProductDeta
           </ScrollArea>
 
           {/* Sticky Footer for CTA */}
-          <div className="pt-8 md:pt-12 border-t border-white/5 flex flex-col gap-4 bg-[#0B0B0B] z-10">
+          <div className="pt-4 md:pt-12 border-t border-white/5 flex flex-col gap-4 bg-[#0B0B0B] z-10">
             <Button 
-              className="w-full h-20 rounded-[1.5rem] bg-white text-black hover:bg-[#EAEAEA] font-black text-sm uppercase tracking-[0.2em] transition-premium shadow-2xl shadow-white/5 active:scale-[0.98]"
+              className="w-full h-14 md:h-20 rounded-[1.2rem] md:rounded-[1.5rem] bg-white text-black hover:bg-[#EAEAEA] font-black text-xs md:text-sm uppercase tracking-[0.2em] transition-premium shadow-2xl shadow-white/5 active:scale-[0.98]"
               asChild
             >
               <a href={whatsappLink} target="_blank" rel="noopener noreferrer">
-                <MessageCircle className="w-6 h-6 mr-3" />
+                <MessageCircle className="w-5 h-5 md:w-6 md:h-6 mr-2 md:mr-3" />
                 Comprar por WhatsApp
               </a>
             </Button>
