@@ -111,17 +111,23 @@ export const PRODUCTS: Product[] = [
   
   // Trípodes
   { 
-    id: 'tr-1', 
-    name: 'Mini trípode gopro', 
-    price: '$16.990', 
-    brand: 'Ulanzi', 
-    categoryName: "Trípodes", 
-    categorySlug: "tripodes", 
-    imageUrl: "https://bwdvsbxwqlnlzfwfsoid.supabase.co/storage/v1/object/public/Products/MinitripodeGoPro/20250912_132852.png",
-    description: "Mini trípode compacto para GoPro y cámaras deportivas. Permite apoyar la cámara en superficies planas para grabar contenido estable, hacer tomas fijas, fotos, videos cortos o material para YouTube y redes sociales.",
-    compatibility: "GoPro y cámaras deportivas compatibles.",
-    recommendedUse: "Grabación fija, escritorio, viajes, contenido para redes y fotos."
-  },
+  id: 'tr-1', 
+  name: 'Mini trípode gopro', 
+  price: '$16.990', 
+  brand: 'Ulanzi', 
+  categoryName: "Trípodes", 
+  categorySlug: "tripodes", 
+  imageUrl: "https://bwdvsbxwqlnlzfwfsoid.supabase.co/storage/v1/object/public/Products/MinitripodeGoPro/20250912_132852.png",
+  additionalImages: [
+    "https://bwdvsbxwqlnlzfwfsoid.supabase.co/storage/v1/object/public/Products/MinitripodeGoPro/20250912_132931.png",
+    "https://bwdvsbxwqlnlzfwfsoid.supabase.co/storage/v1/object/public/Products/Mini%20tripode%20GoPro/20250912_133035.png",
+    "https://bwdvsbxwqlnlzfwfsoid.supabase.co/storage/v1/object/public/Products/Mini%20tripode%20GoPro/20250912_133119.png"
+  ],
+  model3dUrl: "https://bwdvsbxwqlnlzfwfsoid.supabase.co/storage/v1/object/public/Products/MinitripodeGoPro/Hitem3d-1777323983817.glb",
+  description: "Mini trípode compacto para GoPro y cámaras deportivas. Permite apoyar la cámara en superficies planas para grabar contenido estable, hacer tomas fijas, fotos, videos cortos o material para YouTube y redes sociales.",
+  compatibility: "GoPro y cámaras deportivas compatibles.",
+  recommendedUse: "Grabación fija, escritorio, viajes, contenido para redes y fotos."
+},
   { 
     id: 'tr-2', 
     name: 'Mini trípode insta', 
