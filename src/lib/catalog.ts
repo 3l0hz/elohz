@@ -117,7 +117,7 @@ export const PRODUCTS: Product[] = [
     brand: 'Ulanzi', 
     categoryName: "Trípodes", 
     categorySlug: "tripodes", 
-    imageUrl: "https://bdwdsbxwqln1zfwfsoid.supabase.co/storage/v1/object/public/Products/MinitripodeGoPro/20250912_132852.png",
+    imageUrl: "https://bwdvsbxwqlnlzfwfsoid.supabase.co/storage/v1/object/public/Products/MinitripodeGoPro/20250912_132852.png",
     description: "Mini trípode compacto para GoPro y cámaras deportivas. Permite apoyar la cámara en superficies planas para grabar contenido estable, hacer tomas fijas, fotos, videos cortos o material para YouTube y redes sociales.",
     compatibility: "GoPro y cámaras deportivas compatibles.",
     recommendedUse: "Grabación fija, escritorio, viajes, contenido para redes y fotos."
