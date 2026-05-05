@@ -1,4 +1,3 @@
-
 "use client"
 
 import * as React from "react"
@@ -26,6 +25,10 @@ const slides = [
     title: "Perspectivas extremas",
     subtitle: "Soportes de precisión para creadores de contenido en moto y aventureros",
     image: PlaceHolderImages.find(img => img.id === "hero-action-2")?.imageUrl || "",
+    
+    // 👇 PEGA AQUÍ TU URL DE SUPABASE
+    video: "https://bwdvsbxwqlnlzfwfsoid.supabase.co/storage/v1/object/public/HeroSection/moto.mp4",
+
     cta: "Ver Soportes",
   },
 ];
@@ -54,24 +57,46 @@ export function HeroCarousel() {
         <CarouselContent className="h-full ml-0">
           {slides.map((slide, index) => (
             <CarouselItem key={index} className="pl-0 h-[70vh] md:h-[85vh] relative">
+
+              {/* Overlay oscuro */}
               <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-black/90 z-10" />
-              <Image 
-                src={slide.image} 
-                alt={slide.title}
-                fill
-                priority={index === 0}
-                className="object-cover"
-              />
+
+              {/* VIDEO o IMAGEN */}
+              {slide.video ? (
+                <video
+                  className="absolute inset-0 w-full h-full object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                >
+                  <source src={slide.video} type="video/mp4" />
+                </video>
+              ) : (
+                <Image 
+                  src={slide.image} 
+                  alt={slide.title}
+                  fill
+                  priority={index === 0}
+                  className="object-cover"
+                />
+              )}
+
+              {/* CONTENIDO */}
               <div className="absolute inset-0 z-20 flex flex-col justify-center items-center text-center p-6 text-white space-y-6">
                 <Badge className="bg-white/10 backdrop-blur-md text-white border-white/20 px-6 py-2 uppercase tracking-[0.3em] text-[10px] font-black">
                   {slide.tag}
                 </Badge>
+
                 <h2 className="text-4xl md:text-7xl font-black max-w-4xl tracking-tighter leading-[0.95]">
                   {slide.title}
                 </h2>
+
                 <p className="text-lg md:text-xl text-white/80 font-medium tracking-tight max-w-2xl">
                   {slide.subtitle}
                 </p>
+
                 <div className="flex gap-4 pt-6">
                   <Button className="pill-button button-primary h-14 px-12 text-xs uppercase tracking-widest">
                     {slide.cta}
@@ -83,6 +108,7 @@ export function HeroCarousel() {
         </CarouselContent>
       </Carousel>
 
+      {/* DOTS */}
       <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-30 flex gap-3">
         {slides.map((_, index) => (
           <button
